@@ -3,9 +3,9 @@ Sistema para controle orçamentário de atividades culturais.
 
 ##Considerações
 	
-	O presente projeto foi desenvolvido como trabalho da disciplina Práticas de Programação, período 2016.1, do curso Análise e Desenvolvimento de Sistemas, do IFPB-Cajazeiras. As primeiras releases do projeto estão disponíveis neste repositório para fins pedagógicos de avaliação da disciplina e difusão de conhecimentos. 
+O presente projeto foi desenvolvido como trabalho da disciplina Práticas de Programação, período 2016.1, do curso Análise e Desenvolvimento de Sistemas, do IFPB-Cajazeiras. As primeiras releases do projeto estão disponíveis neste repositório para fins pedagógicos de avaliação da disciplina e difusão de conhecimentos. 
 
-	Tendo finalizado sua pretensão educacional, o projeto estará completamente à disposição de seus autores para modificações e uso conforme os interesses que assim desejarem em comum. 
+Tendo finalizado sua pretensão educacional, o projeto estará completamente à disposição de seus autores para modificações e uso conforme os interesses que assim desejarem em comum. 
 
 
 ## Características do trabalho
@@ -29,11 +29,17 @@ Sistema para controle orçamentário de atividades culturais.
 ### 2.3. Releases
  
 Versão 0.1 – 21/06/2016 ← Validação da idéia, apresentação dos requisitos e MVP 
+
 Versão 0.2 – 08~09/08/2016 
+
 Versão 0.3 – 26~27/09/2016 
+
 
 ### 2.4. Grupos
 Máximo de 3 pessoas 
+
 Definam um nome pra equipe 
+
 Pratiquem pair programming 
+
 Pratiquem code-review/peer-review 
