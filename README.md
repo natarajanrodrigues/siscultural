@@ -1,5 +1,10 @@
-# siscultural
+# SisCultural
 Sistema para controle orçamentário de atividades culturais. 
+
+## Grupo
+* Natarajan 
+* Victor Hugo
+* Wensttay
 
 ##Considerações
 	
