@@ -8,6 +8,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 import org.apache.commons.dbcp2.BasicDataSource;
 
+/**
+ *
+ * @author Victor Hugo <victor.hugo.origins@gmail.com>
+ */
 public final class ConnectionProvider {
 
     private static ConnectionProvider connectionProvider;
@@ -33,12 +37,12 @@ public final class ConnectionProvider {
             try {
 
                 Properties properties = new Properties();
-                properties.load(new FileInputStream(getClass().getResource("/banco/banco.properties").toURI().getPath()));
+                properties.load(new FileInputStream(getClass().getResource("/database.properties").toURI().getPath()));
 
-                String url = properties.getProperty("url");
-                String user = properties.getProperty("user");
+                String url      = properties.getProperty("url");
+                String user     = properties.getProperty("user");
                 String password = properties.getProperty("password");
-                String driver = properties.getProperty("driver");
+                String driver   = properties.getProperty("driver");
 
                 connectionPool = new BasicDataSource();
 
@@ -48,6 +52,7 @@ public final class ConnectionProvider {
                 connectionPool.setUrl(url);
 
             } catch (IndexOutOfBoundsException | IOException | URISyntaxException ex) {
+                
                 connectionPool.close();
                 return null;
             }
