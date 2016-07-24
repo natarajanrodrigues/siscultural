@@ -14,6 +14,7 @@ import java.time.LocalDate;
  * @author Natarajan Rodrigues
  */
 public class Payment {
+    
     private int id; //pensar em mudar de int para outra representação, pois o número de pagamentos aumenta muito rápido
     private SpecifiedProvider provider; //fornecedor indicado
     private BigDecimal value;           

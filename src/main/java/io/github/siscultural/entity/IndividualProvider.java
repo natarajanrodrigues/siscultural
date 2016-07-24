@@ -13,5 +13,5 @@ public class IndividualProvider extends SpecifiedProvider{
     
     private String cpf;
     private String nisNit;
-    
+
 }

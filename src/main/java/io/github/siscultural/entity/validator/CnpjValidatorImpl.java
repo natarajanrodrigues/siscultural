@@ -7,6 +7,7 @@ package io.github.siscultural.entity.validator;
 
 import br.com.caelum.stella.ValidationMessage;
 import br.com.caelum.stella.validation.CNPJValidator;
+import io.github.siscultural.enums.ErrorMessages;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class CnpjValidatorImpl implements CnpjValidator{
     public Boolean isValid(String cnpj) throws InvalidCnpjException {
         
         if (cnpj == null) {
-            throw new InvalidCnpjException("Número de CNPJ nulo ou não informado");
+            throw new InvalidCnpjException(ErrorMessages.EMPTY_CNPJ.getValue());
         }
         
         List<ValidationMessage> validaCNPJ = validator.invalidMessagesFor(cnpj);

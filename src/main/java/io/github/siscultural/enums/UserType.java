@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.entity;
+package io.github.siscultural.enums;
 
 /**
  * Enum que representa os tipos de usuários do sistema
  * @author Natarajan Rodrigues
  */
-enum UserType {
+public enum UserType {
     
     ADMINISTRADOR(1), GERENTE(2), COLABORADOR(3);
 

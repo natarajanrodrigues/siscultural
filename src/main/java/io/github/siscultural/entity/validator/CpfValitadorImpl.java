@@ -7,6 +7,7 @@ package io.github.siscultural.entity.validator;
 
 import br.com.caelum.stella.ValidationMessage;
 import br.com.caelum.stella.validation.CPFValidator;
+import io.github.siscultural.enums.ErrorMessages;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class CpfValitadorImpl implements CpfValitador{
     public Boolean isValid(String cpf) throws InvalidCpfException {
         
         if (cpf == null) {
-            throw new InvalidCpfException("Número de CPF nulo ou não informado");
+            throw new InvalidCpfException(ErrorMessages.EMPTY_CPF.getValue());
         }
         
         List<ValidationMessage> validaCPF = validator.invalidMessagesFor(cpf);

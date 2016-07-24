@@ -5,6 +5,8 @@
  */
 package io.github.siscultural.entity;
 
+import io.github.siscultural.enums.UserType;
+
 /**
  *
  * @author Natarajan Rodrigues

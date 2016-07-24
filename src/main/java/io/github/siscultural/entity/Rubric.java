@@ -15,6 +15,7 @@ import java.util.List;
  * @author susanneferraz
  */
 class Rubric {
+    
     private int id;
     private BigDecimal total;
     private BigDecimal applied; //valor gasto. total dos valores do pagamentos

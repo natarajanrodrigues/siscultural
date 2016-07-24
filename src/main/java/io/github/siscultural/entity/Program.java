@@ -13,6 +13,7 @@ import java.util.List;
  * @author susanneferraz
  */
 class Program {
+    
     private int id;
     private String name;
     private List<Rubric> rubrics;
