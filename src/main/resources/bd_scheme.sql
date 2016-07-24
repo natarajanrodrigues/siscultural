@@ -10,10 +10,10 @@
  */
 
 CREATE TABLE SystemUser (
-    id SERIAL PRIMARY KEY, 
+    id BIGSERIAL PRIMARY KEY, 
     name VARCHAR(120) NOT NULL, 
     password VARCHAR(25) NOT NULL, 
-    email VARCHAR(50) NOT NULL, 
+    email VARCHAR(50) UNIQUE NOT NULL, 
     userType INT NOT NULL
 );
 

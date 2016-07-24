@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
  * @author Natarajan Rodrigues
  */
 public class ActivityPresentation {
+    
     private int id; //int ou uma representação de maior cardinalidade
     private LocalDateTime dateTime;
     private int audienceCount; //contagem de público na atividade. Inicial igual a 0

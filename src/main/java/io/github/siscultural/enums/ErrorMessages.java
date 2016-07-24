@@ -15,7 +15,8 @@ public enum ErrorMessages {
     EMPTY_CNPJ("Campo CNPJ nulo ou vazio."),
     
     INVALID_CPF("O CPF informado é inválido."),
-    INVALID_CNPJ("O CNPJ informado é inválido.");
+    INVALID_CNPJ("O CNPJ informado é inválido."),
+    INVALID_LOGIN("Usuário não encontrado no sistema, verifique o e-mail e senha e tente novamente.");
     
     String message;
 

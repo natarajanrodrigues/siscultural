@@ -50,9 +50,8 @@ public final class ConnectionProvider {
                 connectionPool.setPassword(password);
                 connectionPool.setDriverClassName(driver);
                 connectionPool.setUrl(url);
-
-            } catch (IOException | URISyntaxException ex) {
                 
+            } catch (IOException | URISyntaxException ex) {
                 connectionPool.close();
                 return null;
             }

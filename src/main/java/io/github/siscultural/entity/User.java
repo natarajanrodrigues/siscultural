@@ -13,17 +13,16 @@ import io.github.siscultural.enums.UserType;
  */
 public class User {
     
-    private int id;
-    private String name;
-    private String password;
-    private String email;
-    private UserType type;
+    private int     id;
+    private String  name;
+    private String  password;
+    private String  email;
+    private int     type;
 
     public User() {
     }
 
-    public User(int id, String name, String password, String email, UserType type) {
-        this.id = id;
+    public User(String name, String password, String email, int type) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -62,11 +61,11 @@ public class User {
         this.email = email;
     }
 
-    public UserType getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(UserType type) {
+    public void setType(int type) {
         this.type = type;
     }
 
