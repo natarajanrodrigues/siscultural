@@ -48,10 +48,10 @@ public final class ConnectionProvider {
 
                 connectionPool.setUsername(user);
                 connectionPool.setPassword(password);
-                connectionPool.setDriverClassName("org.postgresql.Driver");
+                connectionPool.setDriverClassName(driver);
                 connectionPool.setUrl(url);
 
-            } catch (IndexOutOfBoundsException | IOException | URISyntaxException ex) {
+            } catch (IOException | URISyntaxException ex) {
                 
                 connectionPool.close();
                 return null;
