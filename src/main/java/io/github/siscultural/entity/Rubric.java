@@ -17,7 +17,7 @@ import java.util.List;
 class Rubric {
     private int id;
     private BigDecimal total;
-    private BigDecimal apllied; //valor gasto. total dos valores do pagamentos
+    private BigDecimal applied; //valor gasto. total dos valores do pagamentos
     private BigDecimal balance; //saldo = total - applied
     
     private String name;

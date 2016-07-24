@@ -6,6 +6,7 @@
 package io.github.siscultural.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 
 /**
@@ -18,8 +19,9 @@ public class Payment {
     private BigDecimal value;           
     private String[] notes;             // módulo de prestação de contas ou anotações???
     private String description;
+    private LocalDate date;
     
-    private Rubric rubrica;             
+    private Rubric rubric;             
     
     private Activity activity;  
     //um pagamento pode não estar ligado a uma activity. Ou seja, activity pode ser null
@@ -72,11 +74,11 @@ public class Payment {
     }
 
     public Rubric getRubrica() {
-        return rubrica;
+        return rubric;
     }
 
     public void setRubrica(Rubric rubrica) {
-        this.rubrica = rubrica;
+        this.rubric = rubrica;
     }
 
     public Activity getActivity() {
@@ -87,6 +89,14 @@ public class Payment {
         this.activity = activity;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
