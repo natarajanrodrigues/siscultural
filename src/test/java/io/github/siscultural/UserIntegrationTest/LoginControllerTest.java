@@ -11,12 +11,14 @@ import io.github.siscultural.entity.validator.CnpjValidatorImpl;
 import org.junit.Assert;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
+@Ignore
 public class LoginControllerTest extends GenericDatabaseTestCase{
     
     private LoginController loginController;

@@ -13,11 +13,13 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 
 /**
  *
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
+@Ignore
 public abstract class GenericDatabaseTestCase {
 
     private IDatabaseTester databaseTester;
