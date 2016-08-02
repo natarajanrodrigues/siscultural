@@ -1,0 +1,15 @@
+language: java
+jdk:
+  - oraclejdk8
+branches:
+  only:
+    <bHEROKU>
+install: mvn install -U -DskipTests=true
+script:
+  mvn integration-test verify -Ptest
+deploy:
+  provider: heroku
+  api_key:
+    secure: "742ce7d4-823b-4fb9-ab57-6ef5b6e8379a" # API Key, encontrado em Account Settings
+  on: bHEROKU # Configuração de branch
+  app: siscultural # Nome da app no Heroku
