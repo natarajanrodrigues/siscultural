@@ -1,4 +1,7 @@
 # SisCultural
+
+[![Build Status](https://travis-ci.org/ads-ifpb-praticas-20161/siscultural.svg?branch=bHEROKU)](https://travis-ci.org/ads-ifpb-praticas-20161/siscultural)
+
 Sistema para controle orçamentário de atividades culturais. 
 
 ## Grupo
