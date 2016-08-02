@@ -3,7 +3,7 @@ jdk:
   - oraclejdk8
 branches:
   only:
-    <bHEROKU>
+    bHEROKU
 install: mvn install -U -DskipTests=true
 script:
   mvn integration-test verify -Ptest
