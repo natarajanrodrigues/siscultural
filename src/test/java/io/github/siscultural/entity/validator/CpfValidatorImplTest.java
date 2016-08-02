@@ -8,12 +8,14 @@ package io.github.siscultural.entity.validator;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Natarajan Rodrigues
  */
+@Ignore
 public class CpfValidatorImplTest {
 
     private CpfValitadorImpl validator;

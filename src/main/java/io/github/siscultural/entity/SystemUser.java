@@ -5,28 +5,37 @@
  */
 package io.github.siscultural.entity;
 
-import io.github.siscultural.enums.UserType;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Natarajan Rodrigues
  */
-public class User {
+@Entity
+public class SystemUser implements Serializable{
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int     id;
     private String  name;
     private String  password;
     private String  email;
-    private int     type;
+    @Column(name = "usertype")
+    private int     userType;
 
-    public User() {
+    public SystemUser() {
     }
 
-    public User(String name, String password, String email, int type) {
+    public SystemUser(String name, String password, String email, int type) {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.type = type;
+        this.userType = type;
     }
     
     public int getId() {
@@ -61,12 +70,12 @@ public class User {
         this.email = email;
     }
 
-    public int getType() {
-        return type;
+    public int getUserType() {
+        return userType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 
     @Override
@@ -87,7 +96,7 @@ public class User {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final User other = (User) obj;
+        final SystemUser other = (SystemUser) obj;
         if (this.id != other.id) {
             return false;
         }
