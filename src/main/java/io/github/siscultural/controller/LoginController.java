@@ -5,6 +5,7 @@
  */
 package io.github.siscultural.controller;
 
+import io.github.siscultural.utils.JsonView;
 import io.github.siscultural.entity.SystemUser;
 import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.repository.Dao;
@@ -48,9 +49,7 @@ public class LoginController {
 
         } else {
 
-            System.out.println(users.get(0).getClass());
-
-            return new ModelAndView("/");
+            return new ModelAndView("home");
         }
     }
 

@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <name>SisCultural</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Project for Centro Cultural Banco do Nordeste</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -46,7 +46,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
         </dependency>
         
         <dependency>
@@ -58,12 +57,10 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.3-1102-jdbc41</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.6.2</version>
             <type>jar</type>
         </dependency>
     </dependencies>

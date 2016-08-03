@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.controller;
+package io.github.siscultural.utils;
 
 import java.util.Map;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,12 +15,12 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  */
 public class JsonView {
 
-    public static ModelAndView returnJsonFromMap(Map<String, String> model) {
+    public static ModelAndView returnJsonFromMap(Map<String, String> modelMap) {
 
         MappingJackson2JsonView jsonConverter = new MappingJackson2JsonView();
 
         ModelAndView mav = new ModelAndView(jsonConverter);
-        mav.addAllObjects(model);
+        mav.addAllObjects(modelMap);
 
         return mav;
     }

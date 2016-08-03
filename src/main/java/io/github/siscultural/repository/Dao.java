@@ -13,7 +13,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.Table;
-import javax.swing.JOptionPane;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,7 +26,7 @@ public class Dao<T> {
     private EntityManager entityManager;
 
     public void save(T object) {
-
+        
         entityManager.persist(object);
     }
 
@@ -87,8 +86,6 @@ public class Dao<T> {
 
         }
 
-        System.out.println(sqlBuilder.toString());
-        
         return executeNativeQuery(sqlBuilder.toString(), entityClass);
     }
 
