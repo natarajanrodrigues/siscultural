@@ -5,13 +5,42 @@
  */
 package io.github.siscultural.entity;
 
+import javax.persistence.Entity;
+
 /**
  * Classe que representa fornecedores do tipo Pessoa Física
- * @author Natarajan Rodrigues
+ * @author Natarajan Rodrigues && Victor Hugo
  */
-public class IndividualProvider extends SpecifiedProvider{
+@Entity
+public class IndividualProvider extends Provider{
     
     private String cpf;
     private String nisNit;
 
+    public IndividualProvider() {
+    }
+
+    public IndividualProvider(String cpf, String nisNit, String name, String address, String city, String state, Phone phone) {
+        
+        super(name, address, city, state, phone);
+        this.cpf = cpf;
+        this.nisNit = nisNit;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getNisNit() {
+        return nisNit;
+    }
+
+    public void setNisNit(String nisNit) {
+        this.nisNit = nisNit;
+    }
+    
 }

@@ -5,18 +5,26 @@
  */
 package io.github.siscultural.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 
 /**
  * 
- * @author Natarajan Rodrigues
+ * @author Natarajan Rodrigues && Victor Hugo
  */
-public class Payment {
+@Entity
+public class Payment implements Serializable {
     
-    private int id; //pensar em mudar de int para outra representação, pois o número de pagamentos aumenta muito rápido
-    private SpecifiedProvider provider; //fornecedor indicado
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id; //pensar em mudar de int para outra representação, pois o número de pagamentos aumenta muito rápido
+    private Provider provider; //fornecedor indicado
     private BigDecimal value;           
     private String[] notes;             // módulo de prestação de contas ou anotações???
     private String description;
@@ -34,19 +42,19 @@ public class Payment {
     public Payment() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public SpecifiedProvider getProvider() {
+    public Provider getProvider() {
         return provider;
     }
 
-    public void setProvider(SpecifiedProvider provider) {
+    public void setProvider(Provider provider) {
         this.provider = provider;
     }
 
@@ -101,7 +109,7 @@ public class Payment {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 67 * hash + this.id;
+        hash = 67 * hash + new Long(id).hashCode();
         return hash;
     }
 

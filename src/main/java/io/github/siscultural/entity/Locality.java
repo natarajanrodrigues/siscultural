@@ -5,17 +5,29 @@
  */
 package io.github.siscultural.entity;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Classe que representa uma localidade
- * @author Natarajan Rodrigues
+ * @author Natarajan Rodrigues && Victor Hugo
  */
-class Locality {
+@Entity
+public class Locality implements Serializable{
     
-    private int id;             //identificador numérico
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;             //identificador numérico
     private String description; //descrição textual que descreve nominalmente da localidade;
     private String address;     //texto indicando o endeço da localidade
     private String city;        //a cidade
     private String state;       //o estado
+
+    public Locality() {
+    }
 
     public Locality(String description, String address, String city, String state) {
         this.description = description;
@@ -24,11 +36,11 @@ class Locality {
         this.state = state;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
