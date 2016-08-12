@@ -5,72 +5,63 @@
  */
 package io.github.siscultural.entity;
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
- * @author Natarajan Rodrigues
+ * @author Natarajan Rodrigues && Victor Hugo
  */
-public class Activity {
-    
-    private int id;
-    private List<ActivityPresentation> presentations;
-    private Proposal proposal;
-    private Program program;
+@Entity
+public class Activity implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Proposal> proposals;
 
     public Activity() {
-        this.presentations = new ArrayList<>();
+        
+        proposals = new ArrayList<>();
     }
 
-    public Activity(int id, Proposal proposal, Program program) {
-        this.id = id;
-        this.proposal = proposal;
-        this.program = program;
-        this.presentations = new ArrayList<>();
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Proposal getProposal() {
-        return proposal;
+    public boolean addPresentation(Proposal proposal) {
+
+        return proposals.add(proposal);
     }
 
-    public void setProposal(Proposal proposal) {
-        this.proposal = proposal;
+    public boolean removePresentation(Proposal proposal) {
+        
+        return this.proposals.remove(proposal);
     }
 
-    public Program getProgram() {
-        return program;
+    public List<Proposal> getPresentations() {
+        
+        return Collections.unmodifiableList(proposals);
     }
 
-    public void setProgram(Program program) {
-        this.program = program;
-    }
-    
-    public boolean addPresentation(ActivityPresentation presentation) {
-        return this.presentations.add(presentation);
-    }
-    
-    public boolean removePresentation(ActivityPresentation presentation) {
-        return this.presentations.remove(presentation);
-    }
-
-    public List<ActivityPresentation> getPresentations() {
-        return presentations;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 53 * hash + this.id;
+        hash = 53 * hash + new Long(id).hashCode();
         return hash;
     }
 
@@ -91,6 +82,5 @@ public class Activity {
         }
         return true;
     }
-    
-    
+
 }

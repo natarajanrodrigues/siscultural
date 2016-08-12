@@ -5,23 +5,51 @@
  */
 package io.github.siscultural.entity;
 
+import javax.persistence.Entity;
+
 /**
  * Classe que representa uma fornecedor do tipo Pessoa Jurídica.
- * @author Natarajan Rodrigues &&
+ * @author Natarajan Rodrigues && Victor Hugo
  */
-public class CorporationProvider extends SpecifiedProvider{
+@Entity
+public class CompanyProvider extends Provider{
     
-    private int     id;
     private String  cnpj;
     private String  companyName; //Razão Social
     private String  tradingName; // Nome fantasia
 
-    public CorporationProvider() {
+    public CompanyProvider() {
     }
 
-    public CorporationProvider(String cnpj, String companyName, String tradingName) {
+    public CompanyProvider(String cnpj, String companyName, String tradingName, String name, String address, String city, String state, Phone phone) {
+    
+        super(name, address, city, state, phone);
         this.cnpj = cnpj;
         this.companyName = companyName;
+        this.tradingName = tradingName;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getTradingName() {
+        return tradingName;
+    }
+
+    public void setTradingName(String tradingName) {
         this.tradingName = tradingName;
     }
     

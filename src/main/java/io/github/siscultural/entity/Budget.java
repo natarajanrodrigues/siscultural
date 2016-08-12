@@ -5,33 +5,48 @@
  */
 package io.github.siscultural.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * Representa um determinado orçamento contendo as rubricas para pagamentos. 
- * @author susanneferraz
+ * @author Natarajan Rodrigues && Victor Hugo
  */
-public class Budget {
-    private int id;
-    private String name;
-    private List<Program> programs;
+@Entity
+public class Budget implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long             id;
+    private String          name;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
+    private List<Program>   programs;
 
     public Budget() {
+        
         programs = new ArrayList<>();
     }
 
-    public Budget(int id, String name) {
-        this.id = id;
+    public Budget(String name) {
+        
         this.name = name;
         programs = new ArrayList<>();
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -44,11 +59,18 @@ public class Budget {
     }
     
     public boolean addProgram (Program p) {
+        
         return programs.add(p);
     }
     
     public boolean removePrograma(Program p){
+        
         return programs.remove(p);
+    }
+    
+    public List<Program> getPrograms(){
+        
+        return Collections.unmodifiableList(programs);
     }
     
     

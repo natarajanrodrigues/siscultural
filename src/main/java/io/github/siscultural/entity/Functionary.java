@@ -5,44 +5,46 @@
  */
 package io.github.siscultural.entity;
 
+import io.github.siscultural.enums.UserType;
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
  *
- * @author Natarajan Rodrigues
+ * @author Natarajan Rodrigues && Victor Hugo
  */
 @Entity
-public class SystemUser implements Serializable{
+public class Functionary implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int     id;
-    private String  name;
-    private String  password;
-    private String  email;
-    @Column(name = "usertype")
-    private int     userType;
+    private long        id;
+    private String      name;
+    private String      password;
+    private String      email;
+    @Enumerated(EnumType.STRING)
+    private UserType    userType;
 
-    public SystemUser() {
+    public Functionary() {
     }
 
-    public SystemUser(String name, String password, String email, int type) {
+    public Functionary(String name, String password, String email, UserType userType) {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.userType = type;
+        this.userType = userType;
     }
-    
-    public int getId() {
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -70,18 +72,18 @@ public class SystemUser implements Serializable{
         this.email = email;
     }
 
-    public int getUserType() {
+    public UserType getUserType() {
         return userType;
     }
 
-    public void setUserType(int userType) {
+    public void setUserType(UserType userType) {
         this.userType = userType;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + this.id;
+        hash = 31 * hash + new Long(id).hashCode();
         return hash;
     }
 
@@ -96,7 +98,7 @@ public class SystemUser implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final SystemUser other = (SystemUser) obj;
+        final Functionary other = (Functionary) obj;
         if (this.id != other.id) {
             return false;
         }
