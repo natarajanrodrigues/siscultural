@@ -5,41 +5,51 @@
  */
 package io.github.siscultural.entity;
 
+import io.github.siscultural.interfaces.Payable;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
- * 
+ *
  * @author Natarajan Rodrigues && Victor Hugo
  */
 @Entity
 public class Payment implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id; //pensar em mudar de int para outra representação, pois o número de pagamentos aumenta muito rápido
-    private Provider provider; //fornecedor indicado
-    private BigDecimal value;           
-    private String[] notes;             // módulo de prestação de contas ou anotações???
-    private String description;
-    private LocalDate date;
-    
-    private Rubric rubric;             
-    
-    private Activity activity;  
-    //um pagamento pode não estar ligado a uma activity. Ou seja, activity pode ser null
-    //P.ex.: pagamentos administrativos, 
-    //que não estão ligados a nenhuma apresentação. 
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Rubric> rubrics;
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Functionary functionary;
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Payable payable;
+//    private BigDecimal value;           
+//    private String[] notes;             // módulo de prestação de contas ou anotações???
+//    private String description;
+//    private LocalDateTime date;
 
-    
-    //default constructor
     public Payment() {
+
+        this.rubrics = new ArrayList<>();
+    }
+
+    public Payment(Functionary functionary, Payable payable) {
+        
+        this.functionary = functionary;
+        this.payable = payable;
+        this.rubrics = new ArrayList<>();
     }
 
     public long getId() {
@@ -50,60 +60,28 @@ public class Payment implements Serializable {
         this.id = id;
     }
 
-    public Provider getProvider() {
-        return provider;
+    public List<Rubric> getRubrics() {
+        return Collections.unmodifiableList(rubrics);
     }
 
-    public void setProvider(Provider provider) {
-        this.provider = provider;
+    public void setRubrics(List<Rubric> rubrics) {
+        this.rubrics = rubrics;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public Functionary getFunctionary() {
+        return functionary;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setFunctionary(Functionary functionary) {
+        this.functionary = functionary;
     }
 
-    public String[] getNotes() {
-        return notes;
+    public Payable getPayable() {
+        return payable;
     }
 
-    public void setNotes(String[] notes) {
-        this.notes = notes;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Rubric getRubrica() {
-        return rubric;
-    }
-
-    public void setRubrica(Rubric rubrica) {
-        this.rubric = rubrica;
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setPayable(Payable payable) {
+        this.payable = payable;
     }
     
     @Override
@@ -129,6 +107,6 @@ public class Payment implements Serializable {
             return false;
         }
         return true;
-    }    
-    
+    }
+
 }

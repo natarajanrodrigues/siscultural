@@ -5,6 +5,7 @@
  */
 package io.github.siscultural.entity;
 
+import io.github.siscultural.interfaces.Payable;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +20,7 @@ import javax.persistence.OneToOne;
  * @author Natarajan Rodrigues && Victor Hugo
  */
 @MappedSuperclass
-public abstract class Provider implements Serializable{
+public abstract class Provider implements Serializable, Payable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

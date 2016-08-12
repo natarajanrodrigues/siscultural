@@ -5,6 +5,7 @@
  */
 package io.github.siscultural.entity;
 
+import io.github.siscultural.interfaces.Payable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +23,7 @@ import javax.persistence.OneToMany;
  * @author Natarajan Rodrigues && Victor Hugo
  */
 @Entity
-public class Activity implements Serializable {
+public class Activity implements Serializable, Payable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

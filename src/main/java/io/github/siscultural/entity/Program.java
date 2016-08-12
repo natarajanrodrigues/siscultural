@@ -29,21 +29,21 @@ public class Program implements Serializable {
     private long    id;
     private String  name;
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private List<Presentation> presentations;
+    private List<Rubric> rubrics;
 
     public Program() {
         
-        this.presentations = new ArrayList<>();        
+        this.rubrics = new ArrayList<>();        
     }
 
     public Program(String name) {
         
         this.name = name;
-        this.presentations = new ArrayList<>();        
+        this.rubrics = new ArrayList<>();        
     }
 
-    public void setProposals(List<Presentation> presentations) {
-        this.presentations = presentations;
+    public void setProposals(List<Rubric> rubrics) {
+        this.rubrics = rubrics;
     }
 
     
@@ -63,19 +63,19 @@ public class Program implements Serializable {
         this.name = name;
     }
 
-    public List<Presentation> getRubrics() {
+    public List<Rubric> getRubrics() {
         
-        return Collections.unmodifiableList(presentations);
+        return Collections.unmodifiableList(rubrics);
     }
     
-    public boolean addRubric(Presentation presentation){
+    public boolean addRubric(Rubric rubric){
         
-        return this.presentations.add(presentation);
+        return this.rubrics.add(rubric);
     }
     
-    public boolean removeRubric(Presentation presentation){
+    public boolean removeRubric(Rubric rubric){
         
-        return this.presentations.remove(presentation);
+        return this.rubrics.remove(rubric);
     }
 
     @Override
