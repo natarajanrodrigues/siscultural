@@ -50,8 +50,7 @@ public class LoginController {
         } else {
             
             ModelAndView mav = new ModelAndView("home");
-            System.out.println(mav);
-            System.out.println(mav.getViewName());
+
             return mav ;
         }
     }
