@@ -5,26 +5,72 @@
  */
 package io.github.siscultural.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 /**
  *
- * @author susanneferraz
+ * @author Natarajan Rodrigues && Victor Hugo
  */
-class Proposal {
+@Entity
+public class Proposal implements Serializable {
     
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
     private String name;
     private String groupOrArtist; 
     private String releaseText;
     private int duration; //in minutes - default 60min
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Presentation> presentations;
 
     public Proposal() {
+        
+        presentations = new ArrayList<>();
     }
 
-    public int getId() {
+    public Proposal(String name, String groupOrArtist, String releaseText, int duration) {
+
+        this.name = name;
+        this.groupOrArtist = groupOrArtist;
+        this.releaseText = releaseText;
+        this.duration = duration;
+        this.presentations = new ArrayList<>();
+    }
+
+    public List<Presentation> getPresentations() {
+        return Collections.unmodifiableList(presentations);
+    }
+
+    public void setPresentations(List<Presentation> presentations) {
+        this.presentations = presentations;
+    }
+    
+    public boolean addPresentation(Presentation presentation){
+        
+        return presentations.add(presentation);
+    }
+    
+    public boolean removePresentation(Presentation presentation){
+        
+        return presentations.remove(presentation);
+    }
+    
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -63,7 +109,7 @@ class Proposal {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 83 * hash + this.id;
+        hash = 83 * hash + new Long(id).hashCode();
         return hash;
     }
 

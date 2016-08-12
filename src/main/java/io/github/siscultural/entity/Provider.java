@@ -5,24 +5,49 @@
  */
 package io.github.siscultural.entity;
 
+import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
+
 /**
  *
- * @author susanneferraz
+ * @author Natarajan Rodrigues && Victor Hugo
  */
-public abstract class SpecifiedProvider {
+@MappedSuperclass
+public abstract class Provider implements Serializable{
     
-    private int     id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long    id;
     private String  name;
     private String  address;
     private String  city;
+    @Column(name = "home_state")
     private String  state;
+    @OneToOne(cascade = CascadeType.ALL)
     private Phone   phone;
 
-    public int getId() {
+    public Provider() {
+    }
+
+    public Provider(String name, String address, String city, String state, Phone phone) {
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.phone = phone;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -65,5 +90,5 @@ public abstract class SpecifiedProvider {
     public void setPhone(Phone phone) {
         this.phone = phone;
     }
-    
+
 }
