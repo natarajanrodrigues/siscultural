@@ -31,7 +31,7 @@
 
     <body>
 
-        <%@ include file="pages/header.jsp" %>
+        <%--<%@ include file="pages/header.jsp" %>--%>
 
         <div class="container container-full">
             <ol class="breadcrumb">
