@@ -29,11 +29,42 @@ public class Activity implements Serializable, Payable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Proposal> proposals;
+    private List<Proposal>  proposals;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Expense>   expenses;
 
     public Activity() {
         
-        proposals = new ArrayList<>();
+        proposals   = new ArrayList<>();
+        expenses    = new ArrayList<>();
+    }
+
+    public List<Proposal> getProposals() {
+        return proposals;
+    }
+    
+    public boolean addExpense(Expense expense){
+        
+        return expenses.add(expense);
+    }
+    
+    public boolean removeExpense(Expense expense){
+        
+        return expenses.remove(expense);
+    }
+
+    public void setProposals(List<Proposal> proposals) {
+        this.proposals = proposals;
+    }
+
+    @Override
+    public List<Expense> getExpenses() {
+        
+        return Collections.unmodifiableList(expenses);
+    }
+
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
     }
 
     public long getId() {

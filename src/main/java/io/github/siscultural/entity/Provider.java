@@ -7,12 +7,17 @@ package io.github.siscultural.entity;
 
 import io.github.siscultural.interfaces.Payable;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -20,28 +25,54 @@ import javax.persistence.OneToOne;
  * @author Natarajan Rodrigues && Victor Hugo
  */
 @MappedSuperclass
-public abstract class Provider implements Serializable, Payable{
-    
+public abstract class Provider implements Serializable, Payable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long    id;
-    private String  name;
-    private String  address;
-    private String  city;
+    private long id;
+    private String name;
+    private String address;
+    private String city;
     @Column(name = "home_state")
-    private String  state;
+    private String state;
     @OneToOne(cascade = CascadeType.ALL)
-    private Phone   phone;
+    private Phone phone;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Expense> expenses;
 
     public Provider() {
+
+        expenses = new ArrayList<>();
     }
 
     public Provider(String name, String address, String city, String state, Phone phone) {
+
         this.name = name;
         this.address = address;
         this.city = city;
         this.state = state;
         this.phone = phone;
+        expenses = new ArrayList<>();
+    }
+
+    @Override
+    public List<Expense> getExpenses() {
+
+        return Collections.unmodifiableList(expenses);
+    }
+
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
+    }
+
+    public boolean addExpense(Expense expense) {
+
+        return expenses.add(expense);
+    }
+
+    public boolean removeExpense(Expense expense) {
+
+        return expenses.remove(expense);
     }
 
     public long getId() {
