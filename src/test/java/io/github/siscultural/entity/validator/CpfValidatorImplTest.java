@@ -5,6 +5,8 @@
  */
 package io.github.siscultural.entity.validator;
 
+import io.github.siscultural.exceptions.InvalidCpfException;
+import io.github.siscultural.validator.CpfValitadorImpl;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;

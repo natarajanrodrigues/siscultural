@@ -39,11 +39,11 @@ public class AdministrativeExpense extends Expense implements Payable, Serializa
         expenses = new ArrayList<>();
     }
 
-    public AdministrativeExpense(String description, LocalDateTime expenseDate, BigDecimal cost) {
-        
-        super(description, expenseDate, cost);
+    public AdministrativeExpense(String description, LocalDateTime expenseDate, BigDecimal cost, boolean itsPaid) {
+
+        super(description, expenseDate, cost, itsPaid);
     }
-    
+
     public boolean addExpense(Expense expense) {
 
         return expenses.add(expense);

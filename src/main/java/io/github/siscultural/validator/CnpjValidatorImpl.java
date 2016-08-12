@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.entity.validator;
+package io.github.siscultural.validator;
 
+import io.github.siscultural.exceptions.InvalidCnpjException;
 import br.com.caelum.stella.ValidationMessage;
 import br.com.caelum.stella.validation.CNPJValidator;
 import io.github.siscultural.enums.ErrorMessages;

@@ -5,6 +5,8 @@
  */
 package io.github.siscultural.entity.validator;
 
+import io.github.siscultural.validator.CnpjValidatorImpl;
+import io.github.siscultural.exceptions.InvalidCnpjException;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;

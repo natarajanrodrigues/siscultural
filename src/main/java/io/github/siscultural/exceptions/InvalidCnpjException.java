@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.entity.validator;
+package io.github.siscultural.exceptions;
 
 /**
  *
  * @author Natarajan Rodrigues
  */
-class InvalidCnpjException extends Exception {
+public class InvalidCnpjException extends Exception {
     
     public InvalidCnpjException(String message) {
         super(message);

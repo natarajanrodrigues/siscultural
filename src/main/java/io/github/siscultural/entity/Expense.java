@@ -29,16 +29,29 @@ public class Expense implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime expenseDate;
     private BigDecimal cost;
+    private boolean itsPaid;
 
     public Expense() {
+        
+        itsPaid = false;
     }
 
-    public Expense(String description, LocalDateTime expenseDate, BigDecimal cost) {
+    public Expense(String description, LocalDateTime expenseDate, BigDecimal cost, boolean itsPaid) {
+        
         this.description = description;
         this.expenseDate = expenseDate;
         this.cost = cost;
+        this.itsPaid = itsPaid;
     }
 
+    public boolean isItsPaid() {
+        return itsPaid;
+    }
+
+    public void setItsPaid(boolean itsPaid) {
+        this.itsPaid = itsPaid;
+    }
+    
     public long getId() {
         return id;
     }
