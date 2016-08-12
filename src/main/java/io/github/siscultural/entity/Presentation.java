@@ -5,34 +5,50 @@
  */
 package io.github.siscultural.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
- * @author Natarajan Rodrigues
+ * @author Natarajan Rodrigues && Victor Hugo
  */
-public class ActivityPresentation {
+@Entity
+public class Presentation implements Serializable {
     
-    private int id; //int ou uma representação de maior cardinalidade
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id; //int ou uma representação de maior cardinalidade
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dateTime;
     private int audienceCount; //contagem de público na atividade. Inicial igual a 0
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Locality locality;
 
-    public ActivityPresentation() {
+    public Presentation() {
+        
+        this.audienceCount = 0;
     }
 
-    public ActivityPresentation(int id, LocalDateTime dateTime, Locality locality) {
-        this.id = id;
+    public Presentation(LocalDateTime dateTime, Locality locality) {
+        
         this.dateTime = dateTime;
         this.audienceCount = 0;
         this.locality = locality;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -63,7 +79,7 @@ public class ActivityPresentation {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + this.id;
+        hash = 17 * hash + new Long(id).hashCode();
         return hash;
     }
 
@@ -78,7 +94,7 @@ public class ActivityPresentation {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ActivityPresentation other = (ActivityPresentation) obj;
+        final Presentation other = (Presentation) obj;
         if (this.id != other.id) {
             return false;
         }
