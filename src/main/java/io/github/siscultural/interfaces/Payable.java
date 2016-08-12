@@ -5,10 +5,15 @@
  */
 package io.github.siscultural.interfaces;
 
+import java.util.List;
+import io.github.siscultural.entity.Expense;
+
 /**
  *
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
 public interface Payable {
+    
+    List<Expense> getExpenses();
     
 }
