@@ -6,7 +6,7 @@
 package io.github.siscultural.controller;
 
 import io.github.siscultural.utils.JsonView;
-import io.github.siscultural.entity.SystemUser;
+import io.github.siscultural.entity.Functionary;
 import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.repository.Dao;
 import java.io.IOException;
@@ -28,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
     @Autowired
-    Dao<SystemUser> userDao;
+    Dao<Functionary> userDao;
 
     @PostMapping(value = "/login")
     @ResponseBody
@@ -38,8 +38,8 @@ public class LoginController {
         map.put("email", email);
         map.put("password", password);
 
-        List<SystemUser> users = userDao.findByAttributes(SystemUser.class, map);
-
+        List<Functionary> users = userDao.findByAttributes(Functionary.class, map);
+        
         if (users.isEmpty()) {
 
             map.clear();
@@ -48,8 +48,11 @@ public class LoginController {
             return JsonView.returnJsonFromMap(map);
 
         } else {
-
-            return new ModelAndView("home");
+            
+            ModelAndView mav = new ModelAndView("home");
+            System.out.println(mav);
+            System.out.println(mav.getViewName());
+            return mav ;
         }
     }
 
