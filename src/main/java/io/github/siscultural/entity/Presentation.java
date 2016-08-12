@@ -13,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * 
@@ -26,7 +24,6 @@ public class Presentation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id; //int ou uma representação de maior cardinalidade
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dateTime;
     private int audienceCount; //contagem de público na atividade. Inicial igual a 0
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

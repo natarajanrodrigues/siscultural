@@ -18,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.eclipse.persistence.annotations.VariableOneToOne;
 
 /**
  *
@@ -33,7 +34,8 @@ public class Payment implements Serializable {
     private List<Rubric> rubrics;
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Functionary functionary;
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @VariableOneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Payable payable;
 //    private BigDecimal value;           
 //    private String[] notes;             // módulo de prestação de contas ou anotações???

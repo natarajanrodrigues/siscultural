@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -26,7 +24,6 @@ public class Expense implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String description;
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime expenseDate;
     private BigDecimal cost;
     private boolean itsPaid;
