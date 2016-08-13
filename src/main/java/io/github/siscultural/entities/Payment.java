@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.entity;
+package io.github.siscultural.entities;
 
 import io.github.siscultural.interfaces.Payable;
 import java.io.Serializable;
@@ -29,7 +29,7 @@ public class Payment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id; //pensar em mudar de int para outra representação, pois o número de pagamentos aumenta muito rápido
+    private Long id; //pensar em mudar de int para outra representação, pois o número de pagamentos aumenta muito rápido
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Rubric> rubrics;
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

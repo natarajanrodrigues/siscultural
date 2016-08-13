@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.entity;
+package io.github.siscultural.entities;
 
 import io.github.siscultural.enums.UserType;
 import java.io.Serializable;
@@ -23,7 +23,7 @@ public class Functionary implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long        id;
+    private Long        id;
     private String      name;
     private String      password;
     private String      email;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.entity;
+package io.github.siscultural.entities;
 
 import io.github.siscultural.interfaces.Payable;
 import java.io.Serializable;
@@ -15,9 +15,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
@@ -27,9 +24,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class AdministrativeExpense extends Expense implements Payable, Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Expense> expenses;
 

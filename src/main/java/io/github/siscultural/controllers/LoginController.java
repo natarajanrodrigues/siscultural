@@ -3,22 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.controller;
+package io.github.siscultural.controllers;
 
 import io.github.siscultural.utils.JsonView;
-import io.github.siscultural.entity.Functionary;
+import io.github.siscultural.entities.Functionary;
 import io.github.siscultural.enums.ErrorMessages;
-import io.github.siscultural.repository.Dao;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import io.github.siscultural.repositories.FunctionaryRepository;
 
 /**
  *
@@ -28,19 +25,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
     @Autowired
-    Dao<Functionary> userDao;
+    FunctionaryRepository functionaryDao;
 
     @PostMapping(value = "/login")
-    @ResponseBody
-    public ModelAndView login(@ModelAttribute("email") String email, @ModelAttribute("password") String password) throws IOException {
+    public ModelAndView login(String email, String password) {
 
-        Map<String, String> map = new HashMap<>();
-        map.put("email", email);
-        map.put("password", password);
+        List<Functionary> users = functionaryDao.findByEmailAndPassword(email, password);
 
-        List<Functionary> users = userDao.findByAttributes(Functionary.class, map);
-        
         if (users.isEmpty()) {
+
+            Map<String, String> map = new HashMap<>();
 
             map.clear();
             map.put("error", ErrorMessages.INVALID_LOGIN.getValue());
@@ -48,10 +42,8 @@ public class LoginController {
             return JsonView.returnJsonFromMap(map);
 
         } else {
-            
-            ModelAndView mav = new ModelAndView("home");
 
-            return mav ;
+            return new ModelAndView("home");
         }
     }
 

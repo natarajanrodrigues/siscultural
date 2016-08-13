@@ -6,7 +6,7 @@
 package io.github.siscultural.interfaces;
 
 import java.util.List;
-import io.github.siscultural.entity.Expense;
+import io.github.siscultural.entities.Expense;
 
 /**
  *

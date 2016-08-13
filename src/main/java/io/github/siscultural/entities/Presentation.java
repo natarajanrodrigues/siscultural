@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.entity;
+package io.github.siscultural.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -23,7 +23,7 @@ public class Presentation implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id; //int ou uma representação de maior cardinalidade
+    private Long id; //int ou uma representação de maior cardinalidade
     private LocalDateTime dateTime;
     private int audienceCount; //contagem de público na atividade. Inicial igual a 0
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

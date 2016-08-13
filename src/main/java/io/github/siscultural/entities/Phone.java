@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.github.siscultural.entity;
+package io.github.siscultural.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class Phone implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long    id;
+    private Long    id;
     private String  areaCode;
     private String  phoneNumber;
 

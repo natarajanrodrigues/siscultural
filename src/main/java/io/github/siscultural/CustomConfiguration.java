@@ -5,19 +5,19 @@
  */
 package io.github.siscultural;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
-import static org.hibernate.criterion.Restrictions.gt;
-import static org.hibernate.criterion.Restrictions.lt;
+import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
 /**
@@ -25,23 +25,31 @@ import org.springframework.transaction.jta.JtaTransactionManager;
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
 @Configuration
-public class JpaConfiguration extends JpaBaseConfiguration {
+@ComponentScan
+@EnableAutoConfiguration
+public class CustomConfiguration extends JpaBaseConfiguration {
 
-    public JpaConfiguration(DataSource dataSource, JpaProperties properties, ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider) {
+    public CustomConfiguration(DataSource dataSource, JpaProperties properties, ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider) {
         super(dataSource, properties, jtaTransactionManagerProvider);
     }
 
     @Override
     protected AbstractJpaVendorAdapter createJpaVendorAdapter() {
-        return new EclipseLinkJpaVendorAdapter();
+        EclipseLinkJpaVendorAdapter adapter = new EclipseLinkJpaVendorAdapter();
+        return adapter;
     }
 
     @Override
     protected Map<String, Object> getVendorProperties() {
+        HashMap<String, Object> map = new HashMap<>();
 
-        // Turn off dynamic weaving to disable LTW (Load Time Weaving) lookup in static weaving mode
-        
-        return Collections.singletonMap("eclipselink.weaving", "false");
+        map.put(PersistenceUnitProperties.WEAVING, detectWeavingMode());
+
+        return map;
+    }
+
+    private String detectWeavingMode() {
+        return InstrumentationLoadTimeWeaver.isInstrumentationAvailable() ? "true" : "static";
     }
 
 }
