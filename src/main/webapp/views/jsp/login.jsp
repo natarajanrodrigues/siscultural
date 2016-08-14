@@ -15,7 +15,7 @@
         <meta name=viewport content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SistemaX - Login</title>
+        <title>SisCultural - Login</title>
 
         <!-- Bootstrap -->
         <link href="views/css/bootstrap-theme.min.css" rel="stylesheet">
@@ -63,31 +63,12 @@
         </div>
 
     </body>
-
-    <script type="text/javascript">
-
-        function show_error(textError) {
-            $('p#error-body').html(textError);
-            $('#errorModal').modal({
-                show: 'true'
-            });
-        }
-
-
-        $('#input-login').click(function (e) {
-            e.preventDefault();
-
-            $.post('login', $('#form-login').serialize(), function (response) {
-                var error = response.error;
-
-                $('#cadastrar_modal').modal('hide');
-
-                if (error !== undefined) {
-                    show_error(error);
-                }
-            });
-
-        });
+    
+    <script src="views/js/ajax-request-manager.js" type="text/javascript"></script>
+    
+    <script>
+        
+        executeAjax('#input-login', 'login', '#form-login');
     </script>
 
 </html>
