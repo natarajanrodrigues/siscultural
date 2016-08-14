@@ -16,6 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import io.github.siscultural.repositories.FunctionaryRepository;
+import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -26,25 +29,40 @@ public class LoginController {
 
     @Autowired
     FunctionaryRepository functionaryDao;
+    @Autowired
+    HttpSession httpSession;
 
     @PostMapping(value = "/login")
+    @ResponseBody
     public ModelAndView login(String email, String password) {
 
         List<Functionary> users = functionaryDao.findByEmailAndPassword(email, password);
 
+        Map<String, String> map = new HashMap<>();
+
         if (users.isEmpty()) {
 
-            Map<String, String> map = new HashMap<>();
-
-            map.clear();
             map.put("error", ErrorMessages.INVALID_LOGIN.getValue());
 
-            return JsonView.returnJsonFromMap(map);
-
         } else {
-
-            return new ModelAndView("home");
+            
+            Functionary functionary = users.get(0);
+            
+            httpSession.setAttribute("functionary", functionary);
+            
+            map.put("redirect", "home");
         }
+
+        return JsonView.returnJsonFromMap(map);
+
+    }
+    
+    @GetMapping(value = "/logout")
+    public ModelAndView logout(){
+        
+        httpSession.invalidate();
+        
+        return new ModelAndView("redirect:/");
     }
 
 }
