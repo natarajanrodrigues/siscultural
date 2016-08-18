@@ -28,7 +28,7 @@ public class CnpjValidatorImpl implements CnpjValidator{
     public Boolean isValid(String cnpj) throws InvalidCnpjException {
         
         if (cnpj == null) {
-            throw new InvalidCnpjException(ErrorMessages.EMPTY_CNPJ.getValue());
+            throw new InvalidCnpjException(ErrorMessages.EMPTY_CNPJ.toString());
         }
         
         List<ValidationMessage> validaCNPJ = validator.invalidMessagesFor(cnpj);

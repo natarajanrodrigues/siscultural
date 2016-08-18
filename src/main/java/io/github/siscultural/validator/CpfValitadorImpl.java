@@ -30,7 +30,7 @@ public class CpfValitadorImpl implements CpfValitador{
     public Boolean isValid(String cpf) throws InvalidCpfException {
         
         if (cpf == null) {
-            throw new InvalidCpfException(ErrorMessages.EMPTY_CPF.getValue());
+            throw new InvalidCpfException(ErrorMessages.EMPTY_CPF.toString());
         }
         
         List<ValidationMessage> validaCPF = validator.invalidMessagesFor(cpf);
