@@ -6,7 +6,6 @@
 package io.github.siscultural.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,31 +22,13 @@ public class Rubric implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long        id;
     private String      name;
-    private BigDecimal  totalBalance;
 
-    public Rubric(BigDecimal total, String name) {
+    public Rubric(String name) {
         
-        this.id = id;
-        this.totalBalance = total;
         this.name = name;
     }
 
     public Rubric() {
-    }
-
-    public void doDeposit(BigDecimal amountDeposited){
-        
-        totalBalance.add(amountDeposited);
-    }
-    
-    public void doDraft(BigDecimal amountDrawee){
-        
-        totalBalance.subtract(amountDrawee);
-    }
-
-    public BigDecimal getCurrentBalance() {
-
-        throw new UnsupportedOperationException();
     }
 
     public long getId() {
@@ -66,12 +47,4 @@ public class Rubric implements Serializable {
         this.name = name;
     }
 
-    public BigDecimal getTotalBalance() {
-        return totalBalance;
-    }
-
-    public void setTotalBalance(BigDecimal totalBalance) {
-        this.totalBalance = totalBalance;
-    }
-    
 }

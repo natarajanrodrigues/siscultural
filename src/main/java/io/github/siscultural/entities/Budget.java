@@ -6,6 +6,7 @@
 package io.github.siscultural.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,16 +27,22 @@ public class Budget implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long             id;
-    private String          name;
+    private Long id;
+    private String name;
+    private LocalDateTime dateTime;
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
-    private List<Program>   programs;
+    private List<Program>programs;
 
     public Budget() {
         
         programs = new ArrayList<>();
     }
 
+    public Budget(String name, LocalDateTime dateTime) {
+        this.name = name;
+        this.dateTime = dateTime;
+    }
+    
     public Budget(String name) {
         
         this.name = name;
@@ -72,6 +79,5 @@ public class Budget implements Serializable {
         
         return Collections.unmodifiableList(programs);
     }
-    
     
 }

@@ -5,14 +5,13 @@
  */
 package io.github.siscultural.entities;
 
-import io.github.siscultural.interfaces.Payable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +24,7 @@ import javax.persistence.OneToOne;
  * @author Natarajan Rodrigues && Victor Hugo
  */
 @MappedSuperclass
-public abstract class Provider implements Serializable, Payable {
+public abstract class Provider implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -37,12 +36,12 @@ public abstract class Provider implements Serializable, Payable {
     private String state;
     @OneToOne(cascade = CascadeType.ALL)
     private Phone phone;
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Expense> expenses;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<PaymentProposal> paymentProposals;
 
     public Provider() {
 
-        expenses = new ArrayList<>();
+        paymentProposals = new ArrayList<>();
     }
 
     public Provider(String name, String address, String city, String state, Phone phone) {
@@ -52,27 +51,7 @@ public abstract class Provider implements Serializable, Payable {
         this.city = city;
         this.state = state;
         this.phone = phone;
-        expenses = new ArrayList<>();
-    }
-
-    @Override
-    public List<Expense> getExpenses() {
-
-        return Collections.unmodifiableList(expenses);
-    }
-
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses = expenses;
-    }
-
-    public boolean addExpense(Expense expense) {
-
-        return expenses.add(expense);
-    }
-
-    public boolean removeExpense(Expense expense) {
-
-        return expenses.remove(expense);
+        paymentProposals = new ArrayList<>();
     }
 
     public long getId() {
@@ -123,4 +102,53 @@ public abstract class Provider implements Serializable, Payable {
         this.phone = phone;
     }
 
+    public boolean addPaymentProposal(PaymentProposal paymentProposal) {
+        return paymentProposals.add(paymentProposal);
+    }
+
+    public boolean removePaymentProposal(PaymentProposal paymentProposal) {
+        return paymentProposals.remove(paymentProposal);
+    }
+
+    public List<PaymentProposal> getPaymentProposals() {
+        return Collections.unmodifiableList(paymentProposals);
+    }
+
+    public void setPaymentProposals(List<PaymentProposal> paymentProposals) {
+        this.paymentProposals = paymentProposals;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.name);
+        hash = 71 * hash + Objects.hashCode(this.address);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Provider other = (Provider) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.address, other.address)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
 }

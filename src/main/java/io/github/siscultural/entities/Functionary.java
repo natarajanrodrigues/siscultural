@@ -7,6 +7,7 @@ package io.github.siscultural.entities;
 
 import io.github.siscultural.enums.UserType;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -83,7 +84,9 @@ public class Functionary implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + new Long(id).hashCode();
+        hash = 61 * hash + Objects.hashCode(this.id);
+        hash = 61 * hash + Objects.hashCode(this.name);
+        hash = 61 * hash + Objects.hashCode(this.email);
         return hash;
     }
 
@@ -99,10 +102,14 @@ public class Functionary implements Serializable{
             return false;
         }
         final Functionary other = (Functionary) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        return true;
-    }    
-    
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        
+        return Objects.equals(this.id, other.id);
+    }
+
 }

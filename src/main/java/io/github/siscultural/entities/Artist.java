@@ -7,6 +7,7 @@ package io.github.siscultural.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,22 +20,22 @@ import javax.persistence.OneToOne;
  * @author Natarajan Rodrigues && Victor Hugo
  */
 @Entity
-public class Presentation implements Serializable {
+public class Artist implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id; //int ou uma representação de maior cardinalidade
+    private Long id;
     private LocalDateTime dateTime;
     private int audienceCount; //contagem de público na atividade. Inicial igual a 0
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Locality locality;
 
-    public Presentation() {
+    public Artist() {
         
         this.audienceCount = 0;
     }
 
-    public Presentation(LocalDateTime dateTime, Locality locality) {
+    public Artist(LocalDateTime dateTime, Locality locality) {
         
         this.dateTime = dateTime;
         this.audienceCount = 0;
@@ -76,7 +77,8 @@ public class Presentation implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + new Long(id).hashCode();
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.dateTime);
         return hash;
     }
 
@@ -91,13 +93,12 @@ public class Presentation implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Presentation other = (Presentation) obj;
-        if (this.id != other.id) {
+        final Artist other = (Artist) obj;
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        return true;
+
+        return Objects.equals(this.dateTime, other.dateTime);
     }
-    
-    
-    
+
 }

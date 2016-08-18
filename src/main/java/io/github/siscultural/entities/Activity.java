@@ -5,14 +5,13 @@
  */
 package io.github.siscultural.entities;
 
-import io.github.siscultural.interfaces.Payable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,77 +22,68 @@ import javax.persistence.OneToMany;
  * @author Natarajan Rodrigues && Victor Hugo
  */
 @Entity
-public class Activity implements Serializable, Payable {
+public class Activity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Proposal>  proposals;
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Expense>   expenses;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Presentation> presentations;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<PaymentProposal> paymentProposals;
 
     public Activity() {
         
-        proposals   = new ArrayList<>();
-        expenses    = new ArrayList<>();
+        presentations = new ArrayList<>();
+        paymentProposals = new ArrayList<>();
     }
 
-    public List<Proposal> getProposals() {
-        return proposals;
-    }
-    
-    public boolean addExpense(Expense expense){
-        
-        return expenses.add(expense);
-    }
-    
-    public boolean removeExpense(Expense expense){
-        
-        return expenses.remove(expense);
-    }
-
-    public void setProposals(List<Proposal> proposals) {
-        this.proposals = proposals;
-    }
-
-    @Override
-    public List<Expense> getExpenses() {
-        
-        return Collections.unmodifiableList(expenses);
-    }
-
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses = expenses;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
-
-    public boolean addPresentation(Proposal proposal) {
-
-        return proposals.add(proposal);
+    
+    public boolean addPresentation(Presentation presentation){
+        
+        return presentations.add(presentation);
+    }
+    
+    public boolean removePresentation(Presentation presentation){
+        
+        return presentations.remove(presentation);
     }
 
-    public boolean removePresentation(Proposal proposal) {
-        
-        return this.proposals.remove(proposal);
+    public List<Presentation> getPresentations() {
+        return Collections.unmodifiableList(presentations);
     }
 
-    public List<Proposal> getPresentations() {
-        
-        return Collections.unmodifiableList(proposals);
+    public void setPresentations(List<Presentation> presentations) {
+        this.presentations = presentations;
+    }
+    
+    public boolean addPaymentProposal(PaymentProposal paymentProposal){
+        return paymentProposals.add(paymentProposal);
+    }
+    
+    public boolean removePaymentProposal(PaymentProposal paymentProposal){
+        return paymentProposals.remove(paymentProposal);
+    }
+
+    public List<PaymentProposal> getPaymentProposals() {
+        return Collections.unmodifiableList(paymentProposals);
+    }
+
+    public void setPaymentProposals(List<PaymentProposal> paymentProposals) {
+        this.paymentProposals = paymentProposals;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 53 * hash + new Long(id).hashCode();
+        hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -109,10 +99,8 @@ public class Activity implements Serializable, Payable {
             return false;
         }
         final Activity other = (Activity) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+
+        return Objects.equals(this.id, other.id);
     }
 
 }

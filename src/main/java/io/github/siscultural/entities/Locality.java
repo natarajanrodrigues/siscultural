@@ -6,6 +6,7 @@
 package io.github.siscultural.entities;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Locality implements Serializable{
     private String description; //descrição textual que descreve nominalmente da localidade;
     private String address;     //texto indicando o endeço da localidade
     private String city;        //a cidade
+    @Column(name = "state_name")
     private String state;       //o estado
 
     public Locality() {

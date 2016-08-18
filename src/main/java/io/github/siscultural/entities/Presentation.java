@@ -7,7 +7,7 @@ package io.github.siscultural.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.CascadeType;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,54 +15,39 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 /**
- * 
- * @author Natarajan Rodrigues && Victor Hugo
+ *
+ * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
 @Entity
 public class Presentation implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id; //int ou uma representação de maior cardinalidade
-    private LocalDateTime dateTime;
-    private int audienceCount; //contagem de público na atividade. Inicial igual a 0
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Long id;
+    @OneToOne
     private Locality locality;
+    private LocalDateTime dateTime;
+    private int estimatedPublic;
+    @OneToOne
+    private Artist artist;
 
     public Presentation() {
-        
-        this.audienceCount = 0;
     }
 
-    public Presentation(LocalDateTime dateTime, Locality locality) {
-        
-        this.dateTime = dateTime;
-        this.audienceCount = 0;
-        this.locality = locality;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public long getId() {
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public int getAudienceCount() {
-        return audienceCount;
-    }
-
-    public void setAudienceCount(int audienceCount) {
-        this.audienceCount = audienceCount;
     }
 
     public Locality getLocality() {
@@ -73,10 +58,27 @@ public class Presentation implements Serializable {
         this.locality = locality;
     }
 
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public int getEstimatedPublic() {
+        return estimatedPublic;
+    }
+
+    public void setEstimatedPublic(int estimatedPublic) {
+        this.estimatedPublic = estimatedPublic;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + new Long(id).hashCode();
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.dateTime);
         return hash;
     }
 
@@ -92,12 +94,11 @@ public class Presentation implements Serializable {
             return false;
         }
         final Presentation other = (Presentation) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        return true;
+        
+        return Objects.equals(this.dateTime, other.dateTime);
     }
-    
-    
     
 }
