@@ -42,7 +42,7 @@ public class LoginController {
 
         if (users.isEmpty()) {
 
-            map.put("error", ErrorMessages.INVALID_LOGIN.getValue());
+            map.put("error", ErrorMessages.INVALID_LOGIN.toString());
 
         } else {
             
