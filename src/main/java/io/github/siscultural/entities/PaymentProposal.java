@@ -8,6 +8,7 @@ package io.github.siscultural.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -47,6 +48,14 @@ public class PaymentProposal implements Serializable {
         this.rubricAccount = rubricAccount;
         this.payments = new ArrayList<>();
         this.functionary = functionary;
+    }
+
+    public boolean addEntry(Entry entry){
+        return payments.add(entry);
+    }
+            
+    public boolean removeEntry(Entry entry){
+        return payments.remove(entry);
     }
 
     public Functionary getFunctionary() {
@@ -90,7 +99,7 @@ public class PaymentProposal implements Serializable {
     }
 
     public List<Entry> getPayments() {
-        return payments;
+        return Collections.unmodifiableList(payments);
     }
 
     public void setPayments(List<Entry> payments) {
@@ -102,10 +111,10 @@ public class PaymentProposal implements Serializable {
         BigDecimal payed = new BigDecimal(0);
 
         payments.stream().forEach((entry) -> {
-            
+
             payed.add(entry.getAmount());
         });
-        
+
         return amount.subtract(payed);
     }
 
@@ -136,7 +145,7 @@ public class PaymentProposal implements Serializable {
         if (!Objects.equals(this.amount, other.amount)) {
             return false;
         }
-        
+
         return Objects.equals(this.functionary, other.functionary);
     }
 
