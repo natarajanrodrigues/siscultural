@@ -42,11 +42,6 @@ public class Program implements Serializable {
         this.rubrics = new ArrayList<>();        
     }
 
-    public void setProposals(List<Rubric> rubrics) {
-        this.rubrics = rubrics;
-    }
-
-    
     public long getId() {
         return id;
     }
@@ -99,6 +94,11 @@ public class Program implements Serializable {
         final Program other = (Program) obj;
         
         return this.id == other.id;
+    }
+
+    @Override
+    public String toString() {
+        return "Program{" + "id=" + id + ", name=" + name + ", rubrics=" + rubrics + '}';
     }
             
 }
