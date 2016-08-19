@@ -9,12 +9,12 @@
  * Created: 24/07/2016
  */
 
-CREATE TABLE SystemUser (
+CREATE TABLE system_user (
     id BIGSERIAL PRIMARY KEY, 
     name VARCHAR(120) NOT NULL, 
     password VARCHAR(25) NOT NULL, 
     email VARCHAR(50) UNIQUE NOT NULL, 
-    userType INT NOT NULL
+    user_type INT NOT NULL
 );
 
 CREATE TABLE SpecifiedProvider (
@@ -42,8 +42,8 @@ CREATE TABLE IndividualProvider (
 CREATE TABLE Proposal (
     id SERIAL PRIMARY KEY, 
     name VARCHAR(200) NOT NULL, 
-    groupOrArtist VARCHAR(200), 
-    releaseText VARCHAR(2000), 
+    group_or_artist VARCHAR(200), 
+    release_text VARCHAR(2000), 
     duration int
 );
 

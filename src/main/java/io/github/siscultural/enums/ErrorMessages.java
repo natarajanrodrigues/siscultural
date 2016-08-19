@@ -16,7 +16,10 @@ public enum ErrorMessages {
     
     INVALID_CPF("O CPF informado é inválido."),
     INVALID_CNPJ("O CNPJ informado é inválido."),
-    INVALID_LOGIN("Usuário não encontrado no sistema, verifique o e-mail e senha e tente novamente.");
+    INVALID_LOGIN("Usuário não encontrado no sistema, verifique o e-mail e senha e tente novamente."),
+    
+    NOT_ENOUGH_RUBRIC_BALANCE("Não é possível excluir este crédito. Exclusão resultaria em saldo negativo"),
+    NEGATIVE_ENTRY_AMOUNT("Registro com valor inválido.");
     
     String message;
 
@@ -25,7 +28,8 @@ public enum ErrorMessages {
         message = msg;
     }
     
-    public String getValue(){
+    @Override
+    public String toString(){
         
         return message;
     }
