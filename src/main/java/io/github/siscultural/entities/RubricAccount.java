@@ -40,6 +40,9 @@ public class RubricAccount implements Serializable {
     private List<Entry> entries;
 
     public RubricAccount() {
+        
+        this.entries = new ArrayList<>();
+        
     }
 
     public RubricAccount(Rubric rubric, Budget budget) {
@@ -67,7 +70,7 @@ public class RubricAccount implements Serializable {
     }
 
     public List<Entry> getEntries() {
-        return entries;
+        return this.entries;
     }
 
     public void setEntries(List<Entry> entries) {
@@ -113,12 +116,15 @@ public class RubricAccount implements Serializable {
 
         BigDecimal result = new BigDecimal(0);
 
-        for (Entry entry : getEntries()) {
+        for (Entry entry : this.entries) {
             BigDecimal entryValue = entry.getAmount();
+            
             if (entry.getEntryType().equals(EntryType.DEBIT)) {
                 entryValue = entryValue.negate();
             }
-            result.add(entryValue);
+            
+            result = result.add(entryValue);
+            
         }
 
         return result;
