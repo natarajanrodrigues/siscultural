@@ -33,8 +33,8 @@ public class Contract implements Serializable {
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Accomplishment> accomplishments;
     
-//    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    private List<PaymentProposal> paymentProposals;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<PaymentProposal> paymentProposals;
 
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     private Presentation presentation;
@@ -42,7 +42,7 @@ public class Contract implements Serializable {
     public Contract() {
 
         accomplishments = new ArrayList<>();
-//        paymentProposals = new ArrayList<>();
+        paymentProposals = new ArrayList<>();
 
     }
 
@@ -70,21 +70,21 @@ public class Contract implements Serializable {
         this.accomplishments = accomplishments;
     }
 
-//    public boolean addPaymentProposal(PaymentProposal paymentProposal) {
-//        return paymentProposals.add(paymentProposal);
-//    }
-//
-//    public boolean removePaymentProposal(PaymentProposal paymentProposal) {
-//        return paymentProposals.remove(paymentProposal);
-//    }
-//
-//    public List<PaymentProposal> getPaymentProposals() {
-//        return Collections.unmodifiableList(paymentProposals);
-//    }
-//
-//    public void setPaymentProposals(List<PaymentProposal> paymentProposals) {
-//        this.paymentProposals = paymentProposals;
-//    }
+    public boolean addPaymentProposal(PaymentProposal paymentProposal) {
+        return paymentProposals.add(paymentProposal);
+    }
+
+    public boolean removePaymentProposal(PaymentProposal paymentProposal) {
+        return paymentProposals.remove(paymentProposal);
+    }
+
+    public List<PaymentProposal> getPaymentProposals() {
+        return Collections.unmodifiableList(paymentProposals);
+    }
+
+    public void setPaymentProposals(List<PaymentProposal> paymentProposals) {
+        this.paymentProposals = paymentProposals;
+    }
 
     @Override
     public int hashCode() {
