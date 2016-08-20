@@ -17,7 +17,6 @@ import org.junit.Ignore;
  *
  * @author Natarajan Rodrigues
  */
-@Ignore
 public class CnpjValidatorImplTest {
 
     private CnpjValidatorImpl validator;

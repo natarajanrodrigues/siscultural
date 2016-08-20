@@ -17,7 +17,6 @@ import org.junit.Test;
  *
  * @author Natarajan Rodrigues
  */
-@Ignore
 public class CpfValidatorImplTest {
 
     private CpfValitadorImpl validator;
