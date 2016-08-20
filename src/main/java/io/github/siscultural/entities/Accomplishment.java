@@ -74,6 +74,8 @@ public class Accomplishment implements Serializable {
     }
 
     public void setAudience(int audience) {
+        if ( audience < 0 ) 
+            throw new IllegalArgumentException("A contagem de público não pode ser negativa");
         this.audience = audience;
     }
 

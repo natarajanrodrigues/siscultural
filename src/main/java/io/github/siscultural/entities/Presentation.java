@@ -33,8 +33,6 @@ public class Presentation implements Serializable {
     private int duration; //in minutes - default 60min
     
     
-    
-
     public Presentation() {
         
         
