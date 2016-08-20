@@ -7,7 +7,6 @@ package io.github.siscultural.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -16,40 +15,47 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
- * @author Victor Hugo <victor.hugo.origins@gmail.com>
+ * @author Natarajan Rodrigues
  */
 @Entity
+@Table(name="payment_proposal")
 public class PaymentProposal implements Serializable {
-
+    
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private boolean isApproved;
     private BigDecimal amount;
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private RubricAccount rubricAccount;
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Entry> payments;
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Functionary functionary;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Contract contract;
 
+    
     public PaymentProposal() {
     }
 
-    public PaymentProposal(boolean isApproved, BigDecimal amount, RubricAccount rubricAccount, Functionary functionary) {
-
-        this.isApproved = isApproved;
-        this.amount = amount;
-        this.rubricAccount = rubricAccount;
-        this.payments = new ArrayList<>();
-        this.functionary = functionary;
+    public Contract getContract() {
+        return contract;
     }
 
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
+    
+    
     public boolean addEntry(Entry entry){
         return payments.add(entry);
     }
@@ -106,16 +112,18 @@ public class PaymentProposal implements Serializable {
         this.payments = payments;
     }
 
-    public BigDecimal stillHaveToPay() {
+    
+    //Não usar foreach aqui. Por algum motivo quebra a construção de tabelas do JPA.
+    public BigDecimal remaingToPay() {
 
-        BigDecimal payed = new BigDecimal(0);
+        BigDecimal paidOut = new BigDecimal(0);
 
-        payments.stream().forEach((entry) -> {
-
-            payed.add(entry.getAmount());
-        });
-
-        return amount.subtract(payed);
+        for (Entry e : payments) {
+            paidOut.add(e.getAmount());
+        }
+                
+        
+        return amount.subtract(paidOut);
     }
 
     @Override
@@ -139,14 +147,19 @@ public class PaymentProposal implements Serializable {
             return false;
         }
         final PaymentProposal other = (PaymentProposal) obj;
+        if (this.isApproved != other.isApproved) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.amount, other.amount)) {
             return false;
         }
-
-        return Objects.equals(this.functionary, other.functionary);
+        
+        return true;
     }
 
+    
+    
 }

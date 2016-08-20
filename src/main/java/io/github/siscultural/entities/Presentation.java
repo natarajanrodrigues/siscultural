@@ -6,17 +6,20 @@
 package io.github.siscultural.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
- * @author Victor Hugo <victor.hugo.origins@gmail.com>
+ * @author Natarajan Rodrigues && Victor Hugo
  */
 @Entity
 public class Presentation implements Serializable {
@@ -24,61 +27,75 @@ public class Presentation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @OneToOne
-    private Locality locality;
-    private LocalDateTime dateTime;
-    private int estimatedPublic;
-    @OneToOne
-    private Artist artist;
+    private String name;
+    private String groupOrArtist; 
+    private String releaseText;
+    private int duration; //in minutes - default 60min
+    
+    
+    
 
     public Presentation() {
+        
+        
     }
 
-    public Artist getArtist() {
-        return artist;
+    public Presentation(String name, String groupOrArtist, String releaseText, int duration) {
+
+        this.name = name;
+        this.groupOrArtist = groupOrArtist;
+        this.releaseText = releaseText;
+        this.duration = duration;
+        
     }
 
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Locality getLocality() {
-        return locality;
+    public String getName() {
+        return name;
     }
 
-    public void setLocality(Locality locality) {
-        this.locality = locality;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public String getGroupOrArtist() {
+        return groupOrArtist;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setGroupOrArtist(String groupOrArtist) {
+        this.groupOrArtist = groupOrArtist;
     }
 
-    public int getEstimatedPublic() {
-        return estimatedPublic;
+    public String getReleaseText() {
+        return releaseText;
     }
 
-    public void setEstimatedPublic(int estimatedPublic) {
-        this.estimatedPublic = estimatedPublic;
+    public void setReleaseText(String releaseText) {
+        this.releaseText = releaseText;
     }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+    
+    
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.dateTime);
+        hash = 83 * hash + new Long(id).hashCode();
         return hash;
     }
 
@@ -94,11 +111,10 @@ public class Presentation implements Serializable {
             return false;
         }
         final Presentation other = (Presentation) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (this.id != other.id) {
             return false;
         }
-        
-        return Objects.equals(this.dateTime, other.dateTime);
+        return true;
     }
     
 }

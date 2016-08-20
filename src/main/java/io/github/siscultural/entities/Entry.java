@@ -41,6 +41,8 @@ public class Entry implements Serializable {
     private NatureAccounting natureAccouting;
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Functionary responsibleFunctionary;
+    
+    
 
     public Entry() {
     }

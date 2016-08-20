@@ -36,12 +36,10 @@ public abstract class Provider implements Serializable {
     private String state;
     @OneToOne(cascade = CascadeType.ALL)
     private Phone phone;
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<PaymentProposal> paymentProposals;
+    
 
     public Provider() {
 
-        paymentProposals = new ArrayList<>();
     }
 
     public Provider(String name, String address, String city, String state, Phone phone) {
@@ -51,7 +49,7 @@ public abstract class Provider implements Serializable {
         this.city = city;
         this.state = state;
         this.phone = phone;
-        paymentProposals = new ArrayList<>();
+        
     }
 
     public long getId() {
@@ -100,22 +98,6 @@ public abstract class Provider implements Serializable {
 
     public void setPhone(Phone phone) {
         this.phone = phone;
-    }
-
-    public boolean addPaymentProposal(PaymentProposal paymentProposal) {
-        return paymentProposals.add(paymentProposal);
-    }
-
-    public boolean removePaymentProposal(PaymentProposal paymentProposal) {
-        return paymentProposals.remove(paymentProposal);
-    }
-
-    public List<PaymentProposal> getPaymentProposals() {
-        return Collections.unmodifiableList(paymentProposals);
-    }
-
-    public void setPaymentProposals(List<PaymentProposal> paymentProposals) {
-        this.paymentProposals = paymentProposals;
     }
 
     @Override

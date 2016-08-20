@@ -30,7 +30,7 @@
         <div class="container container-login">
             <div class="row row-login">
                 <div class="logo-box">
-                    <img class="logo img-rounded" src="views/img/centro-cultural.png">
+                    <img class="logo img-rounded" src="views/img/ccbnb.png">
                 </div>
                 <div class="logo-box">
                     <h1>SisCultural</h1>
