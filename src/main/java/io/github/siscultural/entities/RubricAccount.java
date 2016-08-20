@@ -43,6 +43,7 @@ public class RubricAccount implements Serializable {
     }
 
     public RubricAccount(Rubric rubric, Budget budget) {
+        
         this.rubric = rubric;
         this.budget = budget;
         this.entries = new ArrayList<>();

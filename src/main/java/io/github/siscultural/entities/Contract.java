@@ -6,6 +6,7 @@
 package io.github.siscultural.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,14 +31,20 @@ public class Contract implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    
+    @ManyToOne(optional = true, fetch = FetchType.EAGER)
+    private Presentation presentation;
+    
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Accomplishment> accomplishments;
     
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<PaymentProposal> paymentProposals;
 
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
-    private Presentation presentation;
+    @ManyToOne
+    private Program program;
+    
+    private LocalDate date;
 
     public Contract() {
 
@@ -60,6 +67,14 @@ public class Contract implements Serializable {
 
     public void setPresentation(Presentation presentation) {
         this.presentation = presentation;
+    }
+    
+    public boolean addAccomplishments(Accomplishment accomplishment) {
+        return accomplishments.add(accomplishment);
+    }
+
+    public boolean removeAccomplishments(Accomplishment accomplishment) {
+        return accomplishments.remove(accomplishment);
     }
 
     public List<Accomplishment> getAccomplishments() {
@@ -86,6 +101,22 @@ public class Contract implements Serializable {
         this.paymentProposals = paymentProposals;
     }
 
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
