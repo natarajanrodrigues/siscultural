@@ -37,7 +37,7 @@ public class SimpleGetPagesController {
     @GetMapping("/home")
     public ModelAndView home() {
 
-        return new ModelAndView("home");
+        return new ModelAndView("main_menu");
     }
 
 }
