@@ -6,7 +6,7 @@
     <groupId>io.github.siscultural</groupId>
     <artifactId>SisCultural</artifactId>
     <version>1.0</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>SisCultural</name>
     <description>Project for Centro Cultural Banco do Nordeste</description>
@@ -189,19 +189,19 @@
                 <finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}-NIGHTLY</finalName>
 <!--                <filters>
                     <filter>src/main/resources/application-test.properties</filter>
-                </filters>
+                </filters>-->
                 <resources>
                     <resource>
                         <includes>
                             <include>Procfile</include>
                         </includes>
-                        <directory>src/main/resources</directory>
-                        <excludes>
+                        <!--<directory>src/main/resources</directory>-->
+<!--                        <excludes>
                             <exclude>application-*.properties</exclude>
                         </excludes>
-                        <filtering>true</filtering>
+                        <filtering>true</filtering>-->
                     </resource>
-                </resources>-->
+                </resources>
                 <plugins>
                     <!-- Plugin para o webrunner embarcado do Heroku -->
                     <plugin>
