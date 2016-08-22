@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,16 +6,15 @@
 package io.github.siscultural.enums;
 
 /**
- * Enum que representa os tipos de usuários do sistema
+ *
  * @author Natarajan Rodrigues
  */
-public enum UserType {
+public enum EntryType {
+    CREDIT(1), DEBIT(2);
     
-    ADMINISTRADOR(1), GERENTE(2), COLABORADOR(3);
-
     int id;
     
-    UserType (int n) {
+    EntryType (int n) {
         id = n;
     }
 
