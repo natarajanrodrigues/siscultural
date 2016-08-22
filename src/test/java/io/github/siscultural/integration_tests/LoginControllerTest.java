@@ -12,6 +12,7 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import io.github.siscultural.controllers.LoginController;
 import io.github.siscultural.enums.ErrorMessages;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @DatabaseSetup(FunctionaryRepositoryIT.DATASET)
 @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = {FunctionaryRepositoryIT.DATASET})
 @DirtiesContext
+@Ignore
 public class LoginControllerTest {
 
     @Autowired

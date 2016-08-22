@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @DirtiesContext
+@Ignore
 public class SimpleGetPagesControllerTest {
 
     @Autowired
