@@ -6,7 +6,7 @@
     <groupId>io.github.siscultural</groupId>
     <artifactId>SisCultural</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>SisCultural</name>
     <description>Project for Centro Cultural Banco do Nordeste</description>
@@ -234,6 +234,7 @@
                             <formats>
                                 <format>html</format>
                                 <format>xml</format>
+                                <format>jar</format>
                             </formats>
                         </configuration>
                     </plugin>
