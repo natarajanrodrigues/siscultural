@@ -97,7 +97,7 @@
 
     <build>
         
-<!--        <filters>
+        <!--        <filters>
             <filter>src/main/resources/application-test.properties</filter>
         </filters>
         <resources>
@@ -115,15 +115,43 @@
         
         <plugins>
             <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>1.1.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>8.0.33.0</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-<!--                <configuration>
+                <!--                <configuration>
                     <addResources>false</addResources>
                 </configuration>-->
             </plugin>
             
             <!--class example copy-->
-             <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -187,7 +215,7 @@
             </properties>
             <build>
                 <finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}-NIGHTLY</finalName>
-<!--                <filters>
+                <!--                <filters>
                     <filter>src/main/resources/application-test.properties</filter>
                 </filters>
                 <resources>
