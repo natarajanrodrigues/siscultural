@@ -135,19 +135,19 @@
             </properties>
             <build>
                 <finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}-NIGHTLY</finalName>
-                <filters>
+<!--                <filters>
                     <filter>src/main/resources/config-test.properties</filter>
-                </filters>
+                </filters>-->
                 <resources>
                     <resource>
                         <includes>
                             <include>Procfile</include>
                         </includes>
                         <directory>src/main/resources</directory>
-                        <excludes>
+<!--                        <excludes>
                             <exclude>config-*.properties</exclude>
                         </excludes>
-                        <filtering>true</filtering>
+                        <filtering>true</filtering>-->
                     </resource>
                 </resources>
                 <plugins>
