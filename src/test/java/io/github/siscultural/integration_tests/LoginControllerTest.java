@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = {FunctionaryRepositoryIT.DATASET})
 @DirtiesContext
 @ActiveProfiles("scratch")
-//@Ignore
+
 public class LoginControllerTest {
 
     @Autowired

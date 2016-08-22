@@ -30,7 +30,6 @@ import org.springframework.web.servlet.ModelAndView;
 @SpringBootTest
 @DirtiesContext
 @ActiveProfiles("scratch")
-//@Ignore
 public class SimpleGetPagesControllerTest {
 
     @Autowired
