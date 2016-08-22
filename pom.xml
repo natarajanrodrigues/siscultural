@@ -108,22 +108,29 @@
     </dependencies>
 
     <build>
+        
+        <filters>
+            <filter>src/main/resources/application-test.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <includes>
+                    <include>Procfile</include>
+                </includes>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>application-*.properties</exclude>
+                </excludes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             
-            
-<!--            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-            -->
             <!--class example copy-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -189,19 +196,19 @@
             </properties>
             <build>
                 <finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}-NIGHTLY</finalName>
-<!--                <filters>
-                    <filter>src/main/resources/config-test.properties</filter>
-                </filters>-->
+                <filters>
+                    <filter>src/main/resources/application-test.properties</filter>
+                </filters>
                 <resources>
                     <resource>
                         <includes>
                             <include>Procfile</include>
                         </includes>
                         <directory>src/main/resources</directory>
-<!--                        <excludes>
-                            <exclude>config-*.properties</exclude>
+                        <excludes>
+                            <exclude>application-*.properties</exclude>
                         </excludes>
-                        <filtering>true</filtering>-->
+                        <filtering>true</filtering>
                     </resource>
                 </resources>
                 <plugins>
