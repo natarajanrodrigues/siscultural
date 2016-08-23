@@ -3,10 +3,10 @@ jdk:
   - oraclejdk8
 branches:
   only:
-    bHEROKU
+   - /^v.*$/
 install: mvn install -U -DskipTests=true
 script:
-  mvn integration-test verify -Ptest
+    mvn deploy -Prelease --settings settings.xml
 deploy:
   provider: heroku
   api_key:
