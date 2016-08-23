@@ -72,6 +72,10 @@ public class Program implements Serializable {
         
         return this.rubrics.remove(rubric);
     }
+    
+    public boolean containRubric (Rubric rubric) {
+        return this.rubrics.contains(rubric);
+    }
 
     @Override
     public int hashCode() {

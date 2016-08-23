@@ -5,19 +5,13 @@
  */
 package io.github.siscultural.repositories;
 
-import io.github.siscultural.entities.Functionary;
-import java.util.List;
+import io.github.siscultural.entities.Contract;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
- * @author Victor Hugo <victor.hugo.origins@gmail.com>
+ * @author Natarajan Rodrigues
  */
-
-public interface FunctionaryRepository extends JpaRepository<Functionary, Long>{
-
-    public List<Functionary> findByEmailAndPassword(String email, String password);
-    
-    
+public interface ContractRepository extends JpaRepository<Contract, Long>{
     
 }
