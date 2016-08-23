@@ -47,7 +47,7 @@ public class EntryTest {
      */
     @Test(expected = PaymentExceedsApprovedValueException.class)
     public void testSetNegativeValue() throws PaymentExceedsApprovedValueException {
-        System.out.println("setValue");
+        
         BigDecimal value = new BigDecimal(-1000);
         Entry instance = new Entry();
         instance.setAmount(value);
@@ -60,14 +60,12 @@ public class EntryTest {
      */
     @Test
     public void testSetPositiveValue() throws PaymentExceedsApprovedValueException {
-        System.out.println("setValue");
+        
         BigDecimal value = new BigDecimal(2000);
         Entry instance = new Entry();
         instance.setAmount(value);
         assertEquals(instance.getAmount(), new BigDecimal("2000"));
         
     }
-
-    
     
 }
