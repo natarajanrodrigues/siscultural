@@ -19,7 +19,9 @@ public enum ErrorMessages {
     INVALID_LOGIN("Usuário não encontrado no sistema, verifique o e-mail e senha e tente novamente."),
     
     NOT_ENOUGH_RUBRIC_BALANCE("Não é possível excluir este crédito. Exclusão resultaria em saldo negativo"),
-    NEGATIVE_ENTRY_AMOUNT("Registro com valor inválido.");
+    NEGATIVE_ENTRY_AMOUNT("Registro com valor inválido."),
+    
+    EXISTENTE_USER("Já existe um usuário cadastrado com o email informado");
     
     String message;
 
