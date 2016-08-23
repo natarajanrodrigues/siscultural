@@ -9,8 +9,11 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
+import io.github.siscultural.controllers.FunctionaryAddController;
 import io.github.siscultural.controllers.LoginController;
 import io.github.siscultural.enums.ErrorMessages;
+import io.github.siscultural.repositories.ProgramRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,37 +46,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = {FunctionaryRepositoryIT.DATASET})
 @DirtiesContext
 @ActiveProfiles("scratch")
-public class LoginControllerTest {
+
+public class ProgramRepositoryIT {
 
     @Autowired
-    private LoginController loginController;
-    private MockMvc mvc;
-
-    @Before
-    public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(
-                loginController)
-                .build();
-    }
+    private ProgramRepository repo;
+    
 
     @Test
-    public void getLogin() throws Exception {
-        mvc.perform(post("/login").accept(MediaType.APPLICATION_JSON).param("email", "email@email.com").param("password", "123"))
-                .andExpect(status().isOk());
+    public void testFindProgramByIdAngGettingProgramRubrics() {
+
+        Assert.assertEquals(1, repo.findById(1).getRubrics().size());
+        
+        
     }
     
-    @Test
-    public void completeLogin() throws Exception{
-        mvc.perform(post("/login").accept(MediaType.APPLICATION_JSON).param("email", "email@email.com").param("password", "123"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"redirect\":\"home\"}"));
-    }
-
-    @Test
-    public void failLogin() throws Exception{
-        mvc.perform(post("/login").accept(MediaType.APPLICATION_JSON).param("email", "email@email.com").param("password", "arebaba"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"error\":\""+ErrorMessages.INVALID_LOGIN+"\"}"));
-    }
+//    @Test
+//    public void NoUserWithInvalidPassword() {
+//
+//        Assert.assertEquals(0, functionaryDao.findByEmailAndPassword("email@email.com", "").size());
+//        
+//    }
+    
+    
     
 }
