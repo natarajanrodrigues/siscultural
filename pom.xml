@@ -6,7 +6,7 @@
     <groupId>io.github.siscultural</groupId>
     <artifactId>SisCultural</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>SisCultural</name>
     <description>Project for Centro Cultural Banco do Nordeste</description>
@@ -238,92 +238,4 @@
 
     <profiles>
         <profile>
-            <id>test</id>
-            <activation>
-                <property>
-                    <name>env.DYNO</name>
-                </property>
-            </activation>
-            <properties>
-                <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-                <exemplo.profiles.version>${project.version}-${maven.build.timestamp}-NIGHTLY</exemplo.profiles.version>
-            </properties>
-            <build>
-                <finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}-NIGHTLY</finalName>
-                <!--                <filters>
-                    <filter>src/main/resources/application-test.properties</filter>
-                </filters>-->
-<!--                <resources>
-                    <resource>
-                        <includes>
-                            <include>Procfile</include>
-                        </includes>
-                        <directory>src/main/resources   </directory>
-                        <excludes>
-                            <exclude>application-*.properties</exclude>
-                        </excludes>
-                        <filtering>true</filtering>
-                    </resource>
-                </resources>-->
-                <plugins>
-                    <!-- Plugin para o webrunner embarcado do Heroku -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>2.3</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>com.github.jsimone</groupId>
-                                            <artifactId>webapp-runner</artifactId>
-                                            <version>8.0.30.2</version>
-                                            <destFileName>webapp-runner.jar</destFileName>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    
-                    
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>cobertura-maven-plugin</artifactId>
-                        <version>2.7</version>
-                        <configuration>
-                            <formats>
-                                <format>html</format>
-                                <format>xml</format>
-                            </formats>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.19.1</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <skipTests>false</skipTests>
-                        </configuration>
-                    </plugin>
-                    
-                </plugins>
-            </build>
-            
-        </profile>
-    </profiles>
-    
-</project>
+            <id
