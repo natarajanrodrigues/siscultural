@@ -27,9 +27,9 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-public class CustomConfiguration extends JpaBaseConfiguration {
+public class JpaCustomConfiguration extends JpaBaseConfiguration {
 
-    public CustomConfiguration(DataSource dataSource, JpaProperties properties, ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider) {
+    public JpaCustomConfiguration(DataSource dataSource, JpaProperties properties, ObjectProvider<JtaTransactionManager> jtaTransactionManagerProvider) {
         super(dataSource, properties, jtaTransactionManagerProvider);
     }
 
