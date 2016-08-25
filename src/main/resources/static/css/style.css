@@ -6,8 +6,20 @@
 html, body {
   height: 100%;
   font-family: Alte DIN,sans-serif;
-
+  margin: 0px;
+  padding: 0px;
   /* The html and body elements cannot have any padding or margin. */
+}
+
+footer{
+  padding-top: 13px;
+}
+
+header{
+  margin-bottom: 80px;
+  padding-bottom: 10px;
+  height: 80px;
+  background-color: white;
 }
 
 .logo-box img{
@@ -91,23 +103,45 @@ input:focus {
   color: black;
 }
 
+.header-user-info{
+  background-size: 100%;
+  padding-top: 10px;
+}
+
+.header-user-info h4{
+  display: inline;
+  padding-right: 5px;
+}
+
+.header-user-info a{
+  border-style: solid;
+  border-color:  lightgray;
+  border-width: 0px 0px 0px 2px;
+  padding: 5px;
+}
+
 .header-logo-container img{
   height: 80px;
 }
 
-header{
-  /*background-color: #f5a763;*/
-}
-
-footer{
-  padding-top: 13px;
-}
-
-header{
-  margin-bottom: 80px;
-  padding-bottom: 10px;
-}
-
 .header-container{
   padding-top: 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+}
+
+.header-section{
+  margin: 0 auto;
+  width: 100%
+}
+
+.container-header-user-info{
+  margin-right: 95px;
+}
+
+.container-header-siscultural-info{
+  margin-left: 95px;
 }
