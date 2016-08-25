@@ -27,13 +27,15 @@
               <div class="div-form-login text-center">
                 <h1>SisCultural</h1>
                 <form id="form-login" th:action="@{/login}" method="post">
-                  <input type="text" name="email" id="login" class="form-control" placeholder="Usuario ou Email"/>
-                  <input type="password" name="password" id="password" class="form-control" placeholder="Senha"/>
+                  <div class="col-md-offset-1 col-md-10 col-md-offset-1 login-input-group">
+                    <input type="text" name="email" id="login" class="form-control" placeholder="E-mail"/>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Senha"/>
+                  </div>
                   <div class="login-button-group">
-                    <div class="col-md-6">
+                    <div class="col-md-5 col-md-offset-1">
                       <a href="#">Esqueceu sua senha?</a>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                       <input id="input-login" type="submit" class="btn btn-primary submit" value="Login"/>
                     </div>
                   </div>

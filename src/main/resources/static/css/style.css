@@ -1,3 +1,15 @@
+@font-face {
+    font-family: Alte DIN;
+    src: url("../fonts/din1451alt.ttf");
+}
+
+html, body {
+  height: 100%;
+  font-family: Alte DIN,sans-serif;
+
+  /* The html and body elements cannot have any padding or margin. */
+}
+
 .logo-box img{
     width: 250px;
     height: 250px;
@@ -12,11 +24,23 @@
 }
 
 #input-login{
-  width: 50%;
+  width: 80%;
 }
 
 .login-button-group div{
   padding: 10px;
+}
+
+.login-input-group input{
+  padding: 18px;
+  font-size: 18px;
+  text-align: center;
+}
+
+input:focus {
+  border-color: #f68c1f !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0px 8px rgba(168, 10, 53, 0.6)!important;
+  outline: 0 none;
 }
 
 #password{
@@ -30,4 +54,60 @@
     width: 100%;
     top: 50%; left: 50%;
     transform: translate(-50%,-55%);
+}
+
+/**
+*
+*NEW MAIN MENU
+*
+**/
+
+.home-body{
+  background-image: url("../img/background.png");
+  background-size: 100%;
+  /*width: 100%;*/
+  /*height: 100%;*/
+}
+
+.main-menu-container{
+  border:4px solid #a80c33;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  -khtml-border-radius:10px;
+  border-radius:10px;
+  background-color:#fff; padding:10px;
+}
+
+.administration-container, .cultural-activities-container{
+  margin-bottom: 20px;
+}
+
+.material-icons{
+  font-size: 36px !important;
+  color: #a80c33;
+}
+
+.main-menu-container a{
+  color: black;
+}
+
+.header-logo-container img{
+  height: 80px;
+}
+
+header{
+  /*background-color: #f5a763;*/
+}
+
+footer{
+  padding-top: 13px;
+}
+
+header{
+  margin-bottom: 80px;
+  padding-bottom: 10px;
+}
+
+.header-container{
+  padding-top: 15px;
 }
