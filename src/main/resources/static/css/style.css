@@ -1,25 +1,25 @@
 @font-face {
-    /*font-family: Alte DIN;*/
-    /*src: url("../fonts/din1451alt.ttf");*/
+    font-family: Alte DIN;
+    src: url("../fonts/din1451alt.ttf");
 }
 
 html, body {
-  height: 100%;
-  /*font-family: Alte DIN,sans-serif;*/
-  margin: 0px;
-  padding: 0px;
-  /* The html and body elements cannot have any padding or margin. */
+    height: 100%;
+    font-family: Alte DIN,sans-serif;
+    margin: 0px;
+    padding: 0px;
+    /* The html and body elements cannot have any padding or margin. */
 }
 
 footer{
-  padding-top: 13px;
+    padding-top: 13px;
 }
 
 header{
-  margin-bottom: 90px;
-  padding-bottom: 10px;
-  height: 80px;
-  background-color: white;
+    margin-bottom: 90px;
+    padding-bottom: 10px;
+    height: 80px;
+    background-color: white;
 }
 
 .logo-box img{
@@ -36,23 +36,23 @@ header{
 }
 
 #input-login{
-  width: 80%;
+    width: 80%;
 }
 
 .login-button-group div{
-  padding: 10px;
+    padding: 10px;
 }
 
 .login-input-group input{
-  padding: 18px;
-  font-size: 18px;
-  text-align: center;
+    padding: 18px;
+    font-size: 18px;
+    text-align: center;
 }
 
 input:focus {
-  border-color: #f68c1f !important;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0px 8px rgba(168, 10, 53, 0.6)!important;
-  outline: 0 none;
+    border-color: #f68c1f !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0px 8px rgba(168, 10, 53, 0.6)!important;
+    outline: 0 none;
 }
 
 #password{
@@ -75,74 +75,74 @@ input:focus {
 **/
 
 .home-body{
-  background-image: url("../img/background.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  /*width: 100%;*/
-  /*height: 100%;*/
+    background-image: url("../img/background.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    /*width: 100%;*/
+    /*height: 100%;*/
 }
 
 .main-menu-container{
-  border:4px solid #a80c33;
-  -moz-border-radius:10px;
-  -webkit-border-radius:10px;
-  -khtml-border-radius:10px;
-  border-radius:10px;
-  background-color:#fff; padding:10px;
+    border:4px solid #a80c33;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    -khtml-border-radius:10px;
+    border-radius:10px;
+    background-color:#fff; padding:10px;
 }
 
 .administration-container, .cultural-activities-container{
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .material-icons{
-  font-size: 36px !important;
-  color: #a80c33;
+    font-size: 36px !important;
+    color: #a80c33;
 }
 
 .main-menu-container a{
-  color: black;
+    color: black;
 }
 
 .header-user-info{
-  background-size: 100%;
-  padding-top: 10px;
+    background-size: 100%;
+    padding-top: 10px;
 }
 
 .header-user-info h4{
-  display: inline;
-  padding-right: 5px;
+    display: inline;
+    padding-right: 5px;
 }
 
 .header-user-info a{
-  border-style: solid;
-  border-color:  lightgray;
-  border-width: 0px 0px 0px 2px;
-  padding: 5px;
+    border-style: solid;
+    border-color:  lightgray;
+    border-width: 0px 0px 0px 2px;
+    padding: 5px;
 }
 
 .header-logo-container img{
-  height: 80px;
+    height: 80px;
 }
 
 .header-container{
-  padding-top: 15px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
+    padding-top: 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
 }
 
 .header-section{
-  margin: 0 auto;
-  width: 100%
+    margin: 0 auto;
+    width: 100%
 }
 
 .container-header-user-info{
-  margin-right: 95px;
+    margin-right: 95px;
 }
 
 .container-header-siscultural-info{
-  margin-left: 95px;
+    margin-left: 95px;
 }
