@@ -7,6 +7,7 @@ package io.github.siscultural.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -64,5 +65,9 @@ public class Budget implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static class Comparators {
+        public static final Comparator<Budget> ID_COMPARE = (Budget b1, Budget b2) -> Long.compare(b1.getId(), b2.getId());
     }
 }

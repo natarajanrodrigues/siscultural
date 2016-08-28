@@ -5,7 +5,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>SisCultural - Orçamentos</title>
+    <title>SisCultural - Contas Rubrica</title>
 
     <!-- Bootstrap -->
 
@@ -27,29 +27,37 @@
             <div class="modal-content">
                 <div class="modal-header align-center">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title">Cadastrar Orçamento</h3>
+                    <h3 class="modal-title">Cadastrar Conta Rubrica</h3>
                 </div>
 
                 <div class="modal-body">
                     <div class='container-fluid'>
-                        <form method="post" role="form" class="form-horizontal" id="cadastro-orcamento" th:action="@{/orcamento/add}">
+                        <form method="post" role="form" class="form-horizontal" id="cadastro-conta" th:action="@{/conta/add}">
+
+
                             <div class="form-group">
-                                <label for="descricao" class="control-label col-sm-2">Nome</label>
+
+                                <label for="descricao" class="control-label col-sm-2">Orçamento</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do orçamento." maxlength="50" autofocus="true" />
+                                    <select name="orcamento" class="form-control" id="orcamento">
+                                        <option th:each="budget : ${budgets}" th:value="${budget.id}" th:text="${budget.name}"></option>
+                                    </select>
                                 </div>
+
                             </div>
                             <div class="form-group">
-                                <label for="descricao" class="control-label col-sm-2">Descrição</label>
+                                <label for="rubrica" class="control-label col-sm-2">Rubrica</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição do orçamento." maxlength="50" autofocus="true" />
+                                    <select name="rubrica" class="form-control" id="rubrica">
+                                        <option th:each="rubric : ${rubrics}" th:value="${rubric.id}" th:text="${rubric.name}"></option>
+                                    </select>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" th:form="cadastro-orcamento" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
+                    <button type="submit" th:form="cadastro-conta" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
                     <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
                 </div>
             </div>
@@ -83,17 +91,19 @@
                 <table class="table table-bordered table-hover table-selectable">
                     <thead>
                         <tr class="alert-info text-align-center">
-                            <th >Orçamentos</th>
-                            <th >Descrição</th>
+                            <th >Id</th>
+                            <th >Orçamento</th>
+                            <th >Rubrica</th>
                         </tr>
                     </thead>
 
                     <tbody class="searchable" id="materiaisTable">
 
-                        <tr th:each="budget : ${budgets}" >
-                            <th th:text="${budget.name}"></th>
-                            <th th:text="${budget.description}"></th>
-                            <th class="hidden" th:text="${budget.id}"></th>
+                        <tr th:each="conta : ${rubricAccounts}" >
+                            <th th:text="${conta.id}"></th>
+                            <th th:text="${conta.rubric.name}"></th>
+                            <th th:text="${conta.budget.name}"></th>
+                            <!--<th class="hidden" th:text="${conta.id}"></th>-->
                         </tr>
 
                     </tbody>

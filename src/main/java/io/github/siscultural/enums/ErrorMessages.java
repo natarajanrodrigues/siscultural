@@ -21,7 +21,9 @@ public enum ErrorMessages {
     NOT_ENOUGH_RUBRIC_BALANCE("Não é possível excluir este crédito. Exclusão resultaria em saldo negativo"),
     NEGATIVE_ENTRY_AMOUNT("Registro com valor inválido."),
     
-    EXISTENTE_USER("Já existe um usuário cadastrado com o email informado");
+    EXISTENTE_USER("Já existe um usuário cadastrado com o email informado"),
+
+    ERROR_OPERATION("Ocorreu um erro ao tentar realizar a operação");
     
     String message;
 

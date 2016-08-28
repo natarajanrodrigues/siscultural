@@ -7,6 +7,7 @@ package io.github.siscultural.repositories;
 
 import io.github.siscultural.entities.Budget;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -17,12 +18,13 @@ import java.util.List;
 
 public interface OrcamentoRepository extends JpaRepository<Budget, Long>{
 
+    public Budget findById(Long id);
+
     public List<Budget> findAll();
 
     public Budget save(Budget budget);
 
-//    public Budget update(Budget budget);
-//
-//    public void remove(Budget budget);
+    public Budget saveAndFlush(Budget budget);
+
         
 }

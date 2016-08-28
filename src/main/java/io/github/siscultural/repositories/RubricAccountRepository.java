@@ -6,7 +6,9 @@
 package io.github.siscultural.repositories;
 
 
+import io.github.siscultural.entities.Budget;
 import io.github.siscultural.entities.Rubric;
+import io.github.siscultural.entities.RubricAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,13 +17,15 @@ import java.util.List;
  *
  * @author Natarajan Rodrigues
  */
-public interface RubricRepository extends JpaRepository<Rubric, Long>{
+public interface RubricAccountRepository extends JpaRepository<RubricAccount, Long>{
     
-    public Rubric findById(long id);
+    public RubricAccount findById(long id);
 
-    public List<Rubric> findAll();
+    public RubricAccount findByBudgetAndRubric(Budget budget, Rubric rubric);
 
-    public Rubric save(Rubric rubric);
+    public List<RubricAccount> findAll();
+
+    public RubricAccount save(RubricAccount rubricAccount);
 
     
 }
