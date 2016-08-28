@@ -101,9 +101,8 @@
 
                         <tr th:each="conta : ${rubricAccounts}" >
                             <th th:text="${conta.id}"></th>
-                            <th th:text="${conta.rubric.name}"></th>
                             <th th:text="${conta.budget.name}"></th>
-                            <!--<th class="hidden" th:text="${conta.id}"></th>-->
+                            <th th:text="${conta.rubric.name}"></th>
                         </tr>
 
                     </tbody>

@@ -6,7 +6,6 @@
 package io.github.siscultural.controllers;
 
 import io.github.siscultural.entities.Budget;
-import io.github.siscultural.entities.Functionary;
 import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.repositories.FunctionaryRepository;
 import io.github.siscultural.repositories.OrcamentoRepository;
@@ -72,7 +71,6 @@ public class OrcamentoController {
     @ResponseBody
     public ModelAndView editOrcamento(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("descricao") String descricao) {
 
-//        ModelAndView mav = new ModelAndView("redirect:/orcamento");
         Map<String, String> map = new HashMap<>();
         map.clear();
 
@@ -88,20 +86,41 @@ public class OrcamentoController {
 
             if (b == null) {
                 map.put("erro", ErrorMessages.ERROR_OPERATION.toString());
-
             } else {
                 map.put("resultado", "Atualização realizada com sucesso.");
-//                return JsonView.returnJsonFromMap(map);
             }
-
-
         }
         return JsonView.returnJsonFromMap(map);
-//        return mav;
 
 
     }
 
+    @PostMapping(value = "/orcamento/delete")
+    @ResponseBody
+    public ModelAndView deteleOrcamento(@RequestParam("id") String id) {
+
+        Map<String, String> map = new HashMap<>();
+        map.clear();
+
+        Budget budget = budgetDao.findById(Long.parseLong(id));
+
+
+        if (budget != null) {
+
+            budgetDao.delete(budget);
+
+            budget = budgetDao.findById(Long.parseLong(id));
+
+            if (budget != null) {
+                map.put("erro", ErrorMessages.ERROR_OPERATION.toString());
+            } else {
+                map.put("resultado", "Exclusão realizada com sucesso.");
+            }
+        }
+        return JsonView.returnJsonFromMap(map);
+
+
+    }
 
 
 

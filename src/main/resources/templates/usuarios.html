@@ -26,23 +26,38 @@
                 <div class="modal-content">
                     <div class="modal-header align-center">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Cadastrar Orçamento</h3>
+                        <h3 class="modal-title">Cadastrar Usuário</h3>
                     </div>
 
                     <div class="modal-body">
                         <div class='container-fluid'>
-                            <!--<form method="post" role="form" class="form-horizontal" id="cadastro-orcamento" th:action="@{/orcamento/add}">-->
-                            <form method="post" role="form" class="form-horizontal" id="cadastro-orcamento">
+
+                            <form method="post" role="form" class="form-horizontal" id="cadastro-usuario">
                                 <div class="form-group">
-                                    <label for="descricao" class="control-label col-sm-2">Nome</label>
+                                    <label for="name" class="control-label col-sm-2">Nome</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do orçamento." maxlength="50" autofocus="true" />
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Nome completo..." maxlength="50" autofocus="true" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="descricao" class="control-label col-sm-2">Descrição</label>
+                                    <label for="email" class="control-label col-sm-2">Email</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição do orçamento." autofocus="true" />
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="control-label col-sm-2">Senha</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Senha"  />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="type" class="control-label col-sm-2">Tipo</label>
+                                    <div class="col-sm-10">
+                                        <select name="type" class="form-control" id="type">
+                                            <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+                                        </select>
                                     </div>
                                 </div>
                             </form>
@@ -67,20 +82,28 @@
 
                     <div class="modal-body">
                         <div class='container-fluid'>
-                            <form method="post" role="form" class="form-horizontal" id="editar-orcamento">
+                            <form method="post" role="form" class="form-horizontal" id="editar-usuario">
                                 <div class="form-group">
-                                    <label for="descricao" class="control-label col-sm-2">Nome</label>
+                                    <label for="name" class="control-label col-sm-2">Nome</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="edit-name" name="name" placeholder="Digite o nome do orçamento." maxlength="50" autofocus="true" />
+                                        <input type="text" class="form-control" id="edit-name" name="name" placeholder="Nome completo..." maxlength="50" autofocus="true" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="descricao" class="control-label col-sm-2">Descrição</label>
+                                    <label for="email" class="control-label col-sm-2">Email</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="edit-descricao" name="descricao" placeholder="Digite a descrição do orçamento." />
-                                        <input type="text" class="hidden" id="edit-id" name="id" />
+                                        <input type="text" class="form-control" id="edit-email" name="email" placeholder="Email" />
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="edit-type" class="control-label col-sm-2">Tipo</label>
+                                    <div class="col-sm-10">
+                                        <select name="type" class="form-control" id="edit-type">
+                                            <option th:each="t : ${types}" th:value="${t}" th:text="${t}" ></option>
+                                        </select>
+                                    </div>
+                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -148,17 +171,19 @@
                 <table class="table table-bordered table-hover table-selectable">
                     <thead>
                         <tr class="alert-info text-align-center">
-                            <th >Orçamentos</th>
-                            <th >Descrição</th>
+                            <th >Nome</th>
+                            <th >Email</th>
+                            <th >Tipo de Usuário</th>
                         </tr>
                     </thead>
 
                     <tbody class="searchable" id="materiaisTable">
 
-                        <tr th:each="budget : ${budgets}" >
-                            <th th:text="${budget.name}"></th>
-                            <th th:text="${budget.description}"></th>
-                            <th class="hidden" th:text="${budget.id}"></th>
+                        <tr th:each="user : ${functionaries}" >
+                            <th th:text="${user.name}"></th>
+                            <th th:text="${user.email}"></th>
+                            <th th:text="${user.userType}"></th>
+                            <th class="hidden" th:text="${user.id}"></th>
                         </tr>
 
                     </tbody>
@@ -195,7 +220,7 @@
 
             $('#cadastrar').click(function (e) {
                 e.preventDefault();
-                $.post('orcamento/add', $('#cadastro-orcamento').serialize(), function (response) {
+                $.post('usuarios/add', $('#cadastro-usuario').serialize(), function (response) {
                     var erro = response.erro;
                     $('#cadastrar_modal').modal('hide');
 
@@ -205,7 +230,7 @@
                         show_success(response.resultado);
 
                         $("#confirmOkButton").click(function () {
-                            $(location).attr('href', 'orcamento');
+                            $(location).attr('href', 'usuarios');
                         });
 
                     }
@@ -214,17 +239,23 @@
             });
 
             $('#confirmOkButton').click(function (e) {
-                $(location).attr('href', 'orcamento');
+                $(location).attr('href', 'usuarios');
             });
 
 
             $('#btn-editar').click(function (e) {
                 var nome = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
-                var descricao = $('.table-selectable > tbody > tr.active').find('th:nth-child(2)').text();
-                var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(3)').text();
+                var email = $('.table-selectable > tbody > tr.active').find('th:nth-child(2)').text();
+                var type = $('.table-selectable > tbody > tr.active').find('th:nth-child(3)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(4)').text();
 
                 $("#edit-name").val(nome);
-                $("#edit-descricao").val(descricao);
+                $("#edit-email").val(email);
+
+                $("#edit-type option").filter(function () {
+                    return $(this).text() === type;
+                }).prop('selected', true);
+
                 $("#edit-id").val(id);
 
                 $('#editar_modal').modal({
@@ -234,7 +265,7 @@
 
             $('#confirmar_editar').click(function (e) {
                 e.preventDefault();
-                $.post('orcamento/edit', $('#editar-orcamento').serialize(), function (response) {
+                $.post('usuarios/edit', $('#editar-usuario').serialize(), function (response) {
                     var erro = response.erro;
 
                     $('#editar_modal').modal('hide');
@@ -247,7 +278,7 @@
 
                         show_success(response.resultado);
                         $("#confirmOkButton").click(function () {
-                            $(location).attr('href', 'orcamento');
+                            $(location).attr('href', 'usuarios');
                         });
 
                     }
@@ -257,7 +288,7 @@
 
             $('#btn-deletar').click(function (e) {
                 var nome = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
-                var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(3)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(4)').text();
 
                 $("#id_delet").val(id);
                 $("#nome_delet").html(nome);
@@ -269,7 +300,7 @@
 
             $('#confirmar_exclusao').click(function (e) {
                 e.preventDefault();
-                $.post('/orcamento/delete', $('#delete_modal').serialize(), function (response) {
+                $.post('/usuarios/delete', $('#delete_modal').serialize(), function (response) {
                     var erro = response.erro;
                     $('#deletar_modal').modal('hide');
 
@@ -278,7 +309,7 @@
                     } else {
                         show_success(response.resultado);
                         $("#confirmOkButton").click(function () {
-                            $(location).attr('href', 'orcamento');
+                            $(location).attr('href', 'usuarios');
                         });
 
                     }

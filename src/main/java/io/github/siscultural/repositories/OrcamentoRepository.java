@@ -26,5 +26,7 @@ public interface OrcamentoRepository extends JpaRepository<Budget, Long>{
 
     public Budget saveAndFlush(Budget budget);
 
+    public void delete(Budget budget);
+
         
 }
