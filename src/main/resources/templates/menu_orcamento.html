@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>SisCultural - Home</title>
+
+        <!-- Bootstrap -->
+
+        <link href="../css/bootstrap-theme.min.css" rel="stylesheet"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="../css/style.css" type="text/css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet"/>
+
+    </head>
+
+    <body class="home-body">
+
+    <header th:include="menu_header :: header">
+    </header>
+
+
+    <div class="container">
+        <div class="row">
+            <section class="col-md-offset-3 col-md-6 col-md-offset-3 main-menu-container">
+                <article class="col-md-12 administration-container">
+                    <h2>Área Orçamentária</h2>
+                    <br/>
+                    <a class="col-md-6 users-container text-center" href="/orcamento" title="Orçamentos">
+                        <div class="users-icon-container">
+                            <i class="material-icons">&#xE227;</i>
+                        </div>
+                        <div class="users-icon-text">
+                            <span>Orçamentos</span>
+                        </div>
+                    </a>
+
+                </article>
+            </section>
+        </div>
+    </div>
+    <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+        <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+    </footer>
+    </body>
+
+</html>

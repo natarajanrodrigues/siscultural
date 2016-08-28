@@ -20,20 +20,20 @@ import javax.persistence.Id;
 public class Budget implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String description;
-    private LocalDateTime creationDateTime;
+//    private LocalDateTime creationDateTime;
     
 
     public Budget() {
-        
+
     }
 
     public Budget(String name, LocalDateTime dateTime) {
         this.name = name;
-        this.creationDateTime = dateTime;
+//        this.creationDateTime = dateTime;
     }
     
     public Budget(String name) {
@@ -42,11 +42,11 @@ public class Budget implements Serializable {
         
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,5 +57,12 @@ public class Budget implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

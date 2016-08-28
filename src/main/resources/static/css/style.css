@@ -1,11 +1,11 @@
 @font-face {
-    font-family: Alte DIN;
-    src: url("../fonts/din1451alt.ttf");
+    /*font-family: Alte DIN;*/
+    /*src: url("../fonts/din1451alt.ttf");*/
 }
 
 html, body {
   height: 100%;
-  font-family: Alte DIN,sans-serif;
+  /*font-family: Alte DIN,sans-serif;*/
   margin: 0px;
   padding: 0px;
   /* The html and body elements cannot have any padding or margin. */

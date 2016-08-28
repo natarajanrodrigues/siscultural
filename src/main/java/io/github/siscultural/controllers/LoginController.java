@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
 @Controller
-public class LoginController {
+public class    LoginController {
 
     @Autowired
     FunctionaryRepository functionaryDao;
@@ -43,17 +43,19 @@ public class LoginController {
         if (users.isEmpty()) {
 
             map.put("error", ErrorMessages.INVALID_LOGIN.toString());
+            return JsonView.returnJsonFromMap(map);
 
         } else {
             
             Functionary functionary = users.get(0);
             
             httpSession.setAttribute("functionary", functionary);
-            
-            map.put("redirect", "home");
+
+            return new ModelAndView("redirect:/home");
+//            map.put("redirect", "home");
         }
 
-        return JsonView.returnJsonFromMap(map);
+
 
     }
     
