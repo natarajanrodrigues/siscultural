@@ -7,10 +7,7 @@ package io.github.siscultural.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  *
@@ -24,6 +21,10 @@ public class Rubric implements Serializable {
     private Long id;
     private String name;
     private String description;
+
+    @OneToOne
+    private Program program;
+
 
     public Rubric(String name) {
 
@@ -55,6 +56,14 @@ public class Rubric implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 
     @Override

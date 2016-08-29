@@ -8,6 +8,8 @@ package io.github.siscultural.repositories;
 import io.github.siscultural.entities.Program;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  *
  * @author Natarajan Rodrigues
@@ -15,5 +17,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProgramRepository extends JpaRepository<Program, Long>{
     
     public Program findById(long id);
-    
+
+    public List<Program> findAll();
+
+    public Program save(Program program);
+
+    public void delete(Program program);
 }

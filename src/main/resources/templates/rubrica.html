@@ -32,7 +32,7 @@
 
                 <div class="modal-body">
                     <div class='container-fluid'>
-                        <form method="post" role="form" class="form-horizontal" id="cadastro-orcamento" th:action="@{/rubrica/add}">
+                        <form method="post" role="form" class="form-horizontal" id="cadastro-rubrica" th:action="@{/rubrica/add}">
                             <div class="form-group">
                                 <label for="descricao" class="control-label col-sm-2">Nome</label>
                                 <div class="col-sm-10">
@@ -45,11 +45,21 @@
                                     <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição da rubrica." maxlength="50" autofocus="true" />
                                 </div>
                             </div>
+                            <div class="form-group">
+
+                                <label for="programa" class="control-label col-sm-2">Programa</label>
+                                <div class="col-sm-10">
+                                    <select name="programa" class="form-control" id="programa">
+                                        <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}"></option>
+                                    </select>
+                                </div>
+
+                            </div>
                         </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" th:form="cadastro-orcamento" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
+                    <button type="submit" th:form="cadastro-rubrica" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
                     <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
                 </div>
             </div>
@@ -85,6 +95,7 @@
                         <tr class="alert-info text-align-center">
                             <th >Rubrica</th>
                             <th >Descrição</th>
+                            <th >Programa</th>
                         </tr>
                     </thead>
 
@@ -93,6 +104,7 @@
                         <tr th:each="rubric : ${rubrics}" >
                             <th th:text="${rubric.name}"></th>
                             <th th:text="${rubric.description}"></th>
+                            <th th:text="${rubric.program.name}"></th>
                             <th class="hidden" th:text="${rubric.id}"></th>
                         </tr>
 
