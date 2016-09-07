@@ -40,10 +40,14 @@ public class    LoginController {
 
         Map<String, String> map = new HashMap<>();
 
+        ModelAndView mav;
+
         if (users.isEmpty()) {
 
-            map.put("error", ErrorMessages.INVALID_LOGIN.toString());
-            return JsonView.returnJsonFromMap(map);
+//            map.put("error", ErrorMessages.INVALID_LOGIN.toString());
+            mav = new ModelAndView("login");
+            mav.addObject("error", ErrorMessages.INVALID_LOGIN.toString());
+//            return JsonView.returnJsonFromMap(map);
 
         } else {
             
@@ -51,11 +55,11 @@ public class    LoginController {
             
             httpSession.setAttribute("functionary", functionary);
 
-            return new ModelAndView("redirect:/home");
+            mav = new ModelAndView("redirect:/home");
 //            map.put("redirect", "home");
         }
 
-
+        return mav;
 
     }
     
