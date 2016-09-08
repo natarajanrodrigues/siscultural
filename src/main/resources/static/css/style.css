@@ -8,7 +8,6 @@ html, body {
     font-family: Alte DIN,sans-serif;
     margin: 0px;
     padding: 0px;
-    /* The html and body elements cannot have any padding or margin. */
 }
 
 footer{
@@ -44,7 +43,6 @@ header{
 }
 
 .login-input-group input{
-    padding: 18px;
     font-size: 18px;
     text-align: center;
 }
@@ -68,18 +66,12 @@ input:focus {
     transform: translate(-50%,-55%);
 }
 
-/**
-*
-*NEW MAIN MENU
-*
-**/
-
 .home-body{
     background-image: url("../img/background.png");
     background-size: 100%;
     background-repeat: no-repeat;
-    /*width: 100%;*/
-    /*height: 100%;*/
+    width: 100%;
+    height: 100%;
 }
 
 .main-menu-container{

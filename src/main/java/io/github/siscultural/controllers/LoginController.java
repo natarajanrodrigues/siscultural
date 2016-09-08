@@ -24,51 +24,51 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
-@Controller
+//@Controller
 public class    LoginController {
 
-    @Autowired
-    FunctionaryRepository functionaryDao;
-    @Autowired
-    HttpSession httpSession;
-
-    @PostMapping(value = "/login")
-    @ResponseBody
-    public ModelAndView login(String email, String password) {
-
-        List<Functionary> users = functionaryDao.findByEmailAndPassword(email, password);
-
-        Map<String, String> map = new HashMap<>();
-
-        ModelAndView mav;
-
-        if (users.isEmpty()) {
-
-//            map.put("error", ErrorMessages.INVALID_LOGIN.toString());
-            mav = new ModelAndView("login");
-            mav.addObject("error", ErrorMessages.INVALID_LOGIN.toString());
-//            return JsonView.returnJsonFromMap(map);
-
-        } else {
-            
-            Functionary functionary = users.get(0);
-            
-            httpSession.setAttribute("functionary", functionary);
-
-            mav = new ModelAndView("redirect:/home");
-//            map.put("redirect", "home");
-        }
-
-        return mav;
-
-    }
-    
-    @GetMapping(value = "/logout")
-    public ModelAndView logout(){
-        
-        httpSession.invalidate();
-        
-        return new ModelAndView("redirect:/");
-    }
+//    @Autowired
+//    FunctionaryRepository functionaryDao;
+//    @Autowired
+//    HttpSession httpSession;
+//
+//    @PostMapping(value = "/login")
+//    @ResponseBody
+//    public ModelAndView login(String email, String password) {
+//
+//        List<Functionary> users = functionaryDao.findByEmailAndPassword(email, password);
+//
+//        Map<String, String> map = new HashMap<>();
+//
+//        ModelAndView mav;
+//
+//        if (users.isEmpty()) {
+//
+////            map.put("error", ErrorMessages.INVALID_LOGIN.toString());
+//            mav = new ModelAndView("login");
+//            mav.addObject("error", ErrorMessages.INVALID_LOGIN.toString());
+////            return JsonView.returnJsonFromMap(map);
+//
+//        } else {
+//            
+//            Functionary functionary = users.get(0);
+//            
+//            httpSession.setAttribute("functionary", functionary);
+//
+//            mav = new ModelAndView("redirect:/home");
+////            map.put("redirect", "home");
+//        }
+//
+//        return mav;
+//
+//    }
+//    
+//    @GetMapping(value = "/logout")
+//    public ModelAndView logout(){
+//        
+//        httpSession.invalidate();
+//        
+//        return new ModelAndView("redirect:/");
+//    }
 
 }

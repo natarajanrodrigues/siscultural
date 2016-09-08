@@ -5,6 +5,7 @@
  */
 package io.github.siscultural;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -12,14 +13,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  *
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
-public class MvcConfig extends WebMvcConfigurerAdapter{
-    
+@Configuration
+public class MvcConfig extends WebMvcConfigurerAdapter {
+
     @Override
-    public void addViewControllers(ViewControllerRegistry registry){
+    public void addViewControllers(ViewControllerRegistry registry) {
         
-        registry.addRedirectViewController("/", "login");
-        registry.addRedirectViewController("/home", "home");
-    
+        registry.addViewController("/").setViewName("main_menu");
+        registry.addViewController("/home").setViewName("main_menu");
+        registry.addViewController("/login").setViewName("login");
+        
     }
-    
+
 }

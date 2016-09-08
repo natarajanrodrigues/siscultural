@@ -15,36 +15,36 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
-@Controller
+//@Controller
 public class SimpleGetPagesController {
 
-    @Autowired
-    private HttpSession httpSession;
-
-    @GetMapping("/")
-    public ModelAndView index() {
-
-        if (httpSession.getAttribute("functionary") == null) {
-
-            return new ModelAndView("login");
-        } else {
-
-            return new ModelAndView("redirect:/home");
-        }
-
-    }
-
-    @GetMapping("/home")
-    public ModelAndView home() {
-
-        return new ModelAndView("main_menu");
-    }
-
-    @GetMapping("/menu_orcamento")
-    public ModelAndView menu_orcamento() {
-
-        return new ModelAndView("menu_orcamento");
-    }
+//    @Autowired
+//    private HttpSession httpSession;
+//
+//    @GetMapping("/")
+//    public ModelAndView index() {
+//
+//        if (httpSession.getAttribute("functionary") == null) {
+//
+//            return new ModelAndView("login");
+//        } else {
+//
+//            return new ModelAndView("redirect:/home");
+//        }
+//
+//    }
+//
+//    @GetMapping("/home")
+//    public ModelAndView home() {
+//
+//        return new ModelAndView("main_menu");
+//    }
+//
+//    @GetMapping("/menu_orcamento")
+//    public ModelAndView menu_orcamento() {
+//
+//        return new ModelAndView("menu_orcamento");
+//    }
 
 
 }
