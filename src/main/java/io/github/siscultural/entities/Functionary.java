@@ -7,6 +7,7 @@ package io.github.siscultural.entities;
 
 import io.github.siscultural.enums.UserType;
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,7 +24,7 @@ import javax.persistence.Id;
 public class Functionary implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long        id;
     private String      name;
     private String      password;
@@ -41,11 +42,11 @@ public class Functionary implements Serializable{
         this.userType = userType;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -110,6 +111,10 @@ public class Functionary implements Serializable{
         }
         
         return Objects.equals(this.id, other.id);
+    }
+
+    public static class Comparators {
+        public static final Comparator<Functionary> NAME = (Functionary f1, Functionary f2) -> f1.getName().compareTo(f2.getName());
     }
 
 }

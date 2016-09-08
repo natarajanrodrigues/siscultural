@@ -40,4 +40,11 @@ public class SimpleGetPagesController {
         return new ModelAndView("main_menu");
     }
 
+    @GetMapping("/menu_orcamento")
+    public ModelAndView menu_orcamento() {
+
+        return new ModelAndView("menu_orcamento");
+    }
+
+
 }

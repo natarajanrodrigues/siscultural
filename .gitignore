@@ -15,5 +15,7 @@ hs_err_pid*
 # netbeans config files
 /nbproject/
 nb-configuration.xml
-.idea
+
+#intelliJ config files
+.idea/
 *.iml

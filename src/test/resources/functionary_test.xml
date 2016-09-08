@@ -3,4 +3,7 @@
     <Functionary id="1" name="Victor" password="123" email="email@email.com" userType="COLABORADOR"/>
     <Functionary id="2" name="Natarajan" password="321" email="2email@email.com" userType="COLABORADOR"/>
     <Functionary id="3" name="Wensttay" password="321" email="3email@email.com" userType="COLABORADOR"/>
+    <Program id="1" name="Música"/>
+    <Rubric id="1" name="Música - cachê"/>
+    <Program_rubric program_id="1" rubrics_id="1"/>
 </dataset>

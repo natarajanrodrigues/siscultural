@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Contas Rubrica</title>
+
+    <!-- Bootstrap -->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/42680f3b68.js"></script>
+
+
+</head>
+
+    <div class="modal fade" id="cadastrar_modal">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header align-center">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Cadastrar Conta Rubrica</h3>
+                </div>
+
+                <div class="modal-body">
+                    <div class='container-fluid'>
+                        <form method="post" role="form" class="form-horizontal" id="cadastro-conta" th:action="@{/conta/add}">
+
+
+                            <div class="form-group">
+
+                                <label for="descricao" class="control-label col-sm-2">Orçamento</label>
+                                <div class="col-sm-10">
+                                    <select name="orcamento" class="form-control" id="orcamento">
+                                        <option th:each="budget : ${budgets}" th:value="${budget.id}" th:text="${budget.name}"></option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="rubrica" class="control-label col-sm-2">Rubrica</label>
+                                <div class="col-sm-10">
+                                    <select name="rubrica" class="form-control" id="rubrica">
+                                        <option th:each="rubric : ${rubrics}" th:value="${rubric.id}" th:text="${rubric.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" th:form="cadastro-conta" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
+                    <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <body class="home-body">
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>
+                    <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil"></button>
+                    <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash"></button>
+
+                    <form class="form-inline float-right col-xs-8 no-margin-right">
+                        <div class="form-group col-xs-12 no-margin-right">
+                            <div class="input-group col-xs-12 float-right">
+                                <input type="text" id="filter" class="form-control" placeholder="..."/>
+                                <span class="btn input-group-addon glyphicon glyphicon-search"></span>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <table class="table table-bordered table-hover table-selectable">
+                    <thead>
+                        <tr class="alert-info text-align-center">
+                            <th >Id</th>
+                            <th >Orçamento</th>
+                            <th >Rubrica</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="searchable" id="materiaisTable">
+
+                        <tr th:each="conta : ${rubricAccounts}" >
+                            <th th:text="${conta.id}"></th>
+                            <th th:text="${conta.budget.name}"></th>
+                            <th th:text="${conta.rubric.name}"></th>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+    </body>
+
+</html>

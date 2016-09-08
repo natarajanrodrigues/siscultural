@@ -42,11 +42,11 @@ public class Program implements Serializable {
         this.rubrics = new ArrayList<>();        
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,13 +64,17 @@ public class Program implements Serializable {
     }
     
     public boolean addRubric(Rubric rubric){
-        
+        rubric.setProgram(this);
         return this.rubrics.add(rubric);
     }
     
     public boolean removeRubric(Rubric rubric){
-        
+        rubric.setProgram(null);
         return this.rubrics.remove(rubric);
+    }
+    
+    public boolean containRubric (Rubric rubric) {
+        return this.rubrics.contains(rubric);
     }
 
     @Override

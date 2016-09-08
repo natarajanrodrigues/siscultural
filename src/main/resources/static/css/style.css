@@ -1,38 +1,58 @@
-body{
-    background-color: rgba(169, 169, 169, 0.25);
+@font-face {
+    font-family: Alte DIN;
+    src: url("../fonts/din1451alt.ttf");
 }
 
-.logo-box{
-    text-align: center;
+html, body {
+    height: 100%;
+    font-family: Alte DIN,sans-serif;
+    margin: 0px;
+    padding: 0px;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+footer{
+    padding-top: 13px;
+}
+
+header{
+    margin-bottom: 90px;
     padding-bottom: 10px;
+    height: 80px;
+    background-color: white;
 }
 
-.logo-box .logo{
+.logo-box img{
     width: 250px;
     height: 250px;
-}
-
-.central-box{
-    margin: 100px auto;
-}
-
-.container .input-group{
-    margin: 0 auto;
-    max-width: 300px;
 }
 
 .container .input-group form{
     margin: 0 5px;
 }
 
-.container .input-group .form-control{
-    padding: 12px;
-    height: 42px;
-    font-size: 18px;
-}
-
 #login{
     border-radius: 10px 10px 0 0;
+}
+
+#input-login{
+    width: 80%;
+}
+
+.login-button-group div{
+    padding: 10px;
+}
+
+.login-input-group input{
+    padding: 18px;
+    font-size: 18px;
+    text-align: center;
+}
+
+input:focus {
+    border-color: #f68c1f !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0px 8px rgba(168, 10, 53, 0.6)!important;
+    outline: 0 none;
 }
 
 #password{
@@ -41,33 +61,88 @@ body{
     margin-bottom: 15px;
 }
 
-.container .input-group .form-options .forgetkey-box{
-    margin-top: -2px;
-    float: left;
-}
-
-.container .input-group .form-options .remember-box{
-    font-size: 14px;
-}
-
-.container .input-group .form-options .submit-box{
-    float: right;
-}
-
-.container .input-group .form-options .submit-box .submit{
-    width: 100px;
-}
-
-/*.container-login{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    width: 500px;
-    height: 500px;
-}*/
-
-.row-login{
+.login-container{
     position: absolute;
+    width: 100%;
     top: 50%; left: 50%;
     transform: translate(-50%,-55%);
+}
+
+/**
+*
+*NEW MAIN MENU
+*
+**/
+
+.home-body{
+    background-image: url("../img/background.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    /*width: 100%;*/
+    /*height: 100%;*/
+}
+
+.main-menu-container{
+    border:4px solid #a80c33;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    -khtml-border-radius:10px;
+    border-radius:10px;
+    background-color:#fff; padding:10px;
+}
+
+.administration-container, .cultural-activities-container{
+    margin-bottom: 20px;
+}
+
+.material-icons{
+    font-size: 36px !important;
+    color: #a80c33;
+}
+
+.main-menu-container a{
+    color: black;
+}
+
+.header-user-info{
+    background-size: 100%;
+    padding-top: 10px;
+}
+
+.header-user-info h4{
+    display: inline;
+    padding-right: 5px;
+}
+
+.header-user-info a{
+    border-style: solid;
+    border-color:  lightgray;
+    border-width: 0px 0px 0px 2px;
+    padding: 5px;
+}
+
+.header-logo-container img{
+    height: 80px;
+}
+
+.header-container{
+    padding-top: 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+}
+
+.header-section{
+    margin: 0 auto;
+    width: 100%
+}
+
+.container-header-user-info{
+    margin-right: 95px;
+}
+
+.container-header-siscultural-info{
+    margin-left: 95px;
 }

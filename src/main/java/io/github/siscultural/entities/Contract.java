@@ -44,7 +44,7 @@ public class Contract implements Serializable {
     @ManyToOne
     private Program program;
     
-    private LocalDate date;
+    private LocalDate contractDate;
 
     public Contract() {
 
@@ -109,12 +109,12 @@ public class Contract implements Serializable {
         this.program = program;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getContractDate() {
+        return contractDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setContractDate(LocalDate contractDate) {
+        this.contractDate = contractDate;
     }
     
     @Override
