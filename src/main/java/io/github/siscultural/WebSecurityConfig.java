@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
@@ -32,28 +33,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         
         http
             .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/img/**")
+                .antMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/font-awesome/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .requestCache()
+                .and()
             .formLogin()
                 .loginPage("/login")
-                .successHandler(successHandler())
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
             .logout()   
                 .permitAll()
+                .and()
+            .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .invalidSessionUrl("/login")
+                .sessionFixation().migrateSession()
+                .maximumSessions(1)
                 .and();
-        
     }
     
-    @Bean
-    public AuthenticationSuccessHandler successHandler() {
-        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
-        handler.setUseReferer(true);
-        return handler;
-    }
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth
