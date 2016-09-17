@@ -16,6 +16,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -26,10 +29,23 @@ public class Presentation implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @NotNull
     private Long id;
+
+    @Size(min = 1, max = 150, message = "Não pode ser nulo. Valor máximo - 150 caracteres")
+    @NotNull(message = "Insira o nome da apresentação")
     private String name;
-    private String groupOrArtist; 
+
+    @Size(min = 1, max = 150, message = "Não pode ser nulo. Valor máximo - 150 caracteres")
+    @NotNull(message = "Insira o nome do grupo ou artista responsável pela apresentação")
+    private String groupOrArtist;
+
+    @Size(min = 1, max = 2000, message = "Não pode ser nulo. Valor máximo - 2000 caracteres")
+    @NotNull(message = "Insira o texto release apresentação")
     private String releaseText;
+
+    @Min(value = 1, message = "Informe o valor em minutos")
+    @NotNull(message = "Informe a duração da apresentação")
     private int duration; //in minutes - default 60min
     
     
@@ -48,11 +64,11 @@ public class Presentation implements Serializable {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -87,32 +103,22 @@ public class Presentation implements Serializable {
     public void setDuration(int duration) {
         this.duration = duration;
     }
-    
-    
+
 
     @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 83 * hash + new Long(id).hashCode();
-        return hash;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Presentation)) return false;
+
+        Presentation that = (Presentation) o;
+
+        if (duration != that.duration) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (!name.equals(that.name)) return false;
+        if (!groupOrArtist.equals(that.groupOrArtist)) return false;
+        return releaseText.equals(that.releaseText);
+
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Presentation other = (Presentation) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
-    }
-    
+
 }

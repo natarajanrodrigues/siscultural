@@ -47,4 +47,11 @@ public class SimpleGetPagesController {
     }
 
 
+    @GetMapping("/menu_atividades")
+    public ModelAndView menu_atividades() {
+
+        return new ModelAndView("menu_atividades");
+    }
+
+
 }
