@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
+    <head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>SisCultural - Home</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>SisCultural - Home</title>
 
-    <!-- Bootstrap -->
+        <!-- Bootstrap -->
 
-    <link href="../css/bootstrap-theme.min.css" rel="stylesheet"/>
-    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"/>
-    <link rel="stylesheet" href="../css/style.css" type="text/css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"/>
+        <link href="../css/bootstrap-theme.min.css" rel="stylesheet"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="../css/style.css" type="text/css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet"/>
 
-</head>
+    </head>
 
     <body class="home-body">
 
@@ -32,14 +32,15 @@
                                 </div>
                                 <div class="header-siscultural-info">
                                     <h4>SisCultural</h4>
-                                    <!--<p>Autenticado como: <span th:text="${session.functionary.userType}"></span></p>-->
+                                    <!--<p>Autenticado como: <span th:text="${/current}"></span></p>-->
                                 </div>
                             </div>
 
                             <div class="col-md-6 pull-right container-header-user-info">
                                 <div class="header-user-info text-right">
-                                    <!--<h4 th:text="${session.functionary.name}"></h4>-->
-                                    <a href="/logout" title="Sair">Sair</a>
+                                    <form id="logout-form" th:action="@{/logout}" method="post">
+                                        <!--<a href="javascript:{}" title="Sair" onclick="document.getElementById('logout-form').submit()">Sair</a>-->
+                                    </form>
                                 </div>
                             </div>
 
