@@ -11,10 +11,14 @@ $('.table-selectable > tbody > tr').click(function() {
 
     if(($(".table-selectable > tbody > tr.active").length)){
         $("#btn-editar").removeClass("disabled");
+        $("#btn-editar").prop('disabled', false);
         $("#btn-deletar").removeClass("disabled");
+        $("#btn-deletar").prop('disabled', false);
     }else{
         $("#btn-editar").addClass("disabled");
+        $("#btn-editar").prop('disabled', true);
         $("#btn-deletar").addClass("disabled");
+        $("#btn-deletar").prop('disabled', true);
     }
 
 });

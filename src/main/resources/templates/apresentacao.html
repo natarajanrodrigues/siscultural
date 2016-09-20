@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Apresentações</title>
+
+    <!-- Bootstrap -->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+</head>
+
+    <body class="home-body">
+
+        <div class="modal fade" id="deletar_modal">
+            <div class="modal-dialog modal-lm">
+                <div class="modal-content">
+                    <form id="delete_modal" method="post">
+                        <div class="modal-header align-center">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">Confirmar Exclusão</h3>
+                        </div>
+
+                        <div class="modal-body align-center">
+                            <div class="row">
+                                <div class="col-sm-12 align-center">
+                                    <h4>Tem certeza que deseja excluir " <span name="descricao" id="nome_delet"></span> " do
+                                        sistema ?</h4>
+                                    <p>Esta operação é irreversível.</p>
+                                    <input type="text" class="hidden" id="id_delet" name="id"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" for="deletar" id="confirmar_exclusao" class="btn btn-success"><span
+                                    class="glyphicon glyphicon-ok"></span> Confirmar
+                            </button>
+                            <button class="btn btn-danger float-left" data-dismiss="modal"><span
+                                    class="glyphicon glyphicon-ban-circle"></span> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div th:include="menu_header :: operationmodals"></div>
+
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <a href="apresentacao_add"><button class="btn btn-info glyphicon glyphicon-plus" ></button></a>
+                    <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>
+                    <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
+
+                    <form class="form-inline float-right col-xs-8 no-margin-right">
+                        <div class="form-group col-xs-12 no-margin-right">
+                            <div class="input-group col-xs-12 float-right">
+                                <input type="text" id="filter" class="form-control" placeholder="..."/>
+                                <span class="btn input-group-addon glyphicon glyphicon-search"></span>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <table class="table table-bordered table-hover table-selectable">
+                    <thead>
+                    <tr class="alert-info text-align-center">
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Grupo</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="searchable" id="materiaisTable">
+
+                    <tr th:each="presentation : ${presentations}">
+                        <th th:text="${presentation.id}"></th>
+                        <th th:text="${presentation.name}"></th>
+                        <th th:text="${presentation.groupOrArtist}"></th>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+
+
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/tableselection.js"></script>
+        <script src="https://use.fontawesome.com/42680f3b68.js"></script>
+
+        <script type="text/javascript">
+            function show_success() {
+                $('#sucessModal').modal({
+                    show: 'true'
+                });
+            }
+
+            function show_error(textError) {
+                $('p#error-body').html(textError);
+                $('#errorModal').modal({
+                    show: 'true'
+                });
+            }
+
+
+            $('#confirmOkButton').click(function (e) {
+                $(location).attr('href', 'programa');
+            });
+
+
+            $('#btn-editar').click(function (e) {
+                var id = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
+                var nome = $('.table-selectable > tbody > tr.active').find('th:nth-child(2)').text();
+
+                $("#edit-id").val(id);
+                $("#edit-name").val(nome);
+
+                $(location).attr('href', '/apresentacao_edit?id=' + id);
+
+            });
+
+            $('#btn-deletar').click(function (e) {
+                var id = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
+                var nome = $('.table-selectable > tbody > tr.active').find('th:nth-child(2)').text();
+
+                $("#id_delet").val(id);
+                $("#nome_delet").html(nome);
+
+                $('#deletar_modal').modal({
+                    show: 'true'
+                });
+            });
+
+            $('#confirmar_exclusao').click(function (e) {
+                e.preventDefault();
+                $.post('/apresentacao/delete', $('#delete_modal').serialize(), function (response) {
+                    var erro = response.erro;
+                    $('#deletar_modal').modal('hide');
+
+                    if (erro !== undefined) {
+                        show_error(erro);
+                    } else {
+                        show_success(response.resultado);
+                        $("#confirmOkButton").click(function () {
+                            $(location).attr('href', 'apresentacao');
+                        });
+
+                    }
+                });
+            });
+
+        </script>
+
+    </body>
+
+</html>
