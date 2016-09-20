@@ -25,6 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
     
+    @Autowired
+    private FunctionaryDetailsService functionaryDetailsService;
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         
@@ -55,11 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth
-		.jdbcAuthentication()
-			.dataSource(dataSource)
-			.usersByUsernameQuery("select email,password, true from Functionary where email=?")
-			.authoritiesByUsernameQuery("select email, usertype from Functionary where email=?");
+        auth.userDetailsService(functionaryDetailsService);
     }
     
 }
