@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
 @Configuration
+@EnableWebMvc
 @Controller
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
@@ -28,6 +30,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
         registry.addViewController("/").setViewName("main_menu");
         registry.addViewController("/home").setViewName("main_menu");
+        registry.addViewController("/menu_atividades").setViewName("menu_atividades");
 
     }
 
