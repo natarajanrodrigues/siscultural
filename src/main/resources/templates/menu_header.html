@@ -32,26 +32,15 @@
                                 </div>
                                 <div class="header-siscultural-info">
                                     <h4>SisCultural</h4>
-                                    <!--<p>Autenticado como: <span th:text="${/current}"></span></p>-->
-                                    <span>ola</span>
-<!--                                    <span th:text ="${#user}"></span>
-                                    <span th:text ="${user}"></span>-->
-                                    <span th:text ="${#authentication.getPrincipal()}"></span>
-                                    <span>ola222</span>
-                                    <span th:text ="${#authentication.getPrincipal().name}"></span>
-                                    <span th:text ="${#authentication.getPrincipal().email}"></span>
-                                    <span th:text ="${#authentication.getPrincipal().userType}"></span>
-                                    <!--<span sec:authentication="name">Username</span>-->
-                                    <!--<span sec:authentication="email">Username</span>-->
-                                    <!--<span sec:authentication="userType">userType</span>-->
-                                    <!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
+                                    <p>Autenticado como <span th:text ="${#authentication.getPrincipal().userType}"></span></p>
                                 </div>
                             </div>
 
                             <div class="col-md-6 pull-right container-header-user-info">
                                 <div class="header-user-info text-right">
                                     <form id="logout-form" th:action="@{/logout}" method="post">
-                                        <!--<a href="javascript:{}" title="Sair" onclick="document.getElementById('logout-form').submit()">Sair</a>-->
+                                        <h4 th:text ="${#authentication.getPrincipal().name}"></h4>
+                                        <a href="javascript:{}" title="Sair" onclick="document.getElementById('logout-form').submit()">Sair</a>
                                     </form>
                                 </div>
                             </div>
