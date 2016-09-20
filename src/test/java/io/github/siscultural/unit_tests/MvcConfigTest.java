@@ -19,12 +19,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  *
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+@EnableWebMvc
 @WebAppConfiguration
 @DirtiesContext
 @ContextConfiguration(classes = MvcConfig.class)
