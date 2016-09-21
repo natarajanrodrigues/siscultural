@@ -36,7 +36,7 @@
                                     <h4>Tem certeza que deseja excluir " <span name="descricao" id="nome_delet"></span> " do
                                         sistema ?</h4>
                                     <p>Esta operação é irreversível.</p>
-                                    <input type="text" class="hidden" id="id_delet" name="id"/>
+                                    <input type="text" id="id_delet" name="id"/>
                                 </div>
                             </div>
                         </div>
@@ -159,6 +159,7 @@
             $('#confirmar_exclusao').click(function (e) {
                 e.preventDefault();
                 $.post('/apresentacao/delete', $('#delete_modal').serialize(), function (response) {
+                    
                     var erro = response.erro;
                     $('#deletar_modal').modal('hide');
 

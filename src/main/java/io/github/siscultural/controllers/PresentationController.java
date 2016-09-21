@@ -129,7 +129,8 @@ public class PresentationController {
 
         Map<String, String> map = new HashMap<>();
         map.clear();
-
+        System.out.println("entrei...");
+        System.out.println(id);
         Presentation presentation = presentationService.findById(Long.parseLong(id));
 
         return JsonView.returnJsonFromMap(presentationService.delete(presentation));
