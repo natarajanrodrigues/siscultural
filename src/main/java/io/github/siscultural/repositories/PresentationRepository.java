@@ -17,12 +17,5 @@ import java.util.List;
 public interface PresentationRepository extends JpaRepository<Presentation, Long>{
     
     public Presentation findById(long id);
-
-    public List<Presentation> findAll();
-
-//    public Presentation updateExists(Presentation presentation);
-
-    public Presentation save(Presentation presentation);
-
-    public void delete(Presentation presentation);
+    
 }

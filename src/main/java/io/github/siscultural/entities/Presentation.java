@@ -29,7 +29,6 @@ public class Presentation implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @NotNull
     private Long id;
 
     @Size(min = 1, max = 150, message = "Não pode ser nulo. Valor máximo - 150 caracteres")
@@ -120,5 +119,9 @@ public class Presentation implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "Presentation{" + "name=" + name + ", groupOrArtist=" + groupOrArtist + ", releaseText=" + releaseText + ", duration=" + duration + '}';
+    }
 
 }
