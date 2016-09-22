@@ -15,17 +15,15 @@ import javax.persistence.Entity;
 public class CompanyProvider extends Provider{
     
     private String  cnpj;
-    private String  companyName; //Razão Social
     private String  tradingName; // Nome fantasia
 
     public CompanyProvider() {
     }
 
-    public CompanyProvider(String cnpj, String companyName, String tradingName, String name, String address, String city, String state, Phone phone) {
+    public CompanyProvider(String cnpj, String tradingName, String name, String address, String city, String state, Phone phone) {
     
         super(name, address, city, state, phone);
         this.cnpj = cnpj;
-        this.companyName = companyName;
         this.tradingName = tradingName;
     }
 
@@ -37,20 +35,17 @@ public class CompanyProvider extends Provider{
         this.cnpj = cnpj;
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
     public String getTradingName() {
         return tradingName;
     }
 
     public void setTradingName(String tradingName) {
         this.tradingName = tradingName;
+    }
+
+    @Override
+    public String toString() {
+        return "CompanyProvider{" + "cnpj=" + cnpj + ", tradingName=" + tradingName + '}';
     }
     
 }
