@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Programas</title>
+
+    <!-- CSS's-->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+</head>
+
+    <body class="home-body">
+
+        <!--modal add realização-->
+        <div class="modal fade" id="modal_add_realizacao">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Adicionar Realização</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class='container-fluid'>
+
+                            <form method="post" role="form" class="form-horizontal" id="cadastro-realizacao" th:action="@{/realizacao/add}" >
+                                <div class="form-group">
+                                    <label for="locality" class="control-label">Local</label>
+
+                                    <select name="locality" class="form-control" id="locality">
+                                        <!--<select name="locality" class="form-control" id="locality" th:field="*{locality}">-->
+                                        <option th:each="local : ${localities}" th:value="${local.id}" th:text="${local.description}" ></option>
+                                    </select>
+                                    <!--<p th:if="${#fields.hasErrors('locality')}" th:errors="*{locality}" class="help-block"></p>-->
+                                </div>
+                                <div class="form-group">
+                                    <label for="locality" class="control-label">Data e Hora</label>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class='col-md-3'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker2'>
+                                                        <input type='text' class="form-control" name="dateTime"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
+                                <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
+                        <!--</button>-->
+                        <button type="submit" th:form="cadastro-realizacao" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--fim modal add realização-->
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container"  style="margin-bottom: 50px">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class='container-fluid'>
+
+                        <form th:action="@{/contrato_add}" th:object="${contract}" id="form_cada_user" method="post">
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="name" class="control-label">Nome</label>-->
+
+                                <!--<input type="text" class="form-control" id="name" name="name"-->
+                                       <!--placeholder="Nome completo..." autofocus="true" th:field="*{name}"  />-->
+                                <!--<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help-block"></p>-->
+
+                            <!--</div>-->
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="groupOrArtist" class="control-label">Grupo / Artista</label>-->
+                                <!--<input type="text" class="form-control" id="groupOrArtist" name="groupOrArtist"-->
+                                       <!--placeholder="Grupo ou Artista"  th:field="*{groupOrArtist}"  />-->
+                                <!--<p th:if="${#fields.hasErrors('groupOrArtist')}" th:errors="*{groupOrArtist}" class="help-block"></p>-->
+                            <!--</div>-->
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="releaseText" class="control-label">Release</label>-->
+                                <!--<textarea type="text" id="releaseText" class="form-control" name="releaseText"-->
+                                              <!--placeholder="Informe aqui o texto release da apresentação" rows="6" th:field="*{releaseText}" />-->
+                                <!--<p th:if="${#fields.hasErrors('releaseText')}" th:errors="*{releaseText}" class="help-block"></p>-->
+                            <!--</div>-->
+                            <!--<div class="form-group col-md-3">-->
+                                <!--&lt;!&ndash;<label for="duration" class="control-label">Duração em minutos</label>&ndash;&gt;-->
+                                <!--<label for="duration" class="control-label">Duração em minutos</label>-->
+
+                                <!--<input type="number" class="form-control" id="duration" name="duration"-->
+                                       <!--placeholder="Duração em minutos"  th:field="*{duration}" />-->
+                                <!--<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="help-block"></p>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label for="program" class="control-label">Apresentação</label>
+
+                                <select name="presentation" class="form-control" id="presentation" th:field="*{presentation}">
+                                    <option th:each="pres : ${presentations}" th:value="${pres.id}" th:text="${pres.name}" ></option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('presentation')}" th:errors="*{presentation}" class="help-block"></p>
+
+                            </div>
+
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="program" class="control-label">Cidade</label>-->
+                                <!--<input type="text" class="form-control" id="program" name="program"-->
+                                       <!--placeholder="Cidade"  th:field="*{program.name}"  />-->
+                                <!--<p th:if="${#fields.hasErrors('program')}" th:errors="*{program}" class="help-block"></p>-->
+                            <!--</div>-->
+
+                            <div class="form-group">
+
+                                <label for="program" class="control-label">Programa</label>
+
+                                <select name="program" class="form-control" id="program" th:field="*{program}">
+                                    <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}" ></option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('program')}" th:errors="*{program}" class="help-block"></p>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                <div class="panel-body">
+                                    Realizações
+                                    <button class="btn btn-xs btn-success glyphicon glyphicon-plus pull-right" data-toggle="modal"
+                                            data-target="#modal_add_realizacao"></button>
+                                </div>
+
+                            </div>
+                            <!--<div class="panel-body">-->
+
+                                <!--<button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal"-->
+                                        <!--data-target="#modal_add_realizacao"></button>-->
+                                <!--<button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>-->
+                                <!--<button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>-->
+
+                                <!--<form class="form-inline float-right col-xs-8 no-margin-right">-->
+                                    <!--<div class="form-group col-xs-12 no-margin-right">-->
+                                        <!--<div class="input-group col-xs-12 float-right">-->
+                                            <!--<input type="text" id="filter" class="form-control" placeholder="..."/>-->
+                                            <!--<span class="btn input-group-addon glyphicon glyphicon-search"></span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</form>-->
+
+                            <!--</div>-->
+                            <table class="table table-bordered table-hover table-selectable">
+                                <thead>
+                                <tr class="alert-info text-align-center">
+                                    <th>Local</th>
+                                    <th class="text-center">Data e Hora</th>
+                                    <th class="text-center">Ações</th>
+                                </tr>
+                                </thead>
+
+                                <tbody class="searchable" id="materiaisTable">
+
+                                <tr th:each="accompl : ${accomplishments}">
+                                    <th th:text="${accompl.locality.description}"></th>
+                                    <th th:text="${accompl.dateTime}" class="text-center"></th>
+                                    <th class="text-center">
+                                        <button id="btn-editar" class="btn btn-xs btn-warning glyphicon glyphicon-pencil"></button>
+                                        <a th:href="@{/realizacao/delete(id=${accompl.id})}" ><button id="btn-deletar" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></a>
+                                    </th>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="panel-footer container-fluid">
+
+                    <span class="pull-right ">
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
+                                <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>-->
+                            <!--Cancelar-->
+                        <!--</button>-->
+                        <button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_cada_user">Salvar</button>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+
+
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/moment.js"></script>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-datetimepicker.min.js"></script>
+        <script src="js/locale/pt-br.js"></script>
+
+        <script src="js/tableselection.js"></script>
+        <script src="https://use.fontawesome.com/42680f3b68.js"></script>
+        <script type="text/javascript">
+            $(function () {
+
+                $('#datetimepicker2').datetimepicker({
+                    locale: 'pt-br'
+                });
+            });
+        </script>
+
+
+    </body>
+
+</html>

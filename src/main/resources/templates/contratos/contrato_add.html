@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Programas</title>
+
+    <!-- Bootstrap -->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+</head>
+
+    <body class="home-body">
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container"  style="margin-bottom: 50px">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class='container-fluid'>
+
+                        <form th:action="@{/contrato_add}" th:object="${contract}" id="form_cada_user" method="post">
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="name" class="control-label">Nome</label>-->
+
+                                <!--<input type="text" class="form-control" id="name" name="name"-->
+                                       <!--placeholder="Nome completo..." autofocus="true" th:field="*{name}"  />-->
+                                <!--<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help-block"></p>-->
+
+                            <!--</div>-->
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="groupOrArtist" class="control-label">Grupo / Artista</label>-->
+                                <!--<input type="text" class="form-control" id="groupOrArtist" name="groupOrArtist"-->
+                                       <!--placeholder="Grupo ou Artista"  th:field="*{groupOrArtist}"  />-->
+                                <!--<p th:if="${#fields.hasErrors('groupOrArtist')}" th:errors="*{groupOrArtist}" class="help-block"></p>-->
+                            <!--</div>-->
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="releaseText" class="control-label">Release</label>-->
+                                <!--<textarea type="text" id="releaseText" class="form-control" name="releaseText"-->
+                                              <!--placeholder="Informe aqui o texto release da apresentação" rows="6" th:field="*{releaseText}" />-->
+                                <!--<p th:if="${#fields.hasErrors('releaseText')}" th:errors="*{releaseText}" class="help-block"></p>-->
+                            <!--</div>-->
+                            <!--<div class="form-group col-md-3">-->
+                                <!--&lt;!&ndash;<label for="duration" class="control-label">Duração em minutos</label>&ndash;&gt;-->
+                                <!--<label for="duration" class="control-label">Duração em minutos</label>-->
+
+                                <!--<input type="number" class="form-control" id="duration" name="duration"-->
+                                       <!--placeholder="Duração em minutos"  th:field="*{duration}" />-->
+                                <!--<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="help-block"></p>-->
+                            <!--</div>-->
+                            <div class="form-group col-md-12">
+                                <label for="program" class="control-label">Apresentação</label>
+
+                                <select name="presentation" class="form-control" id="presentation" th:field="*{presentation}">
+                                    <option th:each="pres : ${presentations}" th:value="${pres.id}" th:text="${pres.name}" ></option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('presentation')}" th:errors="*{presentation}" class="help-block"></p>
+
+                            </div>
+                            <!--<p th:text="${presentation}"/>-->
+
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="program" class="control-label">Cidade</label>-->
+                                <!--<input type="text" class="form-control" id="program" name="program"-->
+                                       <!--placeholder="Cidade"  th:field="*{program.name}"  />-->
+                                <!--<p th:if="${#fields.hasErrors('program')}" th:errors="*{program}" class="help-block"></p>-->
+                            <!--</div>-->
+
+                            <div class="form-group col-md-8">
+                                <label for="program" class="control-label">Programa</label>
+
+                                <select name="program" class="form-control" id="program" th:field="*{program}">
+                                    <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}" ></option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('program')}" th:errors="*{program}" class="help-block"></p>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="panel-footer container-fluid">
+
+                    <span class="pull-right ">
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
+                                <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>-->
+                            <!--Cancelar-->
+                        <!--</button>-->
+                        <button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_cada_user">Salvar</button>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+
+
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/tableselection.js"></script>
+        <script src="https://use.fontawesome.com/42680f3b68.js"></script>
+
+
+    </body>
+
+</html>

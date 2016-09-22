@@ -111,35 +111,6 @@ public class PresentationController {
     }
 
 
-//    @RequestMapping(value = "/programa/edit", method = RequestMethod.POST)
-//    @ResponseBody
-//    public ModelAndView editUsuario(@ModelAttribute("id") String id, @ModelAttribute("name") String name) {
-//
-//        Map<String, String> map = new HashMap<>();
-//
-//        Program program = programRepository.findById(Long.parseLong(id));
-//
-//        if (program != null) {
-//
-//            program.setName(name);
-//
-//            program = programRepository.save(program);
-//
-//            if (program != null) {
-//                map.put("error", ErrorMessages.ERROR_OPERATION.toString());
-//            } else {
-//                map.put("resultado", "Operação realizada com sucesso.");
-//            }
-//
-//        } else {
-//            map.put("error", "Programa não encontrado.");
-//        }
-//
-//
-//        return JsonView.returnJsonFromMap(map);
-//
-//    }
-//
     @PostMapping(value = "/apresentacao/delete")
     @ResponseBody
     public ModelAndView deteleOrcamento(@RequestParam("id") String id) {
