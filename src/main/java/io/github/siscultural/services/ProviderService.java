@@ -7,8 +7,9 @@ package io.github.siscultural.services;
 
 import io.github.siscultural.entities.CompanyProvider;
 import io.github.siscultural.entities.IndividualProvider;
-import io.github.siscultural.repositories.CompanyProviderRepository;
-import io.github.siscultural.repositories.IndividualProviderRepository;
+import io.github.siscultural.entities.Provider;
+import io.github.siscultural.repositories.ProviderRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,19 +24,29 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProviderService {
 
     @Autowired
-    private IndividualProviderRepository ipRepository;
-
-    @Autowired
-    private CompanyProviderRepository cpRepository;
+    private ProviderRepository providerRepository;
 
     public List<IndividualProvider> findAllIndividualProvider() {
 
-        return ipRepository.findAll();
+        List<IndividualProvider> result = new ArrayList<>();
+
+        providerRepository.findByType("IndividualProvider").forEach(provider -> result.add((IndividualProvider) provider));
+
+        return result;
     }
 
     public List<CompanyProvider> findAllCompanyProvider() {
 
-        return cpRepository.findAll();
+        List<CompanyProvider> result = new ArrayList<>();
+
+        providerRepository.findByType("CompanyProvider").forEach(provider -> result.add((CompanyProvider) provider));
+
+        return result;
     }
-    
+
+    public void save(Provider provider) {
+
+        providerRepository.save(provider);
+    }
+
 }
