@@ -173,10 +173,7 @@ public class ContractController {
 
 
         ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
-//        modelAndView.addObject("programs", programRepository.findAll());
-//        modelAndView.addObject("presentations", presentationRepository.findAll());
-//        modelAndView.addObject("localities", localityService.findAll());
-        modelAndView.addObject("contract", contract);
+//        modelAndView.addObject("contract", contract);
 
         return modelAndView;
     }
