@@ -23,13 +23,39 @@ $('.table-selectable > tbody > tr').click(function() {
 
 });
 
-$('.table-selectable > tbody > tr').dblclick(function() {
+$('.table-selectable > tbody > tr').dblclick(function(event) {
 
-    if(!($(".table-selectable > tbody > tr.active").length)){
-        $('.table-selectable > tbody > tr').click();
-    }
+    var target = $( event.target );
+    //
+    // if(($(".table-selectable > tbody > tr.active").length)){
+    //     $(".table-selectable > tbody > tr.active").attr( "disabled", "disabled");
+    // }
 
+    target.click();
     $("#btn-editar").click();
+
+
+
+    // if ($(".table-selectable > tbody > tr.active") != target) {
+    //     $(".table-selectable > tbody > tr.active").click();
+    //     target.click();
+    // }
+
+
+
+    // if(!($(".table-selectable > tbody > tr.active").length)){
+    //
+    //
+    //
+    //     $('.table-selectable > tbody > tr.active').click();
+    //     // $('.table-selectable > tbody > tr').click();
+    //     clicked.click();
+    // } else {
+    //     $("#btn-editar").click();
+    //     clicked.click();
+    // }
+
+
 
 });
 

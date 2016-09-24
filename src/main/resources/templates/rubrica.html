@@ -25,48 +25,48 @@
     <body class="home-body">
         <!-- modal add rubrica-->
         <div class="modal fade" id="cadastrar_modal">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header align-center">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title">Cadastrar Rubrica</h3>
-                </div>
-
-                <div class="modal-body">
-                    <div class='container-fluid'>
-                        <form method="post" role="form" class="form-horizontal" id="cadastro-rubrica" th:action="@{/rubrica/add}">
-                            <div class="form-group">
-                                <label for="descricao" class="control-label col-sm-2">Nome</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da rubrica..." maxlength="150" autofocus="true" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="descricao" class="control-label col-sm-2">Descrição</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição da rubrica." maxlength="150" autofocus="true" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <label for="programa" class="control-label col-sm-2">Programa</label>
-                                <div class="col-sm-10">
-                                    <select name="programa" class="form-control" id="programa">
-                                        <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}"></option>
-                                    </select>
-                                </div>
-
-                            </div>
-                        </form>
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Cadastrar Rubrica</h3>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" th:form="cadastro-rubrica" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
-                    <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
+
+                    <div class="modal-body">
+                        <div class='container-fluid'>
+                            <form method="post" role="form" class="form-horizontal" id="cadastro-rubrica" th:action="@{/rubrica/add}">
+                                <div class="form-group">
+                                    <label for="descricao" class="control-label col-sm-2">Nome</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da rubrica..." maxlength="150" autofocus="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descricao" class="control-label col-sm-2">Descrição</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição da rubrica." maxlength="150" autofocus="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="programa" class="control-label col-sm-2">Programa</label>
+                                    <div class="col-sm-10">
+                                        <select name="programa" class="form-control" id="programa">
+                                            <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}"></option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" th:form="cadastro-rubrica" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <!-- fim modal add rubrica-->
 
         <!-- modal editar rubrica-->
@@ -221,6 +221,11 @@
                 var descricao = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
                 var programa = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
                 var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(4)').text();
+
+
+//                alert(programa);
+
+                $("#programa-edit option").attr('selected', false);
 
                 //set select
                 $("#programa-edit option").filter(function() {
