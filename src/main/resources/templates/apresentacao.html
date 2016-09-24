@@ -159,6 +159,7 @@
             $('#confirmar_exclusao').click(function (e) {
                 e.preventDefault();
                 $.post('/apresentacao/delete', $('#delete_modal').serialize(), function (response) {
+                    
                     var erro = response.erro;
                     $('#deletar_modal').modal('hide');
 

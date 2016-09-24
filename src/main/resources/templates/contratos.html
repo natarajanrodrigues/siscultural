@@ -93,7 +93,7 @@
 
                     <tr th:each="contract : ${contracts}">
                         <th th:text="${contract.id}"></th>
-                        <th th:text="${contract.contractDate}"></th>
+                        <th th:text="${#temporals.format(contract.contractDate, 'dd/MM/yyyy')}"></th>
                         <th th:text="${contract.presentation.name}"></th>
                         <th th:text="${contract.program.name}"></th>
                     </tr>

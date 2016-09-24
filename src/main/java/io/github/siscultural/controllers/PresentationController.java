@@ -6,25 +6,18 @@
 package io.github.siscultural.controllers;
 
 import io.github.siscultural.entities.Presentation;
-import io.github.siscultural.entities.Program;
-import io.github.siscultural.enums.ErrorMessages;
-import io.github.siscultural.repositories.ProgramRepository;
 import io.github.siscultural.services.PresentationService;
 import io.github.siscultural.utils.JsonView;
-import io.github.siscultural.validator.PresentationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +46,7 @@ public class PresentationController {
 
     }
 
-    @RequestMapping(value = "/apresentacao_add", method=RequestMethod.GET)
+    @RequestMapping(value = "/apresentacao_add", method = RequestMethod.GET)
     public ModelAndView apresentacaoAdd(Presentation presentation) {
         ModelAndView modelAndView = new ModelAndView("presentations/apresentacao_add");
         modelAndView.addObject("presentation", presentation);
@@ -61,9 +54,9 @@ public class PresentationController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/apresentacao_add", method=RequestMethod.POST)
-    public ModelAndView cadastrarNovoTopico(@Validated @ModelAttribute ("presentation") Presentation presentation, BindingResult result,
-                                            RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
+    @RequestMapping(value = "/apresentacao_add", method = RequestMethod.POST)
+    public ModelAndView cadastrarNovoTopico(@Validated @ModelAttribute("presentation") Presentation presentation, BindingResult result,
+            RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
 
         String name = presentation.getName();
         String groupOrArtist = presentation.getGroupOrArtist();
@@ -80,29 +73,20 @@ public class PresentationController {
         if (result.hasErrors()) {
 
 //            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult." + presentation, );
-
             return new ModelAndView("presentations/apresentacao_add");
         } else {
 
-
             Presentation presetation = presentationService.save(presentation);
 
-            if (presentation != null) {
-
-//                modelAndView.getModel().put("succes", true);
-                sessionStatus.setComplete();
-                modelAndView = new ModelAndView("redirect:/apresentacao");
-//                modelAndView.addObject("id", topic.getId());
-
-            }
+            sessionStatus.setComplete();
+            modelAndView = new ModelAndView("redirect:/apresentacao");
 
         }
 
         return modelAndView;
     }
 
-
-    @RequestMapping(value = "/apresentacao_edit", method=RequestMethod.GET)
+    @RequestMapping(value = "/apresentacao_edit", method = RequestMethod.GET)
     public ModelAndView apresentacaoEdit(@RequestParam("id") String id) {
         Presentation presentation = presentationService.findById(Long.parseLong(id));
         ModelAndView modelAndView = new ModelAndView("presentations/apresentacao_add");
@@ -117,12 +101,12 @@ public class PresentationController {
 
         Map<String, String> map = new HashMap<>();
         map.clear();
-
+        System.out.println("entrei...");
+        System.out.println(id);
         Presentation presentation = presentationService.findById(Long.parseLong(id));
 
         return JsonView.returnJsonFromMap(presentationService.delete(presentation));
 
     }
-
 
 }

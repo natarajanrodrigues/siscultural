@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by susanneferraz on 16/09/16.
  */
 @Service
+@Transactional
 public class PresentationService {
 
     @Autowired

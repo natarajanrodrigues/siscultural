@@ -80,6 +80,93 @@
         </div>
         <!--fim modal add realização-->
 
+        <!--modal edit realização-->
+        <div class="modal fade" id="modal_edit_realizacao">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Editar Realização</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class='container-fluid'>
+
+                            <form method="post" role="form" class="form-horizontal" id="editar-realizacao" th:action="@{/realizacao/edit}" >
+                                <input type="text" class="hidden" id="id-edit" name="id" />
+                                <div class="form-group">
+                                    <label for="locality-edit" class="control-label">Local</label>
+
+                                    <select name="locality" class="form-control" id="locality-edit">
+                                        <option th:each="local : ${localities}" th:value="${local.id}" th:text="${local.description}" ></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="locality" class="control-label">Data e Hora</label>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class='col-md-3'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker3'>
+                                                        <input type='text' class="form-control" name="dateTime" id="dateTime-edit"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" th:form="editar-realizacao" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--fim modal edit realização-->
+
+        <!--modal delete -->
+        <div class="modal fade" id="deletar_modal">
+            <div class="modal-dialog modal-lm">
+                <div class="modal-content">
+                    <form id="delete_modal" method="post">
+                        <div class="modal-header align-center">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">Confirmar Exclusão</h3>
+                        </div>
+
+                        <div class="modal-body align-center">
+                            <div class="row">
+                                <div class="col-sm-12 align-center">
+                                    <h4>Tem certeza que deseja excluir " <span name="descricao" id="nome_delet"></span> " do sistema ?</h4>
+                                    <p>Esta operação é irreversível.</p>
+                                    <input type="text" class="hidden" id="id_delet" name="id" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" for="deletar" id="confirmar_exclusao" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirmar</button>
+                            <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--fim modal delete -->
+
+        <!--modais para confirmação de tarefa-->
+        <div th:include="menu_header :: operationmodals"></div>
+
         <header th:include="menu_header :: header"></header>
 
         <div class="container"  style="margin-bottom: 50px">
@@ -149,12 +236,20 @@
                     </div>
 
                     <div class="container-fluid">
-                        <div class="panel panel-default">
+                        <div class="panel panel-info">
                             <div class="panel-heading clearfix">
                                 <div class="panel-body">
                                     Realizações
-                                    <button class="btn btn-xs btn-success glyphicon glyphicon-plus pull-right" data-toggle="modal"
-                                            data-target="#modal_add_realizacao"></button>
+                                    <div class="pull-right">
+                                        <button class="btn btn-xs btn-success glyphicon glyphicon-plus" data-toggle="modal"
+                                                data-target="#modal_add_realizacao"></button>
+                                        <button id="btn-editar" class="btn btn-xs btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true" data-toggle="modal"
+                                                data-target="#modal_edit_realizacao"></button>
+                                        <button id="btn-deletar" class="btn btn-xs  btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
+
+
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -180,19 +275,21 @@
                                 <tr class="alert-info text-align-center">
                                     <th>Local</th>
                                     <th class="text-center">Data e Hora</th>
-                                    <th class="text-center">Ações</th>
+                                    <!--<th class="text-center">Ações</th>-->
                                 </tr>
                                 </thead>
 
                                 <tbody class="searchable" id="materiaisTable">
 
                                 <tr th:each="accompl : ${accomplishments}">
-                                    <th th:text="${accompl.locality.description}"></th>
-                                    <th th:text="${accompl.dateTime}" class="text-center"></th>
-                                    <th class="text-center">
-                                        <button id="btn-editar" class="btn btn-xs btn-warning glyphicon glyphicon-pencil"></button>
-                                        <a th:href="@{/realizacao/delete(id=${accompl.id})}" ><button id="btn-deletar" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></a>
-                                    </th>
+
+                                    <td th:text="${accompl.locality.description}"></td>
+                                    <td th:text="${#temporals.format(accompl.dateTime, 'dd/MM/yyyy HH:mm')}" class="text-center"></td>
+                                    <td th:text="${accompl.id}" th:hidden="true"></td>
+                                    <!--<th class="text-center">-->
+                                        <!--<button id="btn-editar" class="btn btn-xs btn-warning glyphicon glyphicon-pencil"></button>-->
+                                        <!--<a th:href="@{/realizacao/delete(id=${accompl.id})}" ><button id="btn-deletar" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></a>-->
+                                    <!--</th>-->
                                 </tr>
 
                                 </tbody>
@@ -244,7 +341,80 @@
                 $('#datetimepicker2').datetimepicker({
                     locale: 'pt-br'
                 });
+
+                $('#datetimepicker3').datetimepicker({
+                    locale: 'pt-br'
+                });
             });
+
+            function show_success() {
+                $('#sucessModal').modal({
+                    show: 'true'
+                });
+            }
+
+            function show_error(textError) {
+                $('p#error-body').html(textError);
+                $('#errorModal').modal({
+                    show: 'true'
+                });
+            }
+
+            $('#btn-editar').click(function (e) {
+                var locality = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var dateTime = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+
+                //set select
+                $("#locality-edit option").filter(function() {
+                    return this.text == locality;
+                }).attr('selected', true);
+                //set id and dateTime
+                $("#id-edit").val(id);
+                $("#dateTime-edit").val(dateTime);
+
+
+                $('#editar_modal').modal({
+                    show: 'true'
+                });
+            });
+
+            $('#btn-deletar').click(function (e) {
+                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+
+                $("#id_delet").val(id);
+                $("#nome_delet").html(nome);
+
+                $('#deletar_modal').modal({
+                    show: 'true'
+                });
+            });
+
+            $('#confirmar_exclusao').click(function (e) {
+                e.preventDefault();
+                $.post('/realizacao/delete', $('#delete_modal').serialize(), function (response) {
+                    var erro = response.erro;
+                    $('#deletar_modal').modal('hide');
+//                    alert('oiii');
+                    if (erro !== undefined) {
+                        show_error(erro);
+                    } else {
+//                        alert("aq");
+                        show_success(response.resultado);
+
+                        $("#confirmOkButton").click(function () {
+//                            $(location).attr('href', 'orcamento');
+//                            var aa = response.page_contract;
+//                            alert(aa);
+//                            $(location).attr('href', response.page_contract);
+                            location.reload();
+                        });
+
+                    }
+                });
+            });
+
         </script>
 
 

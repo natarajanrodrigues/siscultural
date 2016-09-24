@@ -7,7 +7,7 @@
     <groupId>io.github.siscultural</groupId>
     <artifactId>siscultural</artifactId>
     <version>1.0</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>SisCultural</name>
     <description>Project for Centro Cultural Banco do Nordeste</description>
@@ -16,45 +16,16 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <java.version>1.8</java.version>
-        <jodatime-thymeleaf.version>1.3</jodatime-thymeleaf.version>
-        <thymeleaf-extras.version>2.1.2.RELEASE</thymeleaf-extras.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-exec</artifactId>
-            <version>1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>uk.co.gcwilliams</groupId>
-            <artifactId>jodatime-thymeleaf-dialect</artifactId>
-            <version>${jodatime-thymeleaf.version}</version>
-        </dependency>
-		
-        <!-- Thymeleaf extras for Spring Security (Thymeleaf Dialect)-->
-<!--        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <!--devtools to refresh pages-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -65,27 +36,40 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
         <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>2.5.2</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         
-<!--        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>        -->
-        
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-exec</artifactId>
+            <version>1.3</version>
         </dependency>
-        
+		
+        <!--devtools to refresh pages-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.2</version>
+        </dependency>
         <dependency>
             <groupId>br.com.caelum.stella</groupId>
             <artifactId>caelum-stella-core</artifactId>
@@ -149,11 +133,39 @@
             <artifactId>maven-jar-plugin</artifactId>
             <version>1.8.1</version>
         </dependency>
+
+        <!--LOG4J-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-java8time</artifactId>
+            <version>2.1.0.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
-    <build>
+<build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+<!--    <build>
         
-        <!--        <filters>
+                <filters>
             <filter>src/main/resources/application-test.properties</filter>
         </filters>
         <resources>
@@ -167,7 +179,7 @@
                 </excludes>
                 <filtering>true</filtering>
             </resource>
-        </resources>-->
+        </resources>
         
         <resources>
 
@@ -222,12 +234,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--                <configuration>
+                                <configuration>
                     <addResources>false</addResources>
-                </configuration>-->
+                </configuration>
             </plugin>
             
-            <!--class example copy-->
+            class example copy
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -253,14 +265,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
-                <!--<configuration>-->
-                    <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
-                <!--</configuration>-->
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
             </plugin>
             
             
-            <!--plugin duplicado-->
-            <!--            <plugin>
+            plugin duplicado
+                        <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.6</version>
@@ -284,14 +296,14 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
             
-            <!--end class example copy-->
+            end class example copy
             
         </plugins>
-    </build>
+    </build>-->
 
-    <profiles>
+<!--    <profiles>
         <profile>
             <id>dev</id>
             <properties>
@@ -311,14 +323,14 @@
             <properties>
                 <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
                 <exemplo.profiles.version>${project.version}-${maven.build.timestamp}-NIGHTLY</exemplo.profiles.version>
-                <!--<activatedProperties>test</activatedProperties>-->
+                <activatedProperties>test</activatedProperties>
             </properties>
             <build>
                 <finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}-NIGHTLY</finalName>
-                <!--                <filters>
+                                <filters>
                     <filter>src/main/resources/application-test.properties</filter>
-                </filters>-->
-                <!--                <resources>
+                </filters>
+                                <resources>
                     <resource>
                         <includes>
                             <include>Procfile</include>
@@ -329,9 +341,9 @@
                         </excludes>
                         <filtering>true</filtering>
                     </resource>
-                </resources>-->
+                </resources>
                 <plugins>
-                    <!-- Plugin para o webrunner embarcado do Heroku -->
+                     Plugin para o webrunner embarcado do Heroku 
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
@@ -401,6 +413,6 @@
             </distributionManagement>
         </profile>
         
-    </profiles>
+    </profiles>-->
     
 </project>

@@ -5,7 +5,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>SisCultural - Orçamentos</title>
+    <title>SisCultural - fornecedores</title>
 
     <!-- Bootstrap -->
 
@@ -155,11 +155,15 @@
 
                     <tbody class="searchable" id="materiaisTable">
 
-                        <tr th:each="provider : ${providers}" >
-                            <th th:text="${provider.name}"></th>
-                            <th th:text="${provider.cpf}"></th>
-                            <th th:text="${provider.cnpj}"></th>
-                            <th class="hidden" th:text="${provider.id}"></th>
+                        <tr th:each="cp : ${cps}" >
+                            <th th:text="${cp.cnpj}"></th>
+                            <th th:text="'Nome: ' + ${cp.name} + ' / Nome Fantasia: ' + ${cp.tradingName}"></th>
+                            <th class="hidden" th:text="${cp.id}"></th>
+                        </tr>
+                        <tr th:each="ip : ${ips}" >
+                            <th th:text="${ip.cpf}"></th>
+                            <th th:text="${ip.name}"></th>
+                            <th class="hidden" th:text="${ip.id}"></th>
                         </tr>
 
                     </tbody>

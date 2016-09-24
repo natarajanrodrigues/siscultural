@@ -19,6 +19,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -74,11 +77,9 @@ public class UsuarioController {
 
         Map<String, String> map = new HashMap<>();
 
-
         Functionary functionary = functionaryRepository.findByEmail(email);
 
         if (functionary != null) {
-
 
             functionary.setName(name);
             functionary.setEmail(email);
@@ -96,7 +97,6 @@ public class UsuarioController {
             map.put("error", "Usuário não encontrado.");
         }
 
-
         return JsonView.returnJsonFromMap(map);
 
     }
@@ -109,7 +109,6 @@ public class UsuarioController {
         map.clear();
 
         Functionary functionary = functionaryRepository.findById(Long.parseLong(id));
-
 
         if (functionary != null) {
 
@@ -128,9 +127,21 @@ public class UsuarioController {
 
         return JsonView.returnJsonFromMap(map);
 
-
     }
 
+    @GetMapping("/current")
+    public String currentUserNameSimple() {
 
+        String result = "";
+
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            result = authentication.getName();
+        } catch (NullPointerException ex) {
+            System.out.println("Deu null no nome");
+        }
+
+        return result;
+    }
 
 }

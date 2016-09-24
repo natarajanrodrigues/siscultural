@@ -6,6 +6,9 @@
 package io.github.siscultural.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Classe que representa fornecedores do tipo Pessoa Física
@@ -14,6 +17,9 @@ import javax.persistence.Entity;
 @Entity
 public class IndividualProvider extends Provider{
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
     private String cpf;
     private String nisNit;
 

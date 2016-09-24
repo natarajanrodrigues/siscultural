@@ -9,6 +9,7 @@ import io.github.siscultural.entities.Accomplishment;
 import io.github.siscultural.entities.Contract;
 import io.github.siscultural.entities.Locality;
 import io.github.siscultural.entities.Presentation;
+import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.repositories.AccomplishmentRepository;
 import io.github.siscultural.repositories.PresentationRepository;
 import io.github.siscultural.repositories.ProgramRepository;
@@ -16,6 +17,7 @@ import io.github.siscultural.services.ContractService;
 import io.github.siscultural.services.LocalityService;
 import io.github.siscultural.services.PresentationService;
 import io.github.siscultural.utils.JsonView;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -159,7 +161,7 @@ public class ContractController {
 
 
     @RequestMapping(value = "/realizacao/add", method=RequestMethod.POST)
-    public ModelAndView contratoEdit(@ModelAttribute ("contract") Contract contract, @RequestParam("locality") String locality, @RequestParam("dateTime") String dateTime) {
+    public ModelAndView realizacaoAdd(@ModelAttribute ("contract") Contract contract, @RequestParam("locality") String locality, @RequestParam("dateTime") String dateTime) {
 
         Accomplishment accomplishment = new Accomplishment();
         accomplishment.setLocality(localityService.findById(Long.parseLong(locality)));
@@ -173,26 +175,61 @@ public class ContractController {
 
 
         ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
-//        modelAndView.addObject("contract", contract);
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "/realizacao/delete", method=RequestMethod.GET)
-    public ModelAndView accomplishmentDelete(@ModelAttribute ("contract") Contract contract, @RequestParam("id") String id) {
+    @RequestMapping(value = "/realizacao/edit", method=RequestMethod.POST)
+    public ModelAndView realizacaoEdit(@RequestParam("id") String id, @RequestParam("locality") String locality, @RequestParam("dateTime") String dateTime) {
 
         Accomplishment accomplishment = accomplishmentRepository.findById(Long.parseLong(id));
+        accomplishment.setLocality(localityService.findById(Long.parseLong(locality)));
+        Contract contract = accomplishment.getContract();
 
-        accomplishmentRepository.delete(accomplishment);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        accomplishment.setDateTime(LocalDateTime.parse(dateTime, formatter));
+
+        accomplishmentRepository.save(accomplishment);
 
 
         ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
-//        modelAndView.addObject("programs", programRepository.findAll());
-//        modelAndView.addObject("presentations", presentationRepository.findAll());
-//        modelAndView.addObject("localities", localityService.findAll());
-//        modelAndView.addObject("contract", contract);
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/realizacao/delete", method=RequestMethod.POST)
+    public ModelAndView accomplishmentDelete(@ModelAttribute ("contract") Contract contract, @RequestParam("id") String id) {
+
+        Map<String, String> map = new HashMap<>();
+        map.clear();
+
+        Accomplishment accomplishment = accomplishmentRepository.findById(Long.parseLong(id));
+
+
+        if (accomplishment != null) {
+
+            accomplishmentRepository.delete(accomplishment);
+
+            accomplishment = accomplishmentRepository.findById(Long.parseLong(id));
+
+            if (accomplishment != null) {
+                map.put("erro", ErrorMessages.ERROR_OPERATION.toString());
+            } else {
+                map.put("resultado", "Exclusão realizada com sucesso.");
+//                map.put("page_contract", request.getRequestURI().toString());
+            }
+        }
+        return JsonView.returnJsonFromMap(map);
+
+//
+//
+//
+//
+//
+//        ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
+//
+//        return modelAndView;
     }
 
 
