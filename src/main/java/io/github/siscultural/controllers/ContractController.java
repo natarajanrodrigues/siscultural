@@ -222,14 +222,6 @@ public class ContractController {
         }
         return JsonView.returnJsonFromMap(map);
 
-//
-//
-//
-//
-//
-//        ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
-//
-//        return modelAndView;
     }
 
 
