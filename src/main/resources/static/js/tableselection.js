@@ -23,6 +23,16 @@ $('.table-selectable > tbody > tr').click(function() {
 
 });
 
+$('.table-selectable > tbody > tr').dblclick(function() {
+
+    if(!($(".table-selectable > tbody > tr.active").length)){
+        $('.table-selectable > tbody > tr').click();
+    }
+
+    $("#btn-editar").click();
+
+});
+
 
 $(document).ready(function () {
 
