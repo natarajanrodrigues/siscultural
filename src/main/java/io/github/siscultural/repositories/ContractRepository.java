@@ -21,5 +21,7 @@ public interface ContractRepository extends JpaRepository<Contract, Long>{
 
     public Contract save(Contract contract);
 
+//    public Contract update(Contract contract);
+
     public void delete(Contract contract);
 }

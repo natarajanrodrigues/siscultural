@@ -1,6 +1,29 @@
 /**
  * Created by natarajan on 28/08/16.
  */
+$('.table-selectable2 > tbody > tr').click(function() {
+    if($(this).hasClass('active')){
+        $(this).removeClass('active');
+    }else{
+        $(".table-selectable2 > tbody > tr.active").removeClass('active');
+        $(this).addClass('active');
+    }
+
+    if(($(".table-selectable2 > tbody > tr.active").length)){
+        $("#btn-editar2").removeClass("disabled");
+        $("#btn-editar2").prop('disabled', false);
+        $("#btn-deletar2").removeClass("disabled");
+        $("#btn-deletar2").prop('disabled', false);
+    }else{
+        $("#btn-editar2").addClass("disabled");
+        $("#btn-editar2").prop('disabled', true);
+        $("#btn-deletar2").addClass("disabled");
+        $("#btn-deletar2").prop('disabled', true);
+    }
+
+});
+
+
 $('.table-selectable > tbody > tr').click(function() {
     if($(this).hasClass('active')){
         $(this).removeClass('active');
@@ -26,10 +49,11 @@ $('.table-selectable > tbody > tr').click(function() {
 $('.table-selectable > tbody > tr').dblclick(function(event) {
 
     var target = $( event.target );
-    //
-    // if(($(".table-selectable > tbody > tr.active").length)){
-    //     $(".table-selectable > tbody > tr.active").attr( "disabled", "disabled");
-    // }
+
+    if(($(".table-selectable > tbody > tr.active").length)){
+        // $(".table-selectable > tbody > tr.active").attr( "disabled", "disabled");
+        target.click();
+    }
 
     target.click();
     $("#btn-editar").click();

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Programas</title>
+
+    <!-- Bootstrap -->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+</head>
+
+    <body class="home-body">
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container"  style="margin-bottom: 50px">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class='container-fluid'>
+
+                        <form th:action="@{/proposal/add}" th:object="${paymentProposal}" id="form_locality" method="post">
+                            <div class="form-group">
+                                <label for="conta" class="control-label">Conta Rubrica</label>
+
+                                <select name="conta" class="form-control" id="conta">
+                                    <!--<select name="program" class="form-control" id="program" th:field="*{program}">-->
+                                    <option th:each="account : ${accounts}" th:value="${account.id}" th:text="${account.rubric.name} + ' - ' + ${account.budget.name}" ></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="provider" class="control-label">Fornecedor</label>
+
+                                <select name="provider" class="form-control" id="provider">
+                                    <!--<select name="program" class="form-control" id="program" th:field="*{program}">-->
+                                    <option th:each="provider : ${providers}" th:value="${provider.id}" th:text="${provider.name}" ></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="amount" class="control-label">Valor</label>
+                                <input type="number" class="form-control" id="amount" name="amount" pattern="^\d+(\.|\,)\d{2}$"
+                                        placeholder="0,00" />
+
+                            </div>
+
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="description" class="control-label">Descrição</label>-->
+
+                                <!--<input type="text" class="form-control" id="description" name="description"-->
+                                       <!--placeholder="Descrição da Localidade" autofocus="true" th:field="*{description}"  />-->
+                                <!--<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="help-block"></p>-->
+
+                            <!--</div>-->
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="address" class="control-label">Endereço</label>-->
+                                <!--<input type="text" class="form-control" id="address" name="address"-->
+                                       <!--placeholder="Rua/Avenida/Travessa/Etc, nº, Bairro"  th:field="*{address}"  />-->
+                                <!--<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="help-block"></p>-->
+                            <!--</div>-->
+                            <!--<div class="form-group col-md-12">-->
+                                <!--<label for="city" class="control-label">Cidade</label>-->
+                                <!--<input type="text" class="form-control" id="city" name="address"-->
+                                       <!--placeholder="Cidade"  th:field="*{city}"  />-->
+                                <!--<p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="help-block"></p>-->
+                            <!--</div>-->
+                            <!--<div class="form-group col-md-8">-->
+                                <!--<label for="state" class="control-label">Estado</label>-->
+
+                                <!--<select name="state" class="form-control" id="state" th:field="*{state}">-->
+                                    <!--<option th:each="state : ${T(io.github.siscultural.enums.State).values()}" th:value="${state}" th:text="${state}" ></option>-->
+                                <!--</select>-->
+                                <!--<p th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="help-block"></p>-->
+
+                            <!--</div>-->
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="panel-footer container-fluid">
+
+                    <span class="pull-right ">
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
+                                <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>-->
+                            <!--Cancelar-->
+                        <!--</button>-->
+                        <button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_locality">Salvar</button>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+
+
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/tableselection.js"></script>
+        <script src="https://use.fontawesome.com/42680f3b68.js"></script>
+
+
+    </body>
+
+</html>

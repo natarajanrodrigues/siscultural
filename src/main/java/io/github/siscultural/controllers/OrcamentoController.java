@@ -9,6 +9,7 @@ import io.github.siscultural.entities.Budget;
 import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.repositories.FunctionaryRepository;
 import io.github.siscultural.repositories.OrcamentoRepository;
+import io.github.siscultural.services.BudgetService;
 import io.github.siscultural.utils.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class OrcamentoController {
 
     @Autowired
     OrcamentoRepository budgetDao;
+
+    @Autowired
+    BudgetService budgetService;
 
     @GetMapping(value = "/orcamento")
     public ModelAndView orcamento() {
@@ -67,6 +71,18 @@ public class OrcamentoController {
 
     }
 
+    @PostMapping(value = "/orcamento/escolher")
+    @ResponseBody
+    public ModelAndView chooseCurrentBudget(@RequestParam("orcamento") String orcamentoId) {
+
+        ModelAndView mav = new ModelAndView("redirect:/orcamento");
+
+        budgetService.setCurrent(Long.parseLong(orcamentoId));
+
+        return mav;
+
+    }
+
     @PostMapping(value = "/orcamento/edit")
     @ResponseBody
     public ModelAndView editOrcamento(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("descricao") String descricao) {
@@ -94,6 +110,10 @@ public class OrcamentoController {
 
 
     }
+
+
+
+
 
     @PostMapping(value = "/orcamento/delete")
     @ResponseBody

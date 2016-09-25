@@ -53,5 +53,18 @@ public class ProviderService {
         
         providerRepository.delete(providerId);
     }
-    
+
+    public List<Provider> getAllProviders(){
+        List<Provider> result = new ArrayList<>();
+
+        result.addAll(findAllCompanyProvider());
+        result.addAll(findAllIndividualProvider());
+
+        return result;
+    }
+
+    public Provider findbyId(Long id) {
+        return providerRepository.findById(id);
+    }
+
 }

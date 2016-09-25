@@ -36,10 +36,6 @@ public class PresentationService {
 
     public Presentation save (Presentation presentation) {
 
-//        if (presentation.getId() != null) {
-//            return presentationRepository.updateExists(presentation);
-//        }
-
         return presentationRepository.save(presentation);
     }
 

@@ -164,6 +164,92 @@
         </div>
         <!--fim modal delete -->
 
+
+        <!--modal add proposta de pagamento-->
+        <div class="modal fade" id="modal_add_proposta">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Adicionar Proposta de Pagamento</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class='container-fluid'>
+
+                            <form th:action="@{/proposal/add}" th:object="${paymentProposal}" id="form_proposta" method="post">
+                                <div class="form-group">
+                                    <label for="conta" class="control-label">Conta Rubrica</label>
+
+                                    <select name="conta" class="form-control" id="conta">
+                                        <!--<select name="program" class="form-control" id="program" th:field="*{program}">-->
+                                        <option th:each="account : ${accounts}" th:value="${account.id}" th:text="${account.rubric.name} + ' - ' + ${account.budget.name}" ></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="provider" class="control-label">Fornecedor</label>
+
+                                    <select name="provider" class="form-control" id="provider">
+                                        <!--<select name="program" class="form-control" id="program" th:field="*{program}">-->
+                                        <option th:each="provider : ${providers}" th:value="${provider.id}" th:text="${provider.name}" ></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="amount" class="control-label">Valor</label>
+                                    <input type="number" class="form-control" id="amount" name="amount" pattern="^\d+(\.|\,)\d{2}$"
+                                           placeholder="0,00" />
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
+                        <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
+                        <!--</button>-->
+                        <button type="submit" th:form="form_proposta" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--fim modal add proposta de pagamento-->
+
+
+        <!--modal delete proposta -->
+        <div class="modal fade" id="deletar_proposta_modal">
+            <div class="modal-dialog modal-lm">
+                <div class="modal-content">
+                    <form id="delete_proposta" role="form" method="post" th:action="@{/proposal/delete}">
+                        <div class="modal-header align-center">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">Confirmar Exclusão</h3>
+                        </div>
+
+                        <div class="modal-body align-center">
+                            <div class="row">
+                                <div class="col-sm-12 align-center">
+                                    <h4>Tem certeza que deseja excluir a proposta para pagar o fornecedor "<span name="descricao" id="nome_delet2"></span>" do sistema ?</h4>
+                                    <p>Esta operação é irreversível.</p>
+                                    <input type="text" class="hidden" id="id_prop_delet" name="id" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" th:form="delete_proposta" id="confirmar_exclusao2" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirmar</button>
+                            <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--fim modal delete proposta-->
+
         <!--modais para confirmação de tarefa-->
         <div th:include="menu_header :: operationmodals"></div>
 
@@ -176,34 +262,7 @@
                     <div class='container-fluid'>
 
                         <form th:action="@{/contrato_add}" th:object="${contract}" id="form_cada_user" method="post">
-                            <!--<div class="form-group col-md-12">-->
-                                <!--<label for="name" class="control-label">Nome</label>-->
 
-                                <!--<input type="text" class="form-control" id="name" name="name"-->
-                                       <!--placeholder="Nome completo..." autofocus="true" th:field="*{name}"  />-->
-                                <!--<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help-block"></p>-->
-
-                            <!--</div>-->
-                            <!--<div class="form-group col-md-12">-->
-                                <!--<label for="groupOrArtist" class="control-label">Grupo / Artista</label>-->
-                                <!--<input type="text" class="form-control" id="groupOrArtist" name="groupOrArtist"-->
-                                       <!--placeholder="Grupo ou Artista"  th:field="*{groupOrArtist}"  />-->
-                                <!--<p th:if="${#fields.hasErrors('groupOrArtist')}" th:errors="*{groupOrArtist}" class="help-block"></p>-->
-                            <!--</div>-->
-                            <!--<div class="form-group col-md-12">-->
-                                <!--<label for="releaseText" class="control-label">Release</label>-->
-                                <!--<textarea type="text" id="releaseText" class="form-control" name="releaseText"-->
-                                              <!--placeholder="Informe aqui o texto release da apresentação" rows="6" th:field="*{releaseText}" />-->
-                                <!--<p th:if="${#fields.hasErrors('releaseText')}" th:errors="*{releaseText}" class="help-block"></p>-->
-                            <!--</div>-->
-                            <!--<div class="form-group col-md-3">-->
-                                <!--&lt;!&ndash;<label for="duration" class="control-label">Duração em minutos</label>&ndash;&gt;-->
-                                <!--<label for="duration" class="control-label">Duração em minutos</label>-->
-
-                                <!--<input type="number" class="form-control" id="duration" name="duration"-->
-                                       <!--placeholder="Duração em minutos"  th:field="*{duration}" />-->
-                                <!--<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="help-block"></p>-->
-                            <!--</div>-->
                             <div class="form-group">
                                 <label for="program" class="control-label">Apresentação</label>
 
@@ -213,13 +272,6 @@
                                 <p th:if="${#fields.hasErrors('presentation')}" th:errors="*{presentation}" class="help-block"></p>
 
                             </div>
-
-                            <!--<div class="form-group col-md-12">-->
-                                <!--<label for="program" class="control-label">Cidade</label>-->
-                                <!--<input type="text" class="form-control" id="program" name="program"-->
-                                       <!--placeholder="Cidade"  th:field="*{program.name}"  />-->
-                                <!--<p th:if="${#fields.hasErrors('program')}" th:errors="*{program}" class="help-block"></p>-->
-                            <!--</div>-->
 
                             <div class="form-group">
 
@@ -253,23 +305,7 @@
                                 </div>
 
                             </div>
-                            <!--<div class="panel-body">-->
 
-                                <!--<button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal"-->
-                                        <!--data-target="#modal_add_realizacao"></button>-->
-                                <!--<button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>-->
-                                <!--<button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>-->
-
-                                <!--<form class="form-inline float-right col-xs-8 no-margin-right">-->
-                                    <!--<div class="form-group col-xs-12 no-margin-right">-->
-                                        <!--<div class="input-group col-xs-12 float-right">-->
-                                            <!--<input type="text" id="filter" class="form-control" placeholder="..."/>-->
-                                            <!--<span class="btn input-group-addon glyphicon glyphicon-search"></span>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</form>-->
-
-                            <!--</div>-->
                             <table class="table table-bordered table-hover table-selectable">
                                 <thead>
                                 <tr class="alert-info text-align-center">
@@ -286,10 +322,7 @@
                                     <td th:text="${accompl.locality.description}"></td>
                                     <td th:text="${#temporals.format(accompl.dateTime, 'dd/MM/yyyy HH:mm')}" class="text-center"></td>
                                     <td th:text="${accompl.id}" th:hidden="true"></td>
-                                    <!--<th class="text-center">-->
-                                        <!--<button id="btn-editar" class="btn btn-xs btn-warning glyphicon glyphicon-pencil"></button>-->
-                                        <!--<a th:href="@{/realizacao/delete(id=${accompl.id})}" ><button id="btn-deletar" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></a>-->
-                                    <!--</th>-->
+
                                 </tr>
 
                                 </tbody>
@@ -298,6 +331,54 @@
 
                     </div>
 
+                    <!--panel propostas de pagamento-->
+                    <div class="container-fluid">
+                        <div class="panel panel-info">
+                            <div class="panel-heading clearfix">
+                                <div class="panel-body">
+                                    Propostas de pagamento
+                                    <div class="pull-right">
+                                        <!--<a th:href="@{/proposta_pagamento}" ><button class="btn btn-xs btn-success glyphicon glyphicon-plus"></button></a>-->
+                                        <button class="btn btn-xs btn-success glyphicon glyphicon-plus" data-toggle="modal"
+                                                data-target="#modal_add_proposta"></button>
+                                        <button id="btn-editar2" class="btn btn-xs btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true" data-toggle="modal"
+                                                data-target="#modal_edit_realizacao"></button>
+                                        <button id="btn-deletar2" class="btn btn-xs  btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <table class="table table-bordered table-hover table-selectable2" id="prop_pagamentos">
+                                <thead>
+                                <tr class="alert-info text-align-center">
+                                    <th>Conta</th>
+                                    <th>Fornecedor</th>
+                                    <th class="text-center">Valor (R$)</th>
+                                    <!--<th class="text-center">Ações</th>-->
+                                </tr>
+                                </thead>
+
+                                <tbody class="searchable" id="materiaisTable">
+
+                                <tr th:each="proposal : ${proposals}">
+                                    <td th:text="${proposal.rubricAccount.rubric.name} + ' - ' + ${proposal.rubricAccount.budget.name}"></td>
+                                    <!--<td th:text="${proposal.rubricAccount.rubric.name} + ' - ' + ${proposal.rubricaccount.budget.name}"></td>-->
+                                    <!--<td th:text="${proposal.id}"></td>-->
+                                    <td th:text="${proposal.provider.name}"></td>
+                                    <td class="text-center" th:text="${proposal.amount}"></td>
+                                    <td th:text="${proposal.id}" th:hidden="true"></td>
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
 
 
                 </div>
@@ -393,27 +474,64 @@
 
             $('#confirmar_exclusao').click(function (e) {
                 e.preventDefault();
+
                 $.post('/realizacao/delete', $('#delete_modal').serialize(), function (response) {
+
                     var erro = response.erro;
                     $('#deletar_modal').modal('hide');
-//                    alert('oiii');
+
                     if (erro !== undefined) {
                         show_error(erro);
                     } else {
-//                        alert("aq");
+
                         show_success(response.resultado);
 
                         $("#confirmOkButton").click(function () {
-//                            $(location).attr('href', 'orcamento');
-//                            var aa = response.page_contract;
-//                            alert(aa);
-//                            $(location).attr('href', response.page_contract);
+
                             location.reload();
                         });
 
                     }
                 });
             });
+
+
+            // operações sobre propostas
+
+            $('#btn-deletar2').click(function (e) {
+                var nome2 = $('.table-selectable2 > tbody > tr.active').find('td:nth-child(2)').text();
+                var id2 = $('.table-selectable2 > tbody > tr.active').find('td:nth-child(4)').text();
+
+                $("#id_prop_delet").val(id2);
+                $("#nome_delet2").html(nome2);
+
+                $('#deletar_proposta_modal').modal({
+                    show: 'true'
+                });
+            });
+
+//            $('#confirmar_exclusao2').click(function (e) {
+//                e.preventDefault();
+//
+//                $.post('/proposta/delete', $('#deletar_proposta_modal').serialize(), function (response) {
+//
+//                    var erro = response.erro;
+//                    $('#deletar_modal').modal('hide');
+//
+//                    if (erro !== undefined) {
+//                        show_error(erro);
+//                    } else {
+//
+//                        show_success(response.resultado);
+//
+//                        $("#confirmOkButton").click(function () {
+//
+//                            location.reload();
+//                        });
+//
+//                    }
+//                });
+//            });
 
         </script>
 

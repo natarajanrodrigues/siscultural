@@ -5,17 +5,13 @@
  */
 package io.github.siscultural.controllers;
 
-import io.github.siscultural.entities.Accomplishment;
-import io.github.siscultural.entities.Contract;
-import io.github.siscultural.entities.Locality;
-import io.github.siscultural.entities.Presentation;
+import io.github.siscultural.entities.*;
 import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.repositories.AccomplishmentRepository;
+import io.github.siscultural.repositories.PaymentProposalRepository;
 import io.github.siscultural.repositories.PresentationRepository;
 import io.github.siscultural.repositories.ProgramRepository;
-import io.github.siscultural.services.ContractService;
-import io.github.siscultural.services.LocalityService;
-import io.github.siscultural.services.PresentationService;
+import io.github.siscultural.services.*;
 import io.github.siscultural.utils.JsonView;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +53,15 @@ public class ContractController {
 
     @Autowired
     AccomplishmentRepository accomplishmentRepository;
+
+    @Autowired
+    ProviderService providerService;
+
+    @Autowired
+    RubricAccountService rubricAccountService;
+
+    @Autowired
+    PaymentProposalRepository paymentProposalRepository;
 
     @GetMapping(value = "/contratos")
     public ModelAndView contratos(SessionStatus sessionStatus) {
@@ -137,6 +142,9 @@ public class ContractController {
         modelAndView.addObject("presentations", presentationRepository.findAll());
         modelAndView.addObject("accomplishments", accomplishmentRepository.findByContract(contract));
         modelAndView.addObject("localities", localityService.findAll());
+        modelAndView.addObject("providers", providerService.getAllProviders());
+        modelAndView.addObject("accounts", rubricAccountService.getRubricAccounts(contract.getProgram()));
+        modelAndView.addObject("proposals", paymentProposalRepository.findByContract(contract));
 
         modelAndView.addObject("contract", contract);
 
