@@ -53,5 +53,15 @@ public class ProviderService {
         
         providerRepository.delete(providerId);
     }
+
+    public Provider findById(long id) {
+        
+        return providerRepository.findById(id);
+    }
+
+    public void update(Provider provider) {
+        
+        providerRepository.save(provider);
+    }
     
 }

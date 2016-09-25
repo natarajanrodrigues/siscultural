@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      >
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>SisCultural - fornecedores</title>
+
+        <!-- Bootstrap -->
+
+        <link href="../css/bootstrap-theme.min.css" rel="stylesheet"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+
+        <link rel="stylesheet" href="../css/style.css" type="text/css"/>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+    </head>
+    <body class="home-body">
+
+        <header th:include="menu_header :: header">        </header>
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <form th:action="@{/ffisico_add}" th:object="${individualProvider}" id="form_fjuridico" method="post">
+
+                        <input type="hidden" class="form-control" id="id" name="id"
+                               th:value="${provider.id}"/>
+                        <label>Nome</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               placeholder="Nome" th:value="${provider.name}"/>
+                        <label>CPF</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf"
+                               placeholder="CPF" th:value="${provider.cpf}" />
+                        <label>nisNit</label>
+                        <input type="text" class="form-control" id="nisNit" name="nisNit"
+                               placeholder="nisNit" th:value="${provider.nisNit}" />
+                        <label>Endereço</label>
+                        <input type="text" class="form-control" id="address" name="address"
+                               placeholder="Endereço" th:value="${provider.address}" />
+                        <label>Cidade</label>
+                        <input type="text" class="form-control" id="city" name="city"
+                               placeholder="Cidade" th:value="${provider.city}" />
+                        <label>Estado</label>
+                        <input type="text" class="form-control" id="state" name="state"
+                               placeholder="Estado" th:value="${provider.state}" />
+
+                        <br/>
+                        <div class="text-center">
+                            <button>Concluir Cadastro</button>
+
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
