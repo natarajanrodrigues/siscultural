@@ -5,6 +5,7 @@
  */
 package io.github.siscultural.controllers;
 
+import com.google.gson.Gson;
 import io.github.siscultural.entities.Budget;
 import io.github.siscultural.entities.CompanyProvider;
 import io.github.siscultural.entities.IndividualProvider;
@@ -100,6 +101,33 @@ public class ProviderController {
         return JsonView.returnJsonFromMap(map);
 
     }
+    
+    @GetMapping("fornecedores/edit")
+    public ModelAndView getEditFornecedor(long id){
+        
+        Provider provider = providerService.findById(id);
+        
+        ModelAndView mav = new ModelAndView();
+        
+        try{
+            
+            mav.addObject("provider",(IndividualProvider) provider);
+            mav.setViewName("fornecedores/fornecedor_fisico_edt");
+            
+        }catch(ClassCastException ex){
+            
+            mav.addObject("provider",(CompanyProvider) provider);
+            mav.setViewName("fornecedores/fornecedor_juridico_edt");
+            
+        }
+        
+        
+        mav.addObject(provider);
+        
+        return mav;
+        
+    }
+    
 //    
 //    
 //    public ModelAndView addOrcamento(@RequestParam("name") String name, @RequestParam("descricao") String descricao) {

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
-<head>
+      >
+    <head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>SisCultural - fornecedores</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>SisCultural - fornecedores</title>
 
-    <!-- Bootstrap -->
+        <!-- Bootstrap -->
 
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css"/>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
 
-</head>
+    </head>
 
     <body class="home-body">
 
@@ -221,17 +221,11 @@
 
 
             $('#btn-editar').click(function (e) {
-                var nome = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
-                var descricao = $('.table-selectable > tbody > tr.active').find('th:nth-child(2)').text();
+
                 var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(3)').text();
 
-                $("#edit-name").val(nome);
-                $("#edit-descricao").val(descricao);
-                $("#edit-id").val(id);
+                window.location = "fornecedores/edit?id="+id;
 
-                $('#editar_modal').modal({
-                    show: 'true'
-                });
             });
 
             $('#confirmar_editar').click(function (e) {
