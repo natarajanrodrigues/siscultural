@@ -6,16 +6,26 @@
 package io.github.siscultural.controllers;
 
 import io.github.siscultural.entities.CompanyProvider;
+import io.github.siscultural.entities.IndividualProvider;
+import io.github.siscultural.entities.Locality;
 import io.github.siscultural.entities.Provider;
 import io.github.siscultural.services.ProviderService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -50,6 +60,24 @@ public class ProviderController {
         
         return mav;
         
+    }
+    
+    @RequestMapping(value="/fjuridico_add", method=RequestMethod.POST)
+    public ModelAndView companyProviderAdd(@Validated @ModelAttribute ("companyProvider") CompanyProvider companyProvider, BindingResult result,
+                                            RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
+        
+        providerService.save(companyProvider);
+
+        return new ModelAndView("redirect:/fornecedores");
+    }
+    
+    @RequestMapping(value="/ffisico_add", method=RequestMethod.POST)
+    public ModelAndView individualProviderAdd(@Validated @ModelAttribute ("companyProvider") IndividualProvider individualProvider, BindingResult result,
+                                            RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
+        
+        providerService.save(individualProvider);
+
+        return new ModelAndView("redirect:/fornecedores");
     }
 //    
 //    
