@@ -271,7 +271,7 @@
 
             $('#confirmar_exclusao').click(function (e) {
                 e.preventDefault();
-                $.post('/orcamento/delete', $('#delete_modal').serialize(), function (response) {
+                $.post('/provider_delete', $('#delete_modal').serialize(), function (response) {
                     var erro = response.erro;
                     $('#deletar_modal').modal('hide');
 
@@ -280,7 +280,7 @@
                     } else {
                         show_success(response.resultado);
                         $("#confirmOkButton").click(function () {
-                            $(location).attr('href', 'orcamento');
+                            $(location).attr('href', 'fornecedores');
                         });
 
                     }
