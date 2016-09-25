@@ -48,5 +48,10 @@ public class ProviderService {
 
         providerRepository.save(provider);
     }
-
+    
+    public void remove(long providerId){
+        
+        providerRepository.delete(providerId);
+    }
+    
 }
