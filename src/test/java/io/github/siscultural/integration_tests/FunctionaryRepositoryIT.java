@@ -9,6 +9,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
+import io.github.siscultural.MvcConfig;
 import io.github.siscultural.repositories.FunctionaryRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,11 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  *
@@ -40,19 +44,19 @@ public class FunctionaryRepositoryIT {
     protected static final String DATASET = "classpath:functionary_test.xml";
     
     @Autowired
-    private FunctionaryRepository functionaryDao;
-    
+    private FunctionaryRepository functionaryRepository;
+
     @Test
     public void findUserByEmailAndPassword() {
 
-        Assert.assertEquals(1, functionaryDao.findByEmailAndPassword("email@email.com", "123").size());
+        Assert.assertEquals(1, functionaryRepository.findByEmailAndPassword("email@email.com", "123").size());
         
     }
     
     @Test
     public void NoUserWithInvalidPassword() {
 
-        Assert.assertEquals(0, functionaryDao.findByEmailAndPassword("email@email.com", "").size());
+        Assert.assertEquals(0, functionaryRepository.findByEmailAndPassword("email@email.com", "").size());
         
     }
     
