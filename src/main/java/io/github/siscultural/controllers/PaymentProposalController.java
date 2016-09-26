@@ -102,13 +102,15 @@ public class PaymentProposalController {
 
         PaymentProposal paymentProposal = paymentProposalRepository.findById(Long.parseLong(id));
 
+        Contract contract2 = paymentProposal.getContract();
+
+        contract2.removePaymentProposal(paymentProposal);
+
+        contractRepository.save(contract2);
+
         paymentProposalRepository.delete(paymentProposal);
 
-//        contract.removePaymentProposal(paymentProposal);
-
-//        contractRepository.save(contract);
-
-        ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
+        ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract2.getId());
 
         return modelAndView;
     }

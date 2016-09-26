@@ -1,9 +1,13 @@
 package io.github.siscultural.services;
 
+import io.github.siscultural.entities.Accomplishment;
 import io.github.siscultural.entities.Contract;
+import io.github.siscultural.entities.PaymentProposal;
 import io.github.siscultural.entities.Presentation;
 import io.github.siscultural.enums.ErrorMessages;
+import io.github.siscultural.repositories.AccomplishmentRepository;
 import io.github.siscultural.repositories.ContractRepository;
+import io.github.siscultural.repositories.PaymentProposalRepository;
 import io.github.siscultural.repositories.PresentationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +26,16 @@ public class ContractService {
     @Autowired
     private static PresentationRepository presentationRepository;
     private static ContractRepository contractRepository;
+    private static AccomplishmentRepository accomplishmentRepository;
+    private static PaymentProposalRepository paymentProposalRepository;
 
     @Autowired
-    public ContractService(PresentationRepository presentationRepository, ContractRepository contractRepository) {
+    public ContractService(PresentationRepository presentationRepository, ContractRepository contractRepository,
+                           AccomplishmentRepository accomplishmentRepository, PaymentProposalRepository paymentProposalRepository) {
         this.presentationRepository = presentationRepository;
         this.contractRepository = contractRepository;
+        this.accomplishmentRepository = accomplishmentRepository;
+        this.paymentProposalRepository = paymentProposalRepository;
     }
 
     public Contract findById(Long id) {
@@ -56,6 +65,22 @@ public class ContractService {
         map.clear();
 
         if (contract != null) {
+
+            //buscando accomplishments do
+            List<Accomplishment> accomplishments = accomplishmentRepository.findByContract(contract);
+
+            //apagando os accomplishments do banco
+            for (Accomplishment ac : accomplishments) {
+                accomplishmentRepository.delete(ac);
+            }
+
+            //buscando accomplishments do
+            List<PaymentProposal> paymentProposals = paymentProposalRepository.findByContract(contract);
+
+            //apagando os accomplishments do banco
+            for (PaymentProposal paymentProposal : paymentProposals) {
+                paymentProposalRepository.delete(paymentProposal);
+            }
 
             contractRepository.delete(contract);
 

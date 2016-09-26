@@ -6,6 +6,7 @@
 package io.github.siscultural.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.eclipse.persistence.annotations.PrivateOwned;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
