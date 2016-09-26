@@ -22,52 +22,132 @@
 
 </head>
 
-    <div class="modal fade" id="cadastrar_modal">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header align-center">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title">Cadastrar Rubrica</h3>
-                </div>
-
-                <div class="modal-body">
-                    <div class='container-fluid'>
-                        <form method="post" role="form" class="form-horizontal" id="cadastro-rubrica" th:action="@{/rubrica/add}">
-                            <div class="form-group">
-                                <label for="descricao" class="control-label col-sm-2">Nome</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da rubrica..." maxlength="50" autofocus="true" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="descricao" class="control-label col-sm-2">Descrição</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição da rubrica." maxlength="50" autofocus="true" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <label for="programa" class="control-label col-sm-2">Programa</label>
-                                <div class="col-sm-10">
-                                    <select name="programa" class="form-control" id="programa">
-                                        <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}"></option>
-                                    </select>
-                                </div>
-
-                            </div>
-                        </form>
+    <body class="home-body">
+        <!-- modal add rubrica-->
+        <div class="modal fade" id="cadastrar_modal">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Cadastrar Rubrica</h3>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" th:form="cadastro-rubrica" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
-                    <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
+
+                    <div class="modal-body">
+                        <div class='container-fluid'>
+                            <form method="post" role="form" class="form-horizontal" id="cadastro-rubrica" th:action="@{/rubrica/add}">
+                                <div class="form-group">
+                                    <label for="descricao" class="control-label col-sm-2">Nome</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome da rubrica..." maxlength="150" autofocus="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descricao" class="control-label col-sm-2">Descrição</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição da rubrica." maxlength="150" autofocus="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="programa" class="control-label col-sm-2">Programa</label>
+                                    <div class="col-sm-10">
+                                        <select name="programa" class="form-control" id="programa">
+                                            <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}"></option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" th:form="cadastro-rubrica" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- fim modal add rubrica-->
+
+        <!-- modal editar rubrica-->
+        <div class="modal fade" id="editar_modal">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Editar Rubrica</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class='container-fluid'>
+                            <form method="post" role="form" class="form-horizontal" id="editar-rubrica" th:action="@{/rubrica/edit}">
+                                <input type="text" class="hidden" id="id-edit" name="id" />
+                                <div class="form-group">
+                                    <label for="name-edit" class="control-label col-sm-2">Nome</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="name-edit" name="nome" placeholder="Digite o nome da rubrica..." maxlength="150" autofocus="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descricao" class="control-label col-sm-2">Descrição</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="descricao-edit" name="descricao" placeholder="Digite a descrição da rubrica." maxlength="150" autofocus="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="programa" class="control-label col-sm-2">Programa</label>
+                                    <div class="col-sm-10">
+                                        <select name="programa" class="form-control" id="programa-edit">
+                                            <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}"></option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" th:form="editar-rubrica" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- fim modal editar rubrica-->
+
+        <!--modal delete -->
+        <div class="modal fade" id="deletar_modal">
+            <div class="modal-dialog modal-lm">
+                <div class="modal-content">
+                    <form id="delete_modal" method="post">
+                        <div class="modal-header align-center">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">Confirmar Exclusão</h3>
+                        </div>
+
+                        <div class="modal-body align-center">
+                            <div class="row">
+                                <div class="col-sm-12 align-center">
+                                    <h4>Tem certeza que deseja excluir a rubrica "<span name="descricao" id="nome_delet"></span>" do sistema ?</h4>
+                                    <p>Esta operação é irreversível.</p>
+                                    <input type="text" class="hidden" id="id_delet" name="id" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" for="deletar" id="confirmar_exclusao" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirmar</button>
+                            <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--fim modal delete -->
 
 
-    <body class="home-body">
+        <!--modais para confirmação de tarefa-->
+        <div th:include="menu_header :: operationmodals"></div>
 
         <header th:include="menu_header :: header"></header>
 
@@ -76,8 +156,8 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>
-                    <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil"></button>
-                    <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash"></button>
+                    <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>
+                    <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
 
                     <form class="form-inline float-right col-xs-8 no-margin-right">
                         <div class="form-group col-xs-12 no-margin-right">
@@ -102,10 +182,10 @@
                     <tbody class="searchable" id="materiaisTable">
 
                         <tr th:each="rubric : ${rubrics}" >
-                            <th th:text="${rubric.name}"></th>
-                            <th th:text="${rubric.description}"></th>
-                            <th th:text="${rubric.program.name}"></th>
-                            <th class="hidden" th:text="${rubric.id}"></th>
+                            <td th:text="${rubric.name}"></td>
+                            <td th:text="${rubric.description}"></td>
+                            <td th:text="${rubric.program.name}"></td>
+                            <td class="hidden" th:text="${rubric.id}"></td>
                         </tr>
 
                     </tbody>
@@ -119,6 +199,84 @@
         <footer class="navbar navbar-default navbar-fixed-bottom text-center">
             <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
         </footer>
+
+        <script src="js/tableselection.js"></script>
+        <script type="text/javascript">
+
+            function show_success() {
+                $('#sucessModal').modal({
+                    show: 'true'
+                });
+            }
+
+            function show_error(textError) {
+                $('p#error-body').html(textError);
+                $('#errorModal').modal({
+                    show: 'true'
+                });
+            }
+
+            $('#btn-editar').click(function (e) {
+                var name = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var descricao = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+                var programa = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(4)').text();
+
+
+//                alert(programa);
+
+                $("#programa-edit option").attr('selected', false);
+
+                //set select
+                $("#programa-edit option").filter(function() {
+                    return this.text == programa;
+                }).attr('selected', true);
+
+                //set id and dateTime
+                $("#id-edit").val(id);
+                $("#name-edit").val(name);
+                $("#descricao-edit").val(descricao);
+
+
+                $('#editar_modal').modal({
+                    show: 'true'
+                });
+            });
+
+            $('#btn-deletar').click(function (e) {
+                var descricao = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(4)').text();
+
+                $("#id_delet").val(id);
+                $("#nome_delet").html(descricao);
+
+                $('#deletar_modal').modal({
+                    show: 'true'
+                });
+            });
+
+            $('#confirmar_exclusao').click(function (e) {
+                e.preventDefault();
+                $.post('/rubrica/delete', $('#delete_modal').serialize(), function (response) {
+                    var erro = response.erro;
+                    $('#deletar_modal').modal('hide');
+
+                    if (erro !== undefined) {
+                        show_error(erro);
+                    } else {
+
+                        show_success(response.resultado);
+
+                        $("#confirmOkButton").click(function () {
+                            location.reload();
+                        });
+
+                    }
+                });
+            });
+
+        </script>
+
     </body>
 
 </html>

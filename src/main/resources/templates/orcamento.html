@@ -120,6 +120,37 @@
         </div>
 
 
+        <div class="modal fade" id="escolher_atual_modal">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Escolher Orçamento Atual</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class='container-fluid'>
+                            <form method="post" role="form" class="form-horizontal" id="escolher-orcamento" th:action="@{/orcamento/escolher}">
+                                <div class="form-group">
+                                    <label for="orcamento" class="control-label col-sm-2">Orçamento</label>
+                                    <div class="col-sm-10">
+                                        <select name="orcamento" class="form-control" id="orcamento">
+                                            <option th:each="budget : ${budgets}" th:value="${budget.id}" th:text="${budget.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" th:form="escolher-orcamento" class="btn btn-primary" id="escolher"><span class="glyphicon glyphicon-ok"></span> Escolher</button>
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div th:include="menu_header :: operationmodals"></div>
 
@@ -131,8 +162,9 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>
-                    <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" ></button>
-                    <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" ></button>
+                    <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>
+                    <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
+                    <button class="btn btn-success glyphicon glyphicon-ok" data-toggle="modal" data-target="#escolher_atual_modal" ></button>
 
                     <form class="form-inline float-right col-xs-8 no-margin-right">
                         <div class="form-group col-xs-12 no-margin-right">
@@ -147,9 +179,10 @@
 
                 <table class="table table-bordered table-hover table-selectable">
                     <thead>
-                        <tr class="alert-info text-align-center">
+                        <tr class="alert-info">
                             <th >Orçamentos</th>
                             <th >Descrição</th>
+                            <th class="text-center">Atual</th>
                         </tr>
                     </thead>
 
@@ -159,6 +192,8 @@
                             <th th:text="${budget.name}"></th>
                             <th th:text="${budget.description}"></th>
                             <th class="hidden" th:text="${budget.id}"></th>
+                            <th class="text-center" th:if="${budget.current eq true}"><span class="glyphicon glyphicon-ok"></span></th>
+                            <th class="text-center" th:if="${budget.current ne true}"> </th>
                         </tr>
 
                     </tbody>

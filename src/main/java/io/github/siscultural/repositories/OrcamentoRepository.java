@@ -28,5 +28,7 @@ public interface OrcamentoRepository extends JpaRepository<Budget, Long>{
 
     public void delete(Budget budget);
 
+    public List<Budget> findByCurrent(boolean current);
+
         
 }

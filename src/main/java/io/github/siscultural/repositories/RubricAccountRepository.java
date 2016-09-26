@@ -7,9 +7,11 @@ package io.github.siscultural.repositories;
 
 
 import io.github.siscultural.entities.Budget;
+import io.github.siscultural.entities.Program;
 import io.github.siscultural.entities.Rubric;
 import io.github.siscultural.entities.RubricAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -27,5 +29,8 @@ public interface RubricAccountRepository extends JpaRepository<RubricAccount, Lo
 
     public RubricAccount save(RubricAccount rubricAccount);
 
-    
+
+//    @Query("select ra from RubricAccount ra JOIN Rubric r where r.program_id = :#{#program.id} and ra.budget_id = :#{#budget.id}")
+//    public List<RubricAccount> findByBudgetAndProgram(Budget budget, Program program);
+
 }

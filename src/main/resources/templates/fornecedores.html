@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
-<head>
+      >
+    <head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>SisCultural - Orçamentos</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>SisCultural - fornecedores</title>
 
-    <!-- Bootstrap -->
+        <!-- Bootstrap -->
 
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css"/>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
 
-</head>
+    </head>
 
     <body class="home-body">
 
@@ -34,23 +34,20 @@
                             <!--<form method="post" role="form" class="form-horizontal" id="cadastro-orcamento" th:action="@{/orcamento/add}">-->
                             <form method="post" role="form" class="form-horizontal" id="cadastro-orcamento">
                                 <div class="form-group">
-                                    <label for="descricao" class="control-label col-sm-2">Nome</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome do orçamento." maxlength="50" autofocus="true" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="descricao" class="control-label col-sm-2">Descrição</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Digite a descrição do orçamento." autofocus="true" />
-                                    </div>
+                                    <p>
+                                        <br/>
+                                        <a href="/fornecedores/fornecedor_fisico">Adicionar: Pessoa Física</a>
+                                        <br/>
+                                        <br/>
+                                        <a href="/fornecedores/fornecedor_juridico">Adicionar: Pessoa Jurídica</a>
+                                    </p>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <!--<button type="submit" th:form="cadastro-orcamento" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>-->
-                        <button type="submit" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>-->
                         <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
                     </div>
                 </div>
@@ -155,11 +152,15 @@
 
                     <tbody class="searchable" id="materiaisTable">
 
-                        <tr th:each="provider : ${providers}" >
-                            <th th:text="${provider.name}"></th>
-                            <th th:text="${provider.cpf}"></th>
-                            <th th:text="${provider.cnpj}"></th>
-                            <th class="hidden" th:text="${budget.id}"></th>
+                        <tr th:each="cp : ${cps}" >
+                            <th th:text="${cp.cnpj}"></th>
+                            <th th:text="'Nome: ' + ${cp.name} + '  /  Nome Fantasia: ' + ${cp.tradingName}"></th>
+                            <th class="hidden" th:text="${cp.id}"></th>
+                        </tr>
+                        <tr th:each="ip : ${ips}" >
+                            <th th:text="${ip.cpf}"></th>
+                            <th th:text="${ip.name}"></th>
+                            <th class="hidden" th:text="${ip.id}"></th>
                         </tr>
 
                     </tbody>
@@ -220,17 +221,11 @@
 
 
             $('#btn-editar').click(function (e) {
-                var nome = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
-                var descricao = $('.table-selectable > tbody > tr.active').find('th:nth-child(2)').text();
+
                 var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(3)').text();
 
-                $("#edit-name").val(nome);
-                $("#edit-descricao").val(descricao);
-                $("#edit-id").val(id);
+                window.location = "fornecedores/edit?id="+id;
 
-                $('#editar_modal').modal({
-                    show: 'true'
-                });
             });
 
             $('#confirmar_editar').click(function (e) {
@@ -270,7 +265,7 @@
 
             $('#confirmar_exclusao').click(function (e) {
                 e.preventDefault();
-                $.post('/orcamento/delete', $('#delete_modal').serialize(), function (response) {
+                $.post('/provider_delete', $('#delete_modal').serialize(), function (response) {
                     var erro = response.erro;
                     $('#deletar_modal').modal('hide');
 
@@ -279,7 +274,7 @@
                     } else {
                         show_success(response.resultado);
                         $("#confirmOkButton").click(function () {
-                            $(location).attr('href', 'orcamento');
+                            $(location).attr('href', 'fornecedores');
                         });
 
                     }

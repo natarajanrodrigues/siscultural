@@ -8,13 +8,7 @@ package io.github.siscultural.entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  *
@@ -30,8 +24,9 @@ public class Accomplishment implements Serializable {
     private Locality locality;
     private LocalDateTime dateTime;
     private int audience;
-    @OneToOne
-    @JoinColumn(name="contract_id", nullable=false)
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+//    @JoinColumn(name="contract_id", nullable=false)
     private Contract contract;
 
     public Accomplishment() {

@@ -5,6 +5,8 @@
  */
 package io.github.siscultural.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.*;
@@ -22,6 +24,7 @@ public class Rubric implements Serializable {
     private String name;
     private String description;
 
+    @JsonIgnore
     @OneToOne
     private Program program;
 

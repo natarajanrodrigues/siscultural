@@ -5,6 +5,8 @@
  */
 package io.github.siscultural.entities;
 
+import org.eclipse.persistence.annotations.PrivateOwned;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,11 +36,13 @@ public class Contract implements Serializable {
     
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     private Presentation presentation;
-    
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Accomplishment> accomplishments;
-    
+
+
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    @PrivateOwned
     private List<PaymentProposal> paymentProposals;
 
     @ManyToOne

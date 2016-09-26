@@ -26,6 +26,8 @@ public class Budget implements Serializable {
     private String name;
     private String description;
 //    private LocalDateTime creationDateTime;
+
+    private boolean current;
     
 
     public Budget() {
@@ -65,6 +67,14 @@ public class Budget implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isCurrent() {
+        return current;
+    }
+
+    public void setCurrent(boolean current) {
+        this.current = current;
     }
 
     public static class Comparators {

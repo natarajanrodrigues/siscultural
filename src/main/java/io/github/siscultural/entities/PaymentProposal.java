@@ -5,6 +5,9 @@
  */
 package io.github.siscultural.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.eclipse.persistence.annotations.PrivateOwned;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -40,9 +43,13 @@ public class PaymentProposal implements Serializable {
     private List<Entry> payments;
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Functionary functionary;
+
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Contract contract;
 
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Provider provider;
     
     public PaymentProposal() {
     }
@@ -112,7 +119,22 @@ public class PaymentProposal implements Serializable {
         this.payments = payments;
     }
 
-    
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
     //Não usar foreach aqui. Por algum motivo quebra a construção de tabelas do JPA.
     public BigDecimal remaingToPay() {
 
