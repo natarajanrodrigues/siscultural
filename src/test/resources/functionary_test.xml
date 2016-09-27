@@ -6,4 +6,5 @@
     <Program id="1" name="Música"/>
     <Rubric id="1" name="Música - cachê"/>
     <Program_rubric program_id="1" rubrics_id="1"/>
+    <Locality id="1" description="CCBNB-Sousa" address="Rua Cel José Gomes de Sá, 7" city="Sousa" state_name="Paraíba" />
 </dataset>
