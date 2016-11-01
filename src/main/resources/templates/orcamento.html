@@ -197,11 +197,11 @@
                     <tbody class="searchable" id="materiaisTable">
 
                         <tr th:each="budget : ${budgets}" >
-                            <th th:text="${budget.name}"></th>
-                            <th th:text="${budget.description}"></th>
-                            <th class="hidden" th:text="${budget.id}"></th>
-                            <th class="text-center" th:if="${budget.current eq true}"><span class="glyphicon glyphicon-ok"></span></th>
-                            <th class="text-center" th:if="${budget.current ne true}"> </th>
+                            <td th:text="${budget.name}"></td>
+                            <td th:text="${budget.description}"></td>
+                            <td class="hidden" th:text="${budget.id}"></td>
+                            <td class="text-center" th:if="${budget.current eq true}"><span class="glyphicon glyphicon-ok"></span></td>
+                            <td class="text-center" th:if="${budget.current ne true}"> </td>
                         </tr>
 
                     </tbody>
@@ -262,9 +262,9 @@
 
 
             $('#btn-editar').click(function (e) {
-                var nome = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
-                var descricao = $('.table-selectable > tbody > tr.active').find('th:nth-child(2)').text();
-                var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(3)').text();
+                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var descricao = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
 
                 $("#edit-name").val(nome);
                 $("#edit-descricao").val(descricao);
@@ -299,8 +299,8 @@
             });
 
             $('#btn-deletar').click(function (e) {
-                var nome = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
-                var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(3)').text();
+                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
 
                 $("#id_delet").val(id);
                 $("#nome_delet").html(nome);

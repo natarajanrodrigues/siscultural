@@ -15,6 +15,7 @@ import java.util.List;
  * @author Natarajan Rodrigues
  */
 public interface ContractRepository extends JpaRepository<Contract, Long>{
+
     public Contract findById(Long id);
 
     public List<Contract> findAll();

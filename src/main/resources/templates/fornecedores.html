@@ -165,9 +165,9 @@
                             <th class="hidden" th:text="${cp.id}"></th>
                         </tr>
                         <tr th:each="ip : ${ips}" >
-                            <th th:text="${ip.cpf}"></th>
-                            <th th:text="${ip.name}"></th>
-                            <th class="hidden" th:text="${ip.id}"></th>
+                            <td th:text="${ip.cpf}"></td>
+                            <td th:text="${ip.name}"></td>
+                            <td class="hidden" th:text="${ip.id}"></td>
                         </tr>
 
                     </tbody>
@@ -229,7 +229,7 @@
 
             $('#btn-editar').click(function (e) {
 
-                var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(3)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
 
                 window.location = "fornecedores/edit?id="+id;
 
@@ -259,8 +259,8 @@
             });
 
             $('#btn-deletar').click(function (e) {
-                var nome = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
-                var id = $('.table-selectable > tbody > tr.active').find('th:nth-child(3)').text();
+                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
 
                 $("#id_delet").val(id);
                 $("#nome_delet").html(nome);

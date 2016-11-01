@@ -1,0 +1,53 @@
+/**/
+/*CALENDARIO PERSONALIZADO*/
+/**/
+
+.actived{
+    background-color: rgba(149, 146, 209, 0.7) !important;
+    color: white;
+}
+
+.event div{
+    background-color: #357ebd !important;
+    color: white;
+    border-radius: 5px;
+}
+
+.azul-evento{
+    background-color: #357ebd !important;
+    color: white !important;
+    width: 40px !important;
+}
+
+span.badge-today{
+    background-color: #003366 !important;
+}
+
+div.zabuto_calendar .table td{
+    padding: 10px !important;
+}
+div.zabuto_calendar .table td.dow-clickable:hover{
+    background-color: rgba(149, 146, 209, 0.7) !important;
+    color: white;
+}
+
+.badge-event{
+    background-color: white !important;
+    color: black !important;
+}
+
+.zabuto_calendar{
+    margin: 0px 15px 15px 15px !important;
+}
+div.zabuto_calendar div.legend span{
+    font-size: 12px !important;
+}
+div.zabuto_calendar div.legend {
+    margin-top: 15px !important;
+}
+div.zabuto_calendar div.legend span.badge{
+    padding-top: 3px !important;
+}
+/**/
+/*FINAL DE CALENDARIO PERSONALIZADO*/
+/**/

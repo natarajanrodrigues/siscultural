@@ -91,7 +91,7 @@ $(document).ready(function () {
             $('.searchable tr').hide();
             $('.searchable tr').filter(function () {
                 // return rex.test($(this).find(':nth-child(2)').text()); //antigo só buscava em umas das colunas
-                return rex.test($(this).find('th').text());
+                return rex.test($(this).find('td').text());
             }).show();
 
         });

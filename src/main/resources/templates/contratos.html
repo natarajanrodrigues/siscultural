@@ -100,10 +100,10 @@
                     <tbody class="searchable" id="materiaisTable">
 
                     <tr th:each="contract : ${contracts}">
-                        <th th:text="${contract.id}"></th>
-                        <th th:text="${#temporals.format(contract.contractDate, 'dd/MM/yyyy')}"></th>
-                        <th th:text="${contract.presentation.name}"></th>
-                        <th th:text="${contract.program.name}"></th>
+                        <td th:text="${contract.id}"></td>
+                        <td th:text="${#temporals.format(contract.contractDate, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${contract.presentation.name}"></td>
+                        <td th:text="${contract.program.name}"></td>
                     </tr>
 
                     </tbody>
@@ -144,8 +144,8 @@
 
 
             $('#btn-editar').click(function (e) {
-                var id = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
-                var nome = $('.table-selectable > tbody > tr.active').find('th:nth-child(2)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var nome = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
 
                 $("#edit-id").val(id);
                 $("#edit-name").val(nome);
@@ -155,8 +155,8 @@
             });
 
             $('#btn-deletar').click(function (e) {
-                var id = $('.table-selectable > tbody > tr.active').find('th:first-child').text();
-                var nome = $('.table-selectable > tbody > tr.active').find('th:nth-child(2)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var nome = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
 
                 $("#id_delet").val(id);
                 $("#nome_delet").html(nome);
