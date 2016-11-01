@@ -73,17 +73,18 @@ public class UsuarioController {
 
     @RequestMapping(value = "/usuarios/edit", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView editUsuario(@ModelAttribute("id") String id, @ModelAttribute("name") String name, @ModelAttribute("email") String email, @ModelAttribute("type") String type) {
+    public ModelAndView editUsuario(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("type") String type) {
 
         Map<String, String> map = new HashMap<>();
 
-        Functionary functionary = functionaryRepository.findByEmail(email);
+        Functionary functionary = functionaryRepository.findById(Long.parseLong(id));
 
         if (functionary != null) {
 
             functionary.setName(name);
             functionary.setEmail(email);
             functionary.setUserType(UserType.valueOf(type));
+            System.out.println(functionary.getEmail());
 
             Functionary f = functionaryRepository.save(functionary);
 

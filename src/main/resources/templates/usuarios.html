@@ -83,6 +83,9 @@
                     <div class="modal-body">
                         <div class='container-fluid'>
                             <form method="post" role="form" class="form-horizontal" id="editar-usuario">
+
+                                <input type="text" class="hidden" id="edit-id" name="id"/>
+
                                 <div class="form-group">
                                     <label for="name" class="control-label col-sm-2">Nome</label>
                                     <div class="col-sm-10">
@@ -150,6 +153,14 @@
         <header th:include="menu_header :: header"></header>
 
         <div class="container">
+
+            <div class="">
+                <ol class="breadcrumb">
+                    <li><a href="home">Home</a>
+                    </li>
+                    <li class="active">Usuários</li>
+                </ol>
+            </div>
 
             <div class="panel panel-default">
                 <div class="panel-body">
