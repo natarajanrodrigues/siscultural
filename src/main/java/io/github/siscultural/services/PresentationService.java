@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PresentationService {
 
     @Autowired
-    private static PresentationRepository presentationRepository;
+    private PresentationRepository presentationRepository;
 
     @Autowired
     public PresentationService(PresentationRepository presentationRepository) {

@@ -23,10 +23,10 @@ import java.util.Map;
 public class RubricAccountService {
 
     @Autowired
-    private static RubricAccountRepository rubricAccountRepository;
+    private RubricAccountRepository rubricAccountRepository;
 
     @Autowired
-    private static BudgetService budgetService;
+    private BudgetService budgetService;
 
     @Autowired
     public RubricAccountService(RubricAccountRepository rubricAccountRepository, BudgetService budgetService) {

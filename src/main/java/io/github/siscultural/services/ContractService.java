@@ -24,10 +24,10 @@ import java.util.Map;
 public class ContractService {
 
     @Autowired
-    private static PresentationRepository presentationRepository;
-    private static ContractRepository contractRepository;
-    private static AccomplishmentRepository accomplishmentRepository;
-    private static PaymentProposalRepository paymentProposalRepository;
+    private PresentationRepository presentationRepository;
+    private ContractRepository contractRepository;
+    private AccomplishmentRepository accomplishmentRepository;
+    private PaymentProposalRepository paymentProposalRepository;
 
     @Autowired
     public ContractService(PresentationRepository presentationRepository, ContractRepository contractRepository,

@@ -10,11 +10,13 @@ import java.time.LocalDate;
  */
 @Entity
 public class DailyPublicScore {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-//    @UniqueConstraint(columnNames = {date})
+//    @Column(unique = true, columnDefinition = "DATE")
+    @Id
+    @Column(columnDefinition = "DATE")
     private LocalDate date;         //data
 
     private boolean openToVisitors; // informa se é dia em que o centro cultural está aberto
@@ -24,6 +26,8 @@ public class DailyPublicScore {
     private int libraryPublicScore; //total de contagem de público na biblioteca
 
     private String closingReasonText; //string dizendo o motivo de estar fechado - para impressão na agenda
+
+    private String openingReasonText; //string dizendo o motivo de estar fechado - para impressão na agenda
 
     public DailyPublicScore() {
     }
@@ -36,13 +40,13 @@ public class DailyPublicScore {
         this.closingReasonText = closingReasonText;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public LocalDate getDate() {
         return date;
@@ -65,7 +69,10 @@ public class DailyPublicScore {
     }
 
     public void setMainPublicScore(int mainPublicScore) {
-        this.mainPublicScore = mainPublicScore;
+        if (mainPublicScore >= 0)
+            this.mainPublicScore = mainPublicScore;
+        else
+            throw new IllegalArgumentException("Número de público do contador principal não pode ser negativo.");
     }
 
     public int getLibraryPublicScore() {
@@ -73,7 +80,10 @@ public class DailyPublicScore {
     }
 
     public void setLibraryPublicScore(int libraryPublicScore) {
-        this.libraryPublicScore = libraryPublicScore;
+        if (libraryPublicScore >= 0)
+            this.libraryPublicScore = libraryPublicScore;
+        else
+            throw new IllegalArgumentException("Público da biblioteca não pode ser negativo.");
     }
 
     public String getClosingReasonText() {
@@ -84,5 +94,11 @@ public class DailyPublicScore {
         this.closingReasonText = closingReasonText;
     }
 
+    public String getOpeningReasonText() {
+        return openingReasonText;
+    }
 
+    public void setOpeningReasonText(String openingReasonText) {
+        this.openingReasonText = openingReasonText;
+    }
 }

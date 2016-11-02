@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocalityService {
 
     @Autowired
-    private static LocalityRepository localityRepository;
+    private LocalityRepository localityRepository;
 
     @Autowired
     public LocalityService(LocalityRepository localityRepository) {

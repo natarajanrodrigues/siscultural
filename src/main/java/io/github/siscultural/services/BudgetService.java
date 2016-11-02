@@ -21,7 +21,7 @@ import java.util.Map;
 public class BudgetService {
 
     @Autowired
-    private static OrcamentoRepository orcamentoRepository;
+    private OrcamentoRepository orcamentoRepository;
 
     @Autowired
     public BudgetService(OrcamentoRepository orcamentoRepository) {
