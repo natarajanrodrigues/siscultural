@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Programas</title>
+
+    <!-- Bootstrap -->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+</head>
+
+    <body class="home-body">
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container"  style="margin-bottom: 50px">
+
+            <div class="">
+                <ol class="breadcrumb">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="menu_atividades">Área de Atividades</a></li>
+                    <li><a href="special">Especiais</a></li>
+                    <li class="active">Adicionar ou Editar</li>
+                </ol>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class='container-fluid'>
+
+                        <form th:action="@{/special_add}" th:object="${specialEvent}" id="form_locality" method="post">
+                            <div class="form-group col-md-12">
+                                <label for="name" class="control-label">Endereço</label>
+                                <input type="text" class="form-control" id="name" name="name" autofocus="true"
+                                       placeholder="Nome da Programação Especial"  th:field="*{name}"  />
+                                <p th:if="${#fields.hasErrors('name')}" th:errors="*{address}" class="help-block"></p>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="description" class="control-label">Descrição</label>
+
+                                <textarea rows="5" class="form-control" id="description" name="description"
+                                       placeholder="Descrição da Programação Especial" th:field="*{description}"  />
+                                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="help-block"></p>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="panel-footer container-fluid">
+
+                    <span class="pull-right ">
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
+                                <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>-->
+                            <!--Cancelar-->
+                        <!--</button>-->
+                        <button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_locality">Salvar</button>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+
+
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/tableselection.js"></script>
+        <script src="https://use.fontawesome.com/42680f3b68.js"></script>
+
+
+    </body>
+
+</html>

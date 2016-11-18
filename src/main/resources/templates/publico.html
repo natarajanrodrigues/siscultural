@@ -20,53 +20,72 @@
 
     <link href="css/persoal_zabuto.css" rel="stylesheet"/>
 
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" type="text/css"/>
+
 
 </head>
 
     <body class="home-body">
 
-        <div class="modal fade" id="cadastrar_modal">
+        <div class="modal fade" id="populate_modal">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header align-center">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Cadastrar Usuário</h3>
+                        <h3 class="modal-title">Popular Calendário</h3>
                     </div>
 
-                    <div class="modal-body">
-                        <div class='container-fluid'>
+                    <div class="modal-body container-fluid">
+                        <div class='container-fluid col-md-10 col-md-offset-1'>
 
                             <form method="post" role="form" class="form-horizontal" id="cadastro-usuario">
                                 <div class="form-group">
-                                    <label for="name" class="control-label col-sm-2">Nome</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Nome completo..." maxlength="50" autofocus="true" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="control-label col-sm-2">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="control-label col-sm-2">Senha</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Senha"  />
+                                    <label for="inicial" class="control-label">Data inicial</label>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class='col-md-3'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker2'>
+                                                        <input type='text' class="form-control" name="initialDate" id="inicial" autofocus="true" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="type" class="control-label col-sm-2">Tipo</label>
-                                    <div class="col-sm-10">
-                                        <select name="type" class="form-control" id="type">
-                                            <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
-                                        </select>
+                                    <label for="final" class="control-label">Data Final</label>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class='col-md-3'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker3'>
+                                                        <input type='text' class="form-control" name="finalDate" id="final"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="control-label">Texto aberto sem atividade</label>
+                                    <input type="text" class="form-control" id="name" name="text" placeholder="Nome completo..." />
+                                </div>
+
                             </form>
                         </div>
                     </div>
+
                     <div class="modal-footer">
                         <!--<button type="submit" th:form="cadastro-orcamento" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>-->
                         <button type="submit" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
@@ -81,35 +100,55 @@
                 <div class="modal-content">
                     <div class="modal-header align-center">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Editar Orçamento</h3>
+                        <h3 class="modal-title">Registrar Funcionamento</h3>
                     </div>
 
                     <div class="modal-body">
                         <div class='container-fluid'>
                             <form method="post" role="form" class="form-horizontal" id="editar-usuario">
 
-                                <input type="text" class="hidden" id="edit-id" name="id"/>
+                                <div class="form-group">
+                                    <label for="name" class="control-label">Texto descrição do funcionamento</label>
+                                    <input type="text" class="form-control" id="name" name="text" placeholder="'Centro Cultural aberto para...' ou 'Feriado Nacional'" maxlength="50" />
+                                </div>
 
+                                <!--data-->
                                 <div class="form-group">
-                                    <label for="name" class="control-label col-sm-2">Nome</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="edit-name" name="name" placeholder="Nome completo..." maxlength="50" autofocus="true" />
+                                    <label for="date" class="control-label">Data </label>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class='col-sm-3'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker4'>
+                                                        <input type='text' class="form-control" name="date" id="date"/>
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="closed"/> CCBNB Fechado
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="email" class="control-label col-sm-2">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="edit-email" name="email" placeholder="Email" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="edit-type" class="control-label col-sm-2">Tipo</label>
-                                    <div class="col-sm-10">
-                                        <select name="type" class="form-control" id="edit-type">
-                                            <option th:each="t : ${types}" th:value="${t}" th:text="${t}" ></option>
-                                        </select>
-                                    </div>
-                                </div>
+
+
+
+                                <!--aberto ou fechado-->
+                                <!--<div class="form-group col-md-6">-->
+                                    <!--<div class="checkbox">-->
+                                        <!--<label>-->
+                                            <!--<input type="checkbox"/> Fechado-->
+                                        <!--</label>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
                             </form>
                         </div>
@@ -125,26 +164,54 @@
         <div class="modal fade" id="deletar_modal">
             <div class="modal-dialog modal-lm">
                 <div class="modal-content">
-                    <form id="delete_modal" method="post">
-                        <div class="modal-header align-center">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h3 class="modal-title">Confirmar Exclusão</h3>
-                        </div>
 
-                        <div class="modal-body align-center">
-                            <div class="row">
-                                <div class="col-sm-12 align-center">
-                                    <h4>Tem certeza que deseja excluir " <span name="descricao" id="nome_delet"></span> " do sistema ?</h4>
-                                    <p>Esta operação é irreversível.</p>
-                                    <input type="text" class="hidden" id="id_delet" name="id" />
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Registrar Público Diário</h3>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <form id="delete_modal" class="afix" method="post">
+                            <div class="container-fluid">
+                                <!--data-->
+                                <div class="form-group col-md-6">
+                                    <label for="date" class="control-label">Data </label>
+
+                                    <div class="row container-fluid">
+                                        <div class="form-group">
+                                            <div class='input-group date' id='datetimepicker5'>
+                                                <input type='text' class="form-control" name="date" id="date"/>
+                                                <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <!--número de público-->
+                                <div class="form-group col-md-6">
+                                    <div class="container-fluid">
+
+                                        <label for="score" class="control-label">Público no contador</label>
+
+                                        <input type="number" class="form-control" id="score" name="score" min="0"
+                                        />
+                                        <!--<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="help-block"></p>-->
+
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" for="deletar" id="confirmar_exclusao" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirmar</button>
-                            <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</button>
-                        </div>
-                    </form>
+
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" for="deletar" id="confirmar_exclusao" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirmar</button>
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -168,18 +235,30 @@
 
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>
-                    <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" ></button>
-                    <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" ></button>
+                    <!--<button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#" ></button>-->
 
-                    <form class="form-inline float-right col-xs-8 no-margin-right">
-                        <div class="form-group col-xs-12 no-margin-right">
-                            <div class="input-group col-xs-12 float-right">
-                                <input type="text" id="filter" class="form-control" placeholder="..."/>
-                                <span class="btn input-group-addon glyphicon glyphicon-search"></span>
-                            </div>
-                        </div>
-                    </form>
+                    <!--<button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editar_modal"></button>-->
+                    <!--<button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#deletar_modal"></button>-->
+                    <!--<button class="btn btn-success glyphicon glyphicon-star" data-toggle="modal" data-target="#populate_modal"></button>-->
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button id="btn-deletar" class="btn btn-default" data-toggle="modal" data-target="#deletar_modal"> Registrar Público</button>
+                    </div>
+
+
+                    <!--SOMENTE MOSTRAR ESSA DIV PARA USUÁRIOS ADMIN-->
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        <button id="btn-editar" class="btn btn-default" data-toggle="modal" data-target="#editar_modal"> Funcionamento</button>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#populate_modal"> Popular</button>
+                    </div>
+
+                    <!--<form class="form-inline float-right col-xs-8 no-margin-right">-->
+                        <!--<div class="form-group col-xs-12 no-margin-right">-->
+                            <!--<div class="input-group col-xs-12 float-right">-->
+                                <!--<input type="text" id="filter" class="form-control" placeholder="..."/>-->
+                                <!--<span class="btn input-group-addon glyphicon glyphicon-search"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
 
                 </div>
 
@@ -187,9 +266,23 @@
 
             </div>
 
-            <div class="col-md-8 col-md-offset-2">
-                <div id="my-calendar"></div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="date-popover" class="popover top"
+                         style="cursor: pointer; display: block; margin-left: 33%; margin-top: -50px; width: 175px;">
+                        <div class="arrow"></div>
+                        <h3 class="popover-title" style="display: none;"></h3>
+
+                        <div id="date-popover-content" class="popover-content"></div>
+                    </div>
+
+                    <div class="col-md-8 col-md-offset-2">
+                        <div id="my-calendar"></div>
+                    </div>
+                </div>
             </div>
+
+
 
 
         </div>
@@ -202,22 +295,104 @@
 
 
         <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/moment.js"></script>
+
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-datetimepicker.min.js"></script>
+        <script src="js/locale/pt-br.js"></script>
+
         <script src="js/tableselection.js"></script>
         <script src="https://use.fontawesome.com/42680f3b68.js"></script>
         <script src="js/zabuto_calendar.js"></script>
 
+
+
+
+
+
+
         <script type="text/javascript">
 
+//            zabuto calendar
             $(document).ready(function () {
+
+                $("#date-popover").popover({html: true, trigger: "manual"});
+                $("#date-popover").hide();
+                $("#date-popover").click(function (e) {
+                    $(this).hide();
+                });
+
+
                 $("#my-calendar").zabuto_calendar({
+                    action: function () {
+                        return myDateFunction(this.id, true);
+                    },
                     language: "pt",
                     cell_border: true,
-                    today: true,
+                    today: false,
                     show_days: true,
-                    //                    data: eventData,
-                    weekstartson: 0
+                    weekstartson: 0,
+                    ajax: {
+                        url: "/getAllJson",
+                        modal: true
+                    }
                 });
+
+            });
+
+            function myDateFunction(id, fromModal) {
+//                $("#date-popover").hide();
+
+                if (fromModal) {
+                    $("#" + id + "_modal").modal("hide");
+                }
+
+                var date = $("#" + id).data("date");
+                var hasEvent = $("#" + id).data("hasEvent");
+
+                if (hasEvent) {
+                    if (!fromModal){
+                        return false;
+                    }
+                }
+
+
+//                var date = $("#" + id).data("date");
+//                var score = $("#" + id).data("score");
+//                var hasEvent = $("#" + id).data("hasEvent");
+//                var badge= $("#" + id).data("badge");
+
+
+//                $("#date-popover-content").html('Público em ' + date + ": " + score);
+//                $("#date-popover").show();
+                return true;
+            }
+
+//            end zabuto calendar
+
+            $(function () {
+
+                $('#datetimepicker2').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'DD/MM/YYYY'
+                });
+
+                $('#datetimepicker3').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'DD/MM/YYYY'
+                });
+
+                $('#datetimepicker4').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'DD/MM/YYYY'
+                });
+
+                $('#datetimepicker5').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'DD/MM/YYYY'
+                });
+
+
             });
 
             function show_success() {
@@ -235,9 +410,10 @@
 
             $('#cadastrar').click(function (e) {
                 e.preventDefault();
-                $.post('usuarios/add', $('#cadastro-usuario').serialize(), function (response) {
+                $.post('/publico/populate', $('#cadastro-usuario').serialize(), function (response) {
                     var erro = response.erro;
-                    $('#cadastrar_modal').modal('hide');
+//
+                    $('#populate_modal').modal('hide');
 
                     if (erro !== undefined) {
                         show_error(erro);
@@ -245,7 +421,7 @@
                         show_success(response.resultado);
 
                         $("#confirmOkButton").click(function () {
-                            $(location).attr('href', 'usuarios');
+                            $(location).attr('href', 'publico');
                         });
 
                     }
@@ -254,46 +430,23 @@
             });
 
             $('#confirmOkButton').click(function (e) {
-                $(location).attr('href', 'usuarios');
-            });
-
-
-            $('#btn-editar').click(function (e) {
-                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
-                var email = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
-                var type = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
-                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(4)').text();
-
-                $("#edit-name").val(nome);
-                $("#edit-email").val(email);
-
-                $("#edit-type option").filter(function () {
-                    return $(this).text() === type;
-                }).prop('selected', true);
-
-                $("#edit-id").val(id);
-
-                $('#editar_modal').modal({
-                    show: 'true'
-                });
+                $(location).attr('href', 'publico');
             });
 
             $('#confirmar_editar').click(function (e) {
                 e.preventDefault();
-                $.post('usuarios/edit', $('#editar-usuario').serialize(), function (response) {
+                $.post('/publico/register', $('#editar-usuario').serialize(), function (response) {
                     var erro = response.erro;
-
+//
                     $('#editar_modal').modal('hide');
 
-
                     if (erro !== undefined) {
-
                         show_error(erro);
                     } else {
-
                         show_success(response.resultado);
+
                         $("#confirmOkButton").click(function () {
-                            $(location).attr('href', 'usuarios');
+                            $(location).attr('href', 'publico');
                         });
 
                     }
@@ -301,35 +454,100 @@
 
             });
 
-            $('#btn-deletar').click(function (e) {
-                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
-                var id = $('.table-selectable > tbody > tr.active').find('t:nth-child(4)').text();
-
-                $("#id_delet").val(id);
-                $("#nome_delet").html(nome);
-
-                $('#deletar_modal').modal({
-                    show: 'true'
-                });
-            });
-
             $('#confirmar_exclusao').click(function (e) {
                 e.preventDefault();
-                $.post('/usuarios/delete', $('#delete_modal').serialize(), function (response) {
+                $.post('/publico/main_score', $('#delete_modal').serialize(), function (response) {
                     var erro = response.erro;
+//
                     $('#deletar_modal').modal('hide');
 
                     if (erro !== undefined) {
                         show_error(erro);
                     } else {
                         show_success(response.resultado);
+
                         $("#confirmOkButton").click(function () {
-                            $(location).attr('href', 'usuarios');
+                            $(location).attr('href', 'publico');
                         });
 
                     }
                 });
+
             });
+
+
+//            $('#btn-editar').click(function (e) {
+//                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+//                var email = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+//                var type = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+//                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(4)').text();
+//
+//                $("#edit-name").val(nome);
+//                $("#edit-email").val(email);
+//
+//                $("#edit-type option").filter(function () {
+//                    return $(this).text() === type;
+//                }).prop('selected', true);
+//
+//                $("#edit-id").val(id);
+//
+//                $('#editar_modal').modal({
+//                    show: 'true'
+//                });
+//            });
+//
+//            $('#confirmar_editar').click(function (e) {
+//                e.preventDefault();
+//                $.post('usuarios/edit', $('#editar-usuario').serialize(), function (response) {
+//                    var erro = response.erro;
+//
+//                    $('#editar_modal').modal('hide');
+//
+//
+//                    if (erro !== undefined) {
+//
+//                        show_error(erro);
+//                    } else {
+//
+//                        show_success(response.resultado);
+//                        $("#confirmOkButton").click(function () {
+//                            $(location).attr('href', 'usuarios');
+//                        });
+//
+//                    }
+//                });
+//
+//            });
+
+//            $('#btn-deletar').click(function (e) {
+//                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+//                var id = $('.table-selectable > tbody > tr.active').find('t:nth-child(4)').text();
+//
+//                $("#id_delet").val(id);
+//                $("#nome_delet").html(nome);
+//
+//                $('#deletar_modal').modal({
+//                    show: 'true'
+//                });
+//            });
+//
+//            $('#confirmar_exclusao').click(function (e) {
+//                e.preventDefault();
+//                $.post('/usuarios/delete', $('#delete_modal').serialize(), function (response) {
+//                    var erro = response.erro;
+//                    $('#deletar_modal').modal('hide');
+//
+//                    if (erro !== undefined) {
+//                        show_error(erro);
+//                    } else {
+//                        show_success(response.resultado);
+//                        $("#confirmOkButton").click(function () {
+//                            $(location).attr('href', 'usuarios');
+//                        });
+//
+//                    }
+//                });
+//            });
 
         </script>
 

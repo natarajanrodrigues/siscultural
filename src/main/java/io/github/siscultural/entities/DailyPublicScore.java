@@ -1,8 +1,13 @@
 package io.github.siscultural.entities;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import io.github.siscultural.utils.LocalDateSerializer;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.text.DateFormat;
 import java.time.LocalDate;
 
 /**
@@ -101,4 +106,25 @@ public class DailyPublicScore {
     public void setOpeningReasonText(String openingReasonText) {
         this.openingReasonText = openingReasonText;
     }
+
+    public String toZabutoCalendarJson(){
+//        Gson gson = new GsonBuilder()
+//                .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+//                .create();
+//        return gson.toJson(this);
+
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("{");
+//        sb.append("\"").append("date").append("\":").append("\"").append(getDate().toString()).append("\",");
+//        sb.append("\"").append("badge").append("\":");
+//        if (getMainPublicScore() != 0)
+//            sb.append("true");
+//        else
+//            sb.append("false");
+//        sb.append("}");
+//        return sb.toString();
+
+        return null;
+    }
+
 }

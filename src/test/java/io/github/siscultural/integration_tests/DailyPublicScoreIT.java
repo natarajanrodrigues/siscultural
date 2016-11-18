@@ -5,6 +5,7 @@
  */
 package io.github.siscultural.integration_tests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -41,10 +42,10 @@ import static org.junit.Assert.assertEquals;
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@DatabaseSetup(DailyPublicScoreIT.DATASET)
-@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = { DailyPublicScoreIT.DATASET })
+//@DatabaseSetup(DailyPublicScoreIT.DATASET)
+//@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = { DailyPublicScoreIT.DATASET })
 @DirtiesContext
-@ActiveProfiles("scratch")
+//@ActiveProfiles("scratch")
 public class DailyPublicScoreIT {
 
     protected static final String DATASET = "classpath:daily_test.xml";
@@ -68,6 +69,13 @@ public class DailyPublicScoreIT {
 ////        dailyPublicScoreService.populateDates(now, now.plusDays(2));
 //
 //    }
+
+    @Test
+    public void test() throws JsonProcessingException {
+
+        System.out.println(dailyPublicScoreService.allDailyToJson());
+
+    }
 
     @Test
     @DatabaseSetup(DailyPublicScoreIT.DATASET)

@@ -13,10 +13,14 @@
     border-radius: 5px;
 }
 
+.color-yellow {
+    background-color: #FFEB00 !important;
+}
+
 .azul-evento{
     background-color: #357ebd !important;
     color: white !important;
-    width: 40px !important;
+    /*width: 40px !important;*/
 }
 
 span.badge-today{

@@ -1,13 +1,25 @@
 package io.github.siscultural.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.*;
 import io.github.siscultural.entities.DailyPublicScore;
 import io.github.siscultural.repositories.DailyPublicScoreRepository;
+import io.github.siscultural.utils.DailyDTO;
+import io.github.siscultural.utils.LocalDateSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -61,9 +73,25 @@ public class DailyPublicScoreService {
                 dailyPublicScoreRepository.save(newDaily);
 
             }
+        }
+    }
 
+    public List<DailyDTO> allDailyToJson() throws JsonProcessingException {
+        List<DailyPublicScore> all = dailyPublicScoreRepository.findAll();
+
+//        Gson gson = new GsonBuilder()
+//                .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+//                .setDateFormat(DateFormat.FULL)
+//                .create();
+//        return gson.toJson(all);
+
+        List<DailyDTO> list = new LinkedList<>();
+        for (DailyPublicScore d : all) {
+            list.add(new DailyDTO(d));
         }
 
+//        return list.toString();
+        return list;
 
     }
 
