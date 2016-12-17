@@ -33,7 +33,7 @@
                         <div class="modal-body align-center">
                             <div class="row">
                                 <div class="col-sm-12 align-center">
-                                    <h4>Tem certeza que deseja excluir " <span name="descricao" id="nome_delet"></span> " do
+                                    <h4>Tem certeza que deseja excluir o contrato com id " <span name="descricao" id="nome_delet"></span> " do
                                         sistema ?</h4>
                                     <p>Esta operação é irreversível.</p>
                                     <input type="text" class="hidden" id="id_delet" name="id"/>
@@ -156,7 +156,7 @@
 
             $('#btn-deletar').click(function (e) {
                 var id = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
-                var nome = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+                var nome = $('.table-selectable > tbody > tr.active').find('td:nth-child(1)').text();
 
                 $("#id_delet").val(id);
                 $("#nome_delet").html(nome);

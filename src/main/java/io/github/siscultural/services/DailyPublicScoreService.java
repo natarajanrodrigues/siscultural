@@ -95,5 +95,9 @@ public class DailyPublicScoreService {
 
     }
 
+    public List<?> getMonthScore(LocalDate inicialDate, LocalDate finalDate) throws JsonProcessingException {
+        return dailyPublicScoreRepository.getMonthPublicScore(inicialDate, finalDate);
+    }
+
 
 }

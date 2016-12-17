@@ -75,6 +75,7 @@
                     <a href="apresentacao_add"><button class="btn btn-info glyphicon glyphicon-plus" ></button></a>
                     <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>
                     <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
+                    <!--<button id="btn-details" class="btn btn-default glyphicon glyphicon-info-sign disabled" th:disabled="true"></button>-->
 
                     <form class="form-inline float-right col-xs-8 no-margin-right">
                         <div class="form-group col-xs-12 no-margin-right">
@@ -93,6 +94,7 @@
                         <th>Id</th>
                         <th>Nome</th>
                         <th>Grupo</th>
+                        <th class="text-center">Detalhes</th>
                     </tr>
                     </thead>
 
@@ -102,6 +104,7 @@
                         <td th:text="${presentation.id}"></td>
                         <td th:text="${presentation.name}"></td>
                         <td th:text="${presentation.groupOrArtist}"></td>
+                        <td class="text-center"><a th:href="@{/apresentacao_details(id=${presentation.id})}"><button id="btn-details" class="btn btn-xs btn-default glyphicon glyphicon-info-sign"></button></a></td>
                     </tr>
 
                     </tbody>

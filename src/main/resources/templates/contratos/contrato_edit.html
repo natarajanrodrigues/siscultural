@@ -13,6 +13,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" type="text/css"/>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
@@ -33,7 +34,7 @@
                     <div class="modal-body">
                         <div class='container-fluid'>
 
-                            <form method="post" role="form" class="form-horizontal" id="cadastro-realizacao" th:action="@{/realizacao/add}" >
+                            <form method="post" role="form" class="form-horizontal" id="cadastro-realizacao" th:action="@{/realizacao/add}" th:field="${contract}">
                                 <div class="form-group">
                                     <label for="locality" class="control-label">Local</label>
 
@@ -139,7 +140,7 @@
         <div class="modal fade" id="deletar_modal">
             <div class="modal-dialog modal-lm">
                 <div class="modal-content">
-                    <form id="delete_modal" method="post">
+                    <form id="delete_modal" method="post" th:action="@{/realizacao/delete}">
                         <div class="modal-header align-center">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h3 class="modal-title">Confirmar Exclusão</h3>
@@ -257,6 +258,15 @@
 
         <div class="container"  style="margin-bottom: 50px">
 
+            <div class="">
+                <ol class="breadcrumb">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="menu_atividades">Área de Atividades</a></li>
+                    <li><a href="contratos">Contratos</a></li>
+                    <li class="active">Modificar contrato</li>
+                </ol>
+            </div>
+
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class='container-fluid'>
@@ -266,7 +276,7 @@
                             <div class="form-group">
                                 <label for="program" class="control-label">Apresentação</label>
 
-                                <select name="presentation" class="form-control" id="presentation" th:field="*{presentation}">
+                                <select name="presentation" data-live-search="true" class="selectpicker form-control" id="presentation" th:field="*{presentation}">
                                     <option th:each="pres : ${presentations}" th:value="${pres.id}" th:text="${pres.name}" ></option>
                                 </select>
                                 <p th:if="${#fields.hasErrors('presentation')}" th:errors="*{presentation}" class="help-block"></p>
@@ -274,10 +284,20 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="specialEvent" class="control-label">Especial</label>
+
+                                <select name="specialEvent" data-live-search="true" class="selectpicker form-control" id="specialEvent" th:field="*{specialEvent}">
+                                    <option th:each="se : ${specialEvents}" th:value="${se.id}" th:text="${se.name}" ></option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('specialEvent')}" th:errors="*{specialEvent}" class="help-block"></p>
+
+                            </div>
+
+                            <div class="form-group">
 
                                 <label for="program" class="control-label">Programa</label>
 
-                                <select name="program" class="form-control" id="program" th:field="*{program}">
+                                <select name="program" data-live-search="true" class="selectpicker form-control" id="program" th:field="*{program}">
                                     <option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}" ></option>
                                 </select>
                                 <p th:if="${#fields.hasErrors('program')}" th:errors="*{program}" class="help-block"></p>
@@ -317,7 +337,7 @@
 
                                 <tbody class="searchable" id="materiaisTable">
 
-                                <tr th:each="accompl : ${accomplishments}">
+                                <tr th:each="accompl : ${contract.accomplishments}">
 
                                     <td th:text="${accompl.locality.description}"></td>
                                     <td th:text="${#temporals.format(accompl.dateTime, 'dd/MM/yyyy HH:mm')}" class="text-center"></td>
@@ -332,53 +352,48 @@
                     </div>
 
                     <!--panel propostas de pagamento-->
-                    <div class="container-fluid">
-                        <div class="panel panel-info">
-                            <div class="panel-heading clearfix">
-                                <div class="panel-body">
-                                    Propostas de pagamento
-                                    <div class="pull-right">
-                                        <!--<a th:href="@{/proposta_pagamento}" ><button class="btn btn-xs btn-success glyphicon glyphicon-plus"></button></a>-->
-                                        <button class="btn btn-xs btn-success glyphicon glyphicon-plus" data-toggle="modal"
-                                                data-target="#modal_add_proposta"></button>
-                                        <button id="btn-editar2" class="btn btn-xs btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true" data-toggle="modal"
-                                                data-target="#modal_edit_realizacao"></button>
-                                        <button id="btn-deletar2" class="btn btn-xs  btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
+                    <!--<div class="container-fluid">-->
+                        <!--<div class="panel panel-info">-->
+                            <!--<div class="panel-heading clearfix">-->
+                                <!--<div class="panel-body">-->
+                                    <!--Propostas de pagamento-->
+                                    <!--<div class="pull-right">-->
+                                        <!--<button class="btn btn-xs btn-success glyphicon glyphicon-plus" data-toggle="modal"-->
+                                                <!--data-target="#modal_add_proposta"></button>-->
+                                        <!--<button id="btn-editar" class="btn btn-xs btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true" data-toggle="modal"-->
+                                                <!--data-target="#modal_edit_realizacao"></button>-->
+                                        <!--<button id="btn-deletar" class="btn btn-xs  btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>-->
 
 
-                                    </div>
+                                    <!--</div>-->
 
-                                </div>
+                                <!--</div>-->
 
-                            </div>
+                            <!--</div>-->
 
-                            <table class="table table-bordered table-hover table-selectable2" id="prop_pagamentos">
-                                <thead>
-                                <tr class="alert-info text-align-center">
-                                    <th>Conta</th>
-                                    <th>Fornecedor</th>
-                                    <th class="text-center">Valor (R$)</th>
-                                    <!--<th class="text-center">Ações</th>-->
-                                </tr>
-                                </thead>
+                            <!--<table class="table table-bordered table-hover table-selectable2" id="prop_pagamentos">-->
+                                <!--<thead>-->
+                                <!--<tr class="alert-info text-align-center">-->
+                                    <!--<th>Conta</th>-->
+                                    <!--<th>Fornecedor</th>-->
+                                    <!--<th class="text-center">Valor (R$)</th>-->
+                                <!--</tr>-->
+                                <!--</thead>-->
 
-                                <tbody class="searchable" id="materiaisTable">
+                                <!--<tbody class="searchable" id="materiaisTable">-->
 
-                                <tr th:each="proposal : ${proposals}">
-                                    <td th:text="${proposal.rubricAccount.rubric.name} + ' - ' + ${proposal.rubricAccount.budget.name}"></td>
-                                    <!--<td th:text="${proposal.rubricAccount.rubric.name} + ' - ' + ${proposal.rubricaccount.budget.name}"></td>-->
-                                    <!--<td th:text="${proposal.id}"></td>-->
-                                    <td th:text="${proposal.provider.name}"></td>
-                                    <td class="text-center" th:text="${proposal.amount}"></td>
-                                    <td th:text="${proposal.id}" th:hidden="true"></td>
+                                <!--<tr th:each="proposal : ${proposals}">-->
+                                    <!--<td th:text="${proposal.rubricAccount.rubric.name} + ' - ' + ${proposal.rubricAccount.budget.name}"></td>-->
+                                    <!--<td th:text="${proposal.provider.name}"></td>-->
+                                    <!--<td class="text-center" th:text="${proposal.amount}"></td>-->
+                                    <!--<td th:text="${proposal.id}" th:hidden="true"></td>-->
+                                <!--</tr>-->
 
-                                </tr>
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        <!--</div>-->
 
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
+                    <!--</div>-->
 
 
                 </div>
@@ -393,6 +408,7 @@
                             <!--Cancelar-->
                         <!--</button>-->
                         <button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_cada_user">Salvar</button>
+                        <a th:href="@{/apresentacao_details(id=${contract.presentation.id})}"><button id="Voltar" class="btn btn-primary" >Voltar</button></a>
                     </span>
 
                 </div>
@@ -413,6 +429,7 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootstrap-datetimepicker.min.js"></script>
         <script src="js/locale/pt-br.js"></script>
+        <script src="js/bootstrap-select.min.js"></script>
 
         <script src="js/tableselection.js"></script>
         <script src="https://use.fontawesome.com/42680f3b68.js"></script>
@@ -471,29 +488,29 @@
                     show: 'true'
                 });
             });
-
-            $('#confirmar_exclusao').click(function (e) {
-                e.preventDefault();
-
-                $.post('/realizacao/delete', $('#delete_modal').serialize(), function (response) {
-
-                    var erro = response.erro;
-                    $('#deletar_modal').modal('hide');
-
-                    if (erro !== undefined) {
-                        show_error(erro);
-                    } else {
-
-                        show_success(response.resultado);
-
-                        $("#confirmOkButton").click(function () {
-
-                            location.reload();
-                        });
-
-                    }
-                });
-            });
+//
+//            $('#confirmar_exclusao').click(function (e) {
+//                e.preventDefault();
+//
+//                $.post('/realizacao/delete', $('#delete_modal').serialize(), function (response) {
+//
+//                    var erro = response.erro;
+//                    $('#deletar_modal').modal('hide');
+//
+//                    if (erro !== undefined) {
+//                        show_error(erro);
+//                    } else {
+//
+//                        show_success(response.resultado);
+//
+//                        $("#confirmOkButton").click(function () {
+//
+//                            location.reload();
+//                        });
+//
+//                    }
+//                });
+//            });
 
 
             // operações sobre propostas

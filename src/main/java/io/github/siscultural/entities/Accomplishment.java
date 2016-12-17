@@ -25,8 +25,11 @@ public class Accomplishment implements Serializable {
     private LocalDateTime dateTime;
     private int audience;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-//    @JoinColumn(name="contract_id", nullable=false)
+//    @ManyToOne (cascade = CascadeType.PERSIST)
+    @ManyToOne
+//    @OneToOne
+//    @OneToOne(cascade = CascadeType.REMOVE)
+//    @JoinColumn(name="contract_id", nullable=false, insertable = false, updatable = false)
     private Contract contract;
 
     public Accomplishment() {

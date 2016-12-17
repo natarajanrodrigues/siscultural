@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-    8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>SisCultural - Programas</title>
 
@@ -25,6 +25,15 @@
         <header th:include="menu_header :: header"></header>
 
         <div class="container"  style="margin-bottom: 50px">
+
+            <div class="">
+                <ol class="breadcrumb">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="menu_atividades">Área de Atividades</a></li>
+                    <li><a href="contratos">Contratos</a></li>
+                    <li class="active">Adicionar contrato</li>
+                </ol>
+            </div>
 
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -60,12 +69,24 @@
                                 <!--<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="help-block"></p>-->
                             <!--</div>-->
                             <div class="form-group col-md-12">
-                                <label for="program" class="control-label">Apresentação</label>
+                                <label for="presentation" class="control-label">Apresentação</label>
 
                                 <select name="presentation" data-live-search="true" class="selectpicker form-control" id="presentation" th:field="*{presentation}">
-                                    <option th:each="pres : ${presentations}" th:value="${pres.id}" th:text="${pres.name}" ></option>
+                                    <option th:if="${presentationChoosed != null}" th:value="${presentationChoosed.id}" th:text="${presentationChoosed.name}"></option>
+                                    <option th:if="${presentationChoosed == null}" th:each="pres : ${presentations}" th:value="${pres.id}" th:text="${pres.name}"></option>
+
                                 </select>
                                 <p th:if="${#fields.hasErrors('presentation')}" th:errors="*{presentation}" class="help-block"></p>
+
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="specialEvent" class="control-label">Especial</label>
+
+                                <select name="specialEvent" data-live-search="true" class="selectpicker form-control" id="specialEvent" th:field="*{specialEvent}">
+                                    <option th:each="se : ${specialEvents}" th:value="${se.id}" th:text="${se.name}" ></option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('specialEvent')}" th:errors="*{specialEvent}" class="help-block"></p>
 
                             </div>
                             <!--<p th:text="${presentation}"/>-->

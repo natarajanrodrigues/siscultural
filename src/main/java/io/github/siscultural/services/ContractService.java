@@ -28,14 +28,17 @@ public class ContractService {
     private ContractRepository contractRepository;
     private AccomplishmentRepository accomplishmentRepository;
     private PaymentProposalRepository paymentProposalRepository;
+    private SpecialEventService specialEventService;
 
     @Autowired
     public ContractService(PresentationRepository presentationRepository, ContractRepository contractRepository,
-                           AccomplishmentRepository accomplishmentRepository, PaymentProposalRepository paymentProposalRepository) {
+                           AccomplishmentRepository accomplishmentRepository, PaymentProposalRepository paymentProposalRepository,
+                           SpecialEventService specialEventService) {
         this.presentationRepository = presentationRepository;
         this.contractRepository = contractRepository;
         this.accomplishmentRepository = accomplishmentRepository;
         this.paymentProposalRepository = paymentProposalRepository;
+        this.specialEventService = specialEventService;
     }
 
     public Contract findById(Long id) {
@@ -54,6 +57,10 @@ public class ContractService {
 
         contract.setContractDate(LocalDate.now());
 
+        return contractRepository.save(contract);
+    }
+
+    public Contract update (Contract contract) {
         return contractRepository.save(contract);
     }
 
@@ -98,5 +105,8 @@ public class ContractService {
         return map;
     }
 
+    public List<Contract> findByPresentation(Presentation presentation) {
+        return contractRepository.findByPresentation(presentation);
+    }
 
 }

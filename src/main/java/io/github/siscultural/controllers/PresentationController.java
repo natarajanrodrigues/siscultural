@@ -6,6 +6,7 @@
 package io.github.siscultural.controllers;
 
 import io.github.siscultural.entities.Presentation;
+import io.github.siscultural.services.ContractService;
 import io.github.siscultural.services.PresentationService;
 import io.github.siscultural.utils.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class PresentationController {
 
     @Autowired
     PresentationService presentationService;
+    @Autowired
+    ContractService contractService;
 
     @GetMapping(value = "/apresentacao")
     public ModelAndView apresentacao(SessionStatus sessionStatus) {
@@ -46,11 +49,12 @@ public class PresentationController {
 
     }
 
+
+
     @RequestMapping(value = "/apresentacao_add", method = RequestMethod.GET)
     public ModelAndView apresentacaoAdd(Presentation presentation) {
         ModelAndView modelAndView = new ModelAndView("presentations/apresentacao_add");
         modelAndView.addObject("presentation", presentation);
-//        return "presentations/apresentacao_add";
         return modelAndView;
     }
 
@@ -73,13 +77,19 @@ public class PresentationController {
         if (result.hasErrors()) {
 
 //            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult." + presentation, );
-            return new ModelAndView("presentations/apresentacao_add");
+//            return new ModelAndView("presentations/apresentacao_add");
+            return modelAndView;
+
         } else {
 
             Presentation presetation = presentationService.save(presentation);
 
             sessionStatus.setComplete();
-            modelAndView = new ModelAndView("redirect:/apresentacao");
+            modelAndView.addObject("presentation", presentation);
+            modelAndView = new ModelAndView("redirect:/apresentacao_details?id=" + presentation.getId());
+
+//            sessionStatus.setComplete();
+//            modelAndView = new ModelAndView("redirect:/apresentacao");
 
         }
 
@@ -108,5 +118,22 @@ public class PresentationController {
         return JsonView.returnJsonFromMap(presentationService.delete(presentation));
 
     }
+
+    @RequestMapping(value = "/apresentacao_details", method = RequestMethod.GET)
+    public ModelAndView apresentacaoDetail2(@RequestParam("id") String id, SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
+
+        ModelAndView modelAndView = new ModelAndView("presentations/apresentacao_details");
+
+        if (id != null) {
+            Presentation presentation = presentationService.findById(Long.parseLong(id));
+            modelAndView.addObject("presentation", presentation);
+            modelAndView.addObject("detailsContracts", contractService.findByPresentation(presentation));
+        }
+
+        return modelAndView;
+    }
+
+
 
 }

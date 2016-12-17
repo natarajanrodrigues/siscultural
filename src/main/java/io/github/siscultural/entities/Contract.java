@@ -5,6 +5,7 @@
  */
 package io.github.siscultural.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.eclipse.persistence.annotations.PrivateOwned;
 
 import java.io.Serializable;
@@ -13,15 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  *
@@ -37,7 +30,13 @@ public class Contract implements Serializable {
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     private Presentation presentation;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}, fetch=FetchType.EAGER )
+//    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}, fetch=FetchType.EAGER )
+//    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}, mappedBy = "contract", fetch=FetchType.EAGER )
+//    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+//    @OneToMany
+    @JsonIgnore
+    @JoinColumn(name="contract_id")
     private List<Accomplishment> accomplishments;
 
 
@@ -47,6 +46,9 @@ public class Contract implements Serializable {
 
     @ManyToOne
     private Program program;
+
+    @ManyToOne
+    private SpecialEvent specialEvent;
     
     private LocalDate contractDate;
 
@@ -120,28 +122,36 @@ public class Contract implements Serializable {
     public void setContractDate(LocalDate contractDate) {
         this.contractDate = contractDate;
     }
-    
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        return hash;
+
+    public SpecialEvent getSpecialEvent() {
+        return specialEvent;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Contract other = (Contract) obj;
-
-        return Objects.equals(this.id, other.id);
+    public void setSpecialEvent(SpecialEvent specialEvent) {
+        this.specialEvent = specialEvent;
     }
+
+//    @Override
+//    public int hashCode() {
+//        int hash = 5;
+//        hash = 59 * hash + Objects.hashCode(this.id);
+//        return hash;
+//    }
+
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Contract other = (Contract) obj;
+//
+//        return Objects.equals(this.id, other.id);
+//    }
 
 }

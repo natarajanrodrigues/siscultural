@@ -63,6 +63,12 @@ public class ContractController {
     @Autowired
     PaymentProposalRepository paymentProposalRepository;
 
+    @Autowired
+    SpecialEventService specialEventService;
+
+    @Autowired
+    PresentationService presentationService;
+
     @GetMapping(value = "/contratos")
     public ModelAndView contratos(SessionStatus sessionStatus) {
 
@@ -76,6 +82,19 @@ public class ContractController {
 
     }
 
+    @RequestMapping(value = "/contrato_autoadd", method=RequestMethod.GET)
+    public ModelAndView contratoAutoadd(@RequestParam("id") String id, Contract contract) {
+        ModelAndView modelAndView = new ModelAndView("contratos/contrato_add");
+
+        modelAndView.addObject("contract", new Contract());
+        modelAndView.addObject("programs", programRepository.findAll());
+        modelAndView.addObject("presentations", presentationRepository.findAll());
+        modelAndView.addObject("presentationChoosed", presentationRepository.findById(Long.parseLong(id)));
+        modelAndView.addObject("specialEvents", specialEventService.findAll());
+
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/contrato_add", method=RequestMethod.GET)
     public ModelAndView contratoAdd(Contract contract) {
         ModelAndView modelAndView = new ModelAndView("contratos/contrato_add");
@@ -83,6 +102,7 @@ public class ContractController {
         modelAndView.addObject("contract", contract);
         modelAndView.addObject("programs", programRepository.findAll());
         modelAndView.addObject("presentations", presentationRepository.findAll());
+        modelAndView.addObject("specialEvents", specialEventService.findAll());
 
         return modelAndView;
     }
@@ -93,11 +113,13 @@ public class ContractController {
 
         String presentation = contract.getPresentation().getName();
         String program = contract.getProgram().getName();
+        String specialEvent = contract.getSpecialEvent().getName();
 
         model.addAttribute("presentation", presentation);
         model.addAttribute("program", program);
         model.addAttribute("programs", programRepository.findAll());
         model.addAttribute("presentations", presentationRepository.findAll());
+        model.addAttribute("specialEvents", specialEventService.findAll());
 
         ModelAndView modelAndView = new ModelAndView("contratos/contrato_add");
 
@@ -112,8 +134,10 @@ public class ContractController {
 
             if (contractSaved != null) {
 
-                sessionStatus.setComplete();
-                modelAndView = new ModelAndView("redirect:/contratos");
+//                sessionStatus.setComplete();
+//                modelAndView = new ModelAndView("redirect:/contratos");
+//                modelAndView.addObject("contract", contract);
+                modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
 
             }
 
@@ -133,25 +157,32 @@ public class ContractController {
 //        return modelAndView;
 //    }
 
-    @RequestMapping(value = "/contrato_edit", method=RequestMethod.GET)
-    public ModelAndView contratoEdit(@RequestParam("id") String id) {
-        Contract contract = contractService.findById(Long.parseLong(id));
-
-        ModelAndView modelAndView = new ModelAndView("contratos/contrato_edit");
-        modelAndView.addObject("programs", programRepository.findAll());
-        modelAndView.addObject("presentations", presentationRepository.findAll());
-        modelAndView.addObject("accomplishments", accomplishmentRepository.findByContract(contract));
-        modelAndView.addObject("localities", localityService.findAll());
-        modelAndView.addObject("providers", providerService.getAllProviders());
-        modelAndView.addObject("accounts", rubricAccountService.getRubricAccounts(contract.getProgram()));
-        modelAndView.addObject("proposals", paymentProposalRepository.findByContract(contract));
-
-        modelAndView.addObject("contract", contract);
-
-        return modelAndView;
-    }
 
 
+//    @RequestMapping(value = "/contrato_edit", method=RequestMethod.GET)
+//    public ModelAndView contratoEdit(@RequestParam("id") String id, SessionStatus sessionStatus) {
+//
+//        Contract contract = contractService.findById(Long.parseLong(id));
+//
+//        ModelAndView modelAndView = new ModelAndView("contratos/contrato_edit");
+//        modelAndView.addObject("programs", programRepository.findAll());
+//        modelAndView.addObject("presentations", presentationRepository.findAll());
+////        modelAndView.addObject("accomplishments", accomplishmentRepository.findByContract(contract));
+////        modelAndView.addObject("accomplishments", contract.getAccomplishments());
+//        modelAndView.addObject("localities", localityService.findAll());
+//        modelAndView.addObject("providers", providerService.getAllProviders());
+//        modelAndView.addObject("accounts", rubricAccountService.getRubricAccounts(contract.getProgram()));
+//        modelAndView.addObject("proposals", paymentProposalRepository.findByContract(contract));
+//        modelAndView.addObject("specialEvents", specialEventService.findAll());
+//
+//        modelAndView.addObject("contract", contract);
+//
+//
+//
+//        return modelAndView;
+//    }
+//
+//
     @PostMapping(value = "/contrato/delete")
     @ResponseBody
     public ModelAndView deteleContrato(@RequestParam("id") String id) {
@@ -164,73 +195,76 @@ public class ContractController {
         return JsonView.returnJsonFromMap(contractService.delete(contract));
 
     }
-
-
-
-
-    @RequestMapping(value = "/realizacao/add", method=RequestMethod.POST)
-    public ModelAndView realizacaoAdd(@ModelAttribute ("contract") Contract contract, @RequestParam("locality") String locality, @RequestParam("dateTime") String dateTime) {
-
-        Accomplishment accomplishment = new Accomplishment();
-        accomplishment.setLocality(localityService.findById(Long.parseLong(locality)));
-        accomplishment.setContract(contract);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-        accomplishment.setDateTime(LocalDateTime.parse(dateTime, formatter));
-
-        accomplishmentRepository.save(accomplishment);
-
-
-        ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/realizacao/edit", method=RequestMethod.POST)
-    public ModelAndView realizacaoEdit(@RequestParam("id") String id, @RequestParam("locality") String locality, @RequestParam("dateTime") String dateTime) {
-
-        Accomplishment accomplishment = accomplishmentRepository.findById(Long.parseLong(id));
-        accomplishment.setLocality(localityService.findById(Long.parseLong(locality)));
-        Contract contract = accomplishment.getContract();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-        accomplishment.setDateTime(LocalDateTime.parse(dateTime, formatter));
-
-        accomplishmentRepository.save(accomplishment);
-
-
-        ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/realizacao/delete", method=RequestMethod.POST)
-    public ModelAndView accomplishmentDelete(@ModelAttribute ("contract") Contract contract, @RequestParam("id") String id) {
-
-        Map<String, String> map = new HashMap<>();
-        map.clear();
-
-        Accomplishment accomplishment = accomplishmentRepository.findById(Long.parseLong(id));
-
-
-        if (accomplishment != null) {
-
-            accomplishmentRepository.delete(accomplishment);
-
-            accomplishment = accomplishmentRepository.findById(Long.parseLong(id));
-
-            if (accomplishment != null) {
-                map.put("erro", ErrorMessages.ERROR_OPERATION.toString());
-            } else {
-                map.put("resultado", "Exclusão realizada com sucesso.");
-//                map.put("page_contract", request.getRequestURI().toString());
-            }
-        }
-        return JsonView.returnJsonFromMap(map);
-
-    }
+//
+//
+//
+//
+//    @RequestMapping(value = "/realizacao/add", method=RequestMethod.POST)
+//    public ModelAndView realizacaoAdd(@ModelAttribute ("contract") Contract contract, @RequestParam("locality") String locality, @RequestParam("dateTime") String dateTime) {
+//
+//        Accomplishment accomplishment = new Accomplishment();
+//        accomplishment.setLocality(localityService.findById(Long.parseLong(locality)));
+//        accomplishment.setContract(contract);
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+//
+//        accomplishment.setDateTime(LocalDateTime.parse(dateTime, formatter));
+//
+//        accomplishmentRepository.save(accomplishment);
+//
+//
+//        ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
+//
+//        modelAndView.addObject("contract", contract);
+//
+//        return modelAndView;
+//    }
+//
+//    @RequestMapping(value = "/realizacao/edit", method=RequestMethod.POST)
+//    public ModelAndView realizacaoEdit(@RequestParam("id") String id, @RequestParam("locality") String locality, @RequestParam("dateTime") String dateTime) {
+//
+//        Accomplishment accomplishment = accomplishmentRepository.findById(Long.parseLong(id));
+//        accomplishment.setLocality(localityService.findById(Long.parseLong(locality)));
+//        Contract contract = accomplishment.getContract();
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+//
+//        accomplishment.setDateTime(LocalDateTime.parse(dateTime, formatter));
+//
+//        accomplishmentRepository.save(accomplishment);
+//
+//
+//        ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
+//        modelAndView.addObject("contract", contract);
+//        return modelAndView;
+//    }
+//
+//    @RequestMapping(value = "/realizacao/delete", method=RequestMethod.POST)
+//    public ModelAndView accomplishmentDelete(@ModelAttribute ("contract") Contract contract, @RequestParam("id") String id) {
+//
+//        Map<String, String> map = new HashMap<>();
+//        map.clear();
+//
+//        Accomplishment accomplishment = accomplishmentRepository.findById(Long.parseLong(id));
+//
+//
+//        if (accomplishment != null) {
+//
+//            accomplishmentRepository.delete(accomplishment);
+//
+//            accomplishment = accomplishmentRepository.findById(Long.parseLong(id));
+//
+//            if (accomplishment != null) {
+//                map.put("erro", ErrorMessages.ERROR_OPERATION.toString());
+//            } else {
+//                map.put("resultado", "Exclusão realizada com sucesso.");
+////                map.put("page_contract", request.getRequestURI().toString());
+//            }
+//        }
+//
+//        return JsonView.returnJsonFromMap(map);
+//
+//    }
 
 
 }

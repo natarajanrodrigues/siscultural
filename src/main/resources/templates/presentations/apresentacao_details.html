@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Programas</title>
+
+    <!-- Bootstrap -->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+</head>
+
+    <body class="home-body">
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container"  style="margin-bottom: 50px">
+
+            <div class="">
+                <ol class="breadcrumb">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="menu_atividades">Área de Atividades</a></li>
+                    <li><a href="apresentacao">Apresentações</a></li>
+                    <li class="active">Detalhes</li>
+                </ol>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class='container-fluid'>
+
+                        <h3>Contratos da apresentação: "<span th:text="${presentation.name}"></span>"</h3>
+
+                        <div th:each="contract, contractStatus: ${detailsContracts}">
+                            <a th:href="@{/contrato_edit(id=${contract.id})}"><h5>Nº: "<span th:text="${contract.id}"></span>" de <span th:text="${#temporals.format(contract.contractDate, 'dd/MM/yyyy')}"></span></h5></a>
+
+                            <h4>Apresentações</h4>
+                            <div th:each="accomp, accompSatatus : ${contract.accomplishments}">
+                                <!--<h5 th:text="${accompSatatus.index}"></h5>-->
+                                <a th:href="@{/audiencia(id=${accomp.id})}"><h5>Data <span th:text="${#temporals.format(accomp.dateTime, 'dd/MM/yyyy HH:mm')}"></span> - Audiência: <span th:text="${accomp.audience}"></span></h5></a>
+                            </div>
+
+                            <hr/>
+                        </div>
+
+
+                    </div>
+
+                    <!--<div class='container-fluid'>-->
+
+                        <!--<h3>Apresentações: </h3>-->
+
+                        <!--<div th:each="accompl : ${accomplishments}">-->
+                            <!--&lt;!&ndash;<a th:href="@{/contrato_edit(id=${contract.id})}"><h5>Nº: "<span th:text="${contract.id}"></span>" de <span th:text="${#temporals.format(contract.contractDate, 'dd/MM/yyyy')}"></span></h5></a>&ndash;&gt;-->
+                            <!--<hr/>-->
+
+                            <!--&lt;!&ndash;<h5 th:text="${#lists.size(accomplishments)}"></h5>&ndash;&gt;-->
+                            <!--<h5 th:text="${accompl.id}"></h5>-->
+                            <!--&lt;!&ndash;<div th:each="accomp, accompSatatus : ${contract.accomplishments}">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h5 th:text="${accompSatatus.size}"></h5>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--</div>-->
+
+
+                    <!--</div>-->
+                </div>
+
+                <div class="panel-footer container-fluid">
+
+                    <span class="pull-right ">
+                        <!--<button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_cada_user">Salvar</button>-->
+                        <a th:href="@{/contrato_autoadd(id=${presentation.id})}"><button type="submit" class="btn btn-primary" th:form="form_cada_user">Adicionar Contrato</button></a>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+
+
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/tableselection.js"></script>
+        <script src="https://use.fontawesome.com/42680f3b68.js"></script>
+
+
+    </body>
+
+</html>
