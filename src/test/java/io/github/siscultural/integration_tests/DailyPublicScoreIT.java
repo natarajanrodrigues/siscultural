@@ -46,6 +46,7 @@ import static org.junit.Assert.assertEquals;
 //@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = { DailyPublicScoreIT.DATASET })
 @DirtiesContext
 //@ActiveProfiles("scratch")
+@Ignore
 public class DailyPublicScoreIT {
 
     protected static final String DATASET = "classpath:daily_test.xml";
