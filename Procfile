@@ -1,1 +1,1 @@
-web: java -Xmx384m -Xss512k -XX:+UseCompressedOops -jar target/*.jar --server.port=$PORT --spring.datasource.heroku-url=$DATABASE_URL
+web: java $JAVA_OPTS -Dspring.profiles.active=prod -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
