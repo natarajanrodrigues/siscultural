@@ -29,29 +29,6 @@ public class Loader extends SpringBootServletInitializer {
         return new Java8TimeDialect();
     }
 
-    @Bean
-    @Profile("prod")
-    public DataSource dataSource() throws URISyntaxException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-
-        DataSource basicDataSource = new DataSource();
-        basicDataSource.setUrl(dbUrl);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
-        basicDataSource.setDriverClassName("org.postgresql.Driver");
-        basicDataSource.setTestOnBorrow(true);
-        basicDataSource.setTestWhileIdle(true);
-        basicDataSource.setTestOnReturn(true);
-        basicDataSource.setValidationQuery("SELECT 1");
-
-        return basicDataSource;
-    }
-
-
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Loader.class, args);
     }
