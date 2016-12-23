@@ -2,7 +2,9 @@ package io.github.siscultural;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
@@ -14,6 +16,8 @@ import java.net.URISyntaxException;
  * Created by natarajan on 22/12/16.
  */
 @Configuration
+@ComponentScan
+@EnableAutoConfiguration
 public class DataSourceConfig {
 
     Logger log = LoggerFactory.getLogger(getClass());
