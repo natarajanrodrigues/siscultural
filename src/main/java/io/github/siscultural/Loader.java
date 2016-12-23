@@ -43,9 +43,9 @@ public class Loader extends SpringBootServletInitializer {
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
         basicDataSource.setDriverClassName("org.postgresql.Driver");
-        basicDataSource.setTestOnBorrow(true); 
-        basicDataSource.setTestWhileIdle(true); 
-        basicDataSource.setTestOnReturn(true); 
+        basicDataSource.setTestOnBorrow(true);
+        basicDataSource.setTestWhileIdle(true);
+        basicDataSource.setTestOnReturn(true);
         basicDataSource.setValidationQuery("SELECT 1");
 
         return basicDataSource;
