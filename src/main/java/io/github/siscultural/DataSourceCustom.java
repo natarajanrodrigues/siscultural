@@ -3,6 +3,7 @@ package io.github.siscultural;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
 import java.net.URI;
@@ -15,6 +16,7 @@ import java.net.URISyntaxException;
 public class DataSourceCustom {
 
     @Bean
+    @Primary
     @Profile("prod")
     public BasicDataSource dataSource() throws URISyntaxException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
