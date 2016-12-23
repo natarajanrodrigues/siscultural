@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import java.net.URI;
@@ -29,6 +30,7 @@ public class Loader extends SpringBootServletInitializer {
     }
 
     @Bean
+    @Profile("prod")
     public DataSource dataSource() throws URISyntaxException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
