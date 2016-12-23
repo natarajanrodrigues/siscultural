@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dspring.profiles.active=prod io.github.siscultural.Loader
+web: java $JAVA_OPTS -Dspring.profiles.active=prod -jar --port $PORT target/*.jar
