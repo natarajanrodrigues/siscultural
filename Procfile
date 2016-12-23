@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dspring.profiles.active=prod target/*.war
+web: java $JAVA_OPTS -Dspring.profiles.active=prod io.github.siscultural.Loader
