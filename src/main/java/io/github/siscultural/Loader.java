@@ -1,5 +1,6 @@
 package io.github.siscultural;
 
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,14 +32,14 @@ public class Loader extends SpringBootServletInitializer {
 
     @Bean
     @Profile("prod")
-    public DataSource dataSource() throws URISyntaxException {
+    public BasicDataSource dataSource() throws URISyntaxException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
-        DataSource basicDataSource = new DataSource();
+        BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(dbUrl);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
