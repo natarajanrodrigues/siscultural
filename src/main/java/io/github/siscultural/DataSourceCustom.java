@@ -1,18 +1,18 @@
 package io.github.siscultural;
 
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
-
-import java.net.URI;
-import java.net.URISyntaxException;
+//import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.context.annotation.Primary;
+//import org.springframework.context.annotation.Profile;
+//
+//import java.net.URI;
+//import java.net.URISyntaxException;
 
 /**
  * Created by natarajan on 23/12/16.
  */
-@Configuration
+//@Configuration
 public class DataSourceCustom {
 //
 //    @Bean

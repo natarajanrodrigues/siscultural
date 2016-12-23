@@ -1,13 +1,10 @@
 package io.github.siscultural;
 
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
-import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import java.net.URI;
