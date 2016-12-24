@@ -30,95 +30,174 @@
             <div class="">
                 <ol class="breadcrumb">
                     <li><a href="home">Home</a></li>
-                    <!--<li><a href="menu_atividades">Relatório</a></li>-->
-                    <!--<li><a href="apresentacao">Apresentações</a></li>-->
                     <li class="active">Relatório</li>
                 </ol>
             </div>
 
+            <div>
 
-            <div class="container-fluid col-md-8 col-md-offset-2" style="background: white">
-                <h3 class="text-center">Quantidade de Atividades e Público por Programa</h3>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Atividades e Público por Programa</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Público por Mês <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Tabela</a></li>
+                            <li role="presentation" class="active"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Em Barras</a></li>
+                        </ul>
+                    </li>
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Público Total</a></li>
+                </ul>
 
-                <div class="form-group col-md-5">
-                    <label for="datetimepicker2" class="control-label">Início</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker2'>
-                            <input type='text' class="form-control" name="inicialDate" />
-                            <span class="input-group-addon">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane " id="home">
+                        <div class="container-fluid col-md-8 col-md-offset-2" style="background: white">
+                            <h3 class="text-center">Quantidade de Atividades e Público por Programa</h3>
+
+                            <div class="form-group col-md-5">
+                                <label for="datetimepicker2" class="control-label">Início</label>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker2'>
+                                        <input type='text' class="form-control" name="inicialDate" />
+                                        <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-calendar"></span>
                                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label for="datetimepicker3" class="control-label">Fim</label>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker3'>
+                                        <input type='text' class="form-control" name="finalDate"/>
+                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class='form-group col-md-12'>
+                                <!--<label for="" class="control-label col-md-14">  </label>-->
+                                <div class="form-group">
+                                    <button class="btn btn-success" onclick="consultar()">Buscar</button>
+                                </div>
+
+                            </div>
+
+                            <div id="table_div"></div>
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <div class="container-fluid col-md-8 col-md-offset-2" style="background: white">
+                            <h3 class="text-center">Público por mês</h3>
+
+                            <div class="form-group col-md-5">
+                                <label for="datetimepicker4" class="control-label">Início</label>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker4'>
+                                        <input type='text' class="form-control" name="inicialDate2" />
+                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label for="datetimepicker5" class="control-label">Fim</label>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker5'>
+                                        <input type='text' class="form-control" name="finalDate2"/>
+                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class='form-group col-md-12'>
+                                <!--<label for="" class="control-label col-md-14">  </label>-->
+                                <div class="form-group">
+                                    <button class="btn btn-success" onclick="consultar2()">Buscar</button>
+                                </div>
+
+                            </div>
+
+                            <div id="table_div2" style="padding-bottom: 50px"></div>
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="messages">
+                        <div class="container-fluid col-md-8 col-md-offset-2" >
+                            <h3 class="text-center">Público por mês 2</h3>
+
+                            <div id="table_div3" class="col-md-8 col-md-offset-1"></div>
+
+                            <div class="form-group col-md-5  col-md-offset-1">
+                                <label for="datetimepicker6" class="control-label">Início</label>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker6'>
+                                        <input type='text' class="form-control" name="inicialDate2" />
+                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label for="datetimepicker7" class="control-label">Fim</label>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker7'>
+                                        <input type='text' class="form-control" name="finalDate2"/>
+                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class='form-group col-md-12  col-md-offset-1'>
+                                <!--<label for="" class="control-label col-md-14">  </label>-->
+                                <div class="form-group">
+                                    <button class="btn btn-success" onclick="consultar3()">Buscar</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="settings">
+                        <div class="container-fluid col-md-8 col-md-offset-2" >
+                            <h3 class="text-center">Público Total</h3>
+
+                            <div id="table_div4" class="col-md-8 col-md-offset-1"></div>
+
+                            <div class='form-group col-md-12  col-md-offset-1'>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="diasFechados" /> Considerar dias fechados
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-success" onclick="consultar4()">Buscar</button>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
-
-                <div class="form-group col-md-5">
-                    <label for="datetimepicker3" class="control-label">Fim</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker3'>
-                            <input type='text' class="form-control" name="finalDate"/>
-                            <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class='form-group col-md-12'>
-                    <!--<label for="" class="control-label col-md-14">  </label>-->
-                    <div class="form-group">
-                        <button class="btn btn-success" onclick="consultar()">Buscar</button>
-                    </div>
-
-                </div>
-
-                <div id="table_div"></div>
-
             </div>
-
-            <hr class="strong"/>
-
-            <div class="container-fluid col-md-8 col-md-offset-2" style="background: white">
-                <h3 class="text-center">Público por mês</h3>
-
-                <div class="form-group col-md-5">
-                    <label for="datetimepicker4" class="control-label">Início</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker4'>
-                            <input type='text' class="form-control" name="inicialDate2" />
-                            <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group col-md-5">
-                    <label for="datetimepicker5" class="control-label">Fim</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker5'>
-                            <input type='text' class="form-control" name="finalDate2"/>
-                            <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class='form-group col-md-12'>
-                    <!--<label for="" class="control-label col-md-14">  </label>-->
-                    <div class="form-group">
-                        <button class="btn btn-success" onclick="consultar2()">Buscar</button>
-                    </div>
-
-                </div>
-
-                <div id="table_div2" style="padding-bottom: 50px"></div>
-
-            </div>
-
         </div>
 
 
@@ -173,6 +252,21 @@
         </style>
         <script type="text/javascript">
 
+            var meses = {
+                '01': 'Janeiro',
+                '02': 'Fevereiro',
+                '03': 'Março',
+                '04': 'Abril',
+                '05': 'Maio',
+                '06': 'Junho',
+                '07': 'Julho',
+                '08': 'Agosto',
+                '09': 'Setembro',
+                '10': 'Outubro',
+                '11': 'Novembro',
+                '12': 'Dezembro'
+            };
+
             $(function () {
 
                 $('#datetimepicker2').datetimepicker({
@@ -192,8 +286,19 @@
                     locale: 'pt-br',
                     format: 'L'
                 });
+
+                $('#datetimepicker6').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'L'
+                });
+
+                $('#datetimepicker7').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'L'
+                });
+
             });
-            google.charts.load('current', {'packages':['table']});
+            google.charts.load('current', {'packages':['table', 'corechart', 'bar', 'line'], 'language': 'pt_BR'});
 //            google.charts.setOnLoadCallback(drawTable);
 
 
@@ -332,6 +437,137 @@
                         };
 
                         table2.draw(data2, options);
+                    });
+
+            }
+
+            function consultar3(){
+
+                var iDate2 = $('#datetimepicker6').find("input").val();
+                var fDate2 = $('#datetimepicker7').find("input").val();
+
+                $.getJSON('/getMonth',
+                    {
+                        inicialDate: iDate2,
+                        finalDate: fDate2
+                    },
+
+                    function (result) {
+
+                        var data2 = new google.visualization.DataTable();
+                        data2.addColumn('string', 'Mês');
+                        data2.addColumn('number', 'Público');
+                        data2.addColumn({type: 'string', role: 'annotation'});
+
+                        var total = 0;
+
+                        for (var i in result) {
+
+                            var mes = result[i][0];
+
+                            if (!mes.startsWith("1") || mes == '1') {
+                                result[i][0] = '0' + mes;
+                            }
+                        }
+
+                        result.sort({column: 0});
+
+                        for (var i in result) {
+                            total += result[i][1];
+                            var mes = result[i][0];
+
+                            data2.addRow([meses[mes], result[i][1], result[i][1].toString()]);
+                        }
+                        var view = new google.visualization.DataView(data2);
+
+                        view.setColumns([0, 1,
+                            { calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation" }]);
+
+                        var options = {
+                            series: {
+                                0: {
+                                    type: 'bars'
+                                },
+                                1: {
+                                    type: 'line',
+                                    color: 'grey',
+                                    lineWidth: 0,
+                                    pointSize: 0,
+                                    visibleInLegend: false
+                                }
+                            },
+                            height: 400,
+                            width: 600,
+                            title: 'Público por Mês - Entre ' + iDate2 + ' e ' + fDate2,
+                            legend: { position: 'none' },
+                            chart: { subtitle: 'Entre ' + iDate2 + ' e ' + fDate2 },
+                            vAxis: {format: 'decimal'},
+                            bar: { groupWidth: "70%" }
+                        };
+
+                        var chart = new google.visualization.ComboChart(document.getElementById('table_div3'));
+
+                        google.visualization.events.addListener(chart, 'click', function () {
+                            var imgUri = chart.getImageURI();
+                            window.open(imgUri);
+                        });
+                        chart.draw(view, google.charts.Bar.convertOptions(options));
+                    });
+
+            }
+
+            function consultar4(){
+
+                $.getJSON('/getAll',
+
+                    function (result) {
+
+                        var data2 = new google.visualization.DataTable();
+                        data2.addColumn('date', 'Dias');
+                        data2.addColumn('number', 'Público');
+
+//                        console.log(result[10,2]);
+
+                        for (var i in result){
+                            var _date = result[0, i]['date'];
+                            var dateFormatted = new Date(_date.year, _date.monthValue -1, _date.dayOfMonth);
+                            var _score = result[0, i]['mainPublicScore'];
+
+//                            console.log([dateFormatted, _score] );
+//                            console.log(i + ' ' + $('#diasFechados').prop('checked'));
+                            if ($('#diasFechados').prop('checked')== true) {
+                                data2.addRow([dateFormatted, _score]);
+                            } else
+                                if (_score > 0)
+                                    data2.addRow([dateFormatted, _score]);
+
+//                            console.log(i + ' ' + result[i,3]);
+                        }
+
+                        data2.sort({column: 0, desc: true});
+//                        var view = new google.visualization.DataView(data2);
+
+                        var options = {
+                            width: 600,
+                            height: 400,
+                            hAxis: {
+                                title: 'Dias'
+                            },
+                            vAxis: {
+                                title: 'Público'
+                            }
+                        };
+
+                        var chart = new google.visualization.LineChart(document.getElementById('table_div4'));
+
+                        google.visualization.events.addListener(chart, 'click', function () {
+                            var imgUri = chart.getImageURI();
+                            window.open(imgUri);
+                        });
+                        chart.draw(data2, google.charts.Bar.convertOptions(options));
                     });
 
             }
