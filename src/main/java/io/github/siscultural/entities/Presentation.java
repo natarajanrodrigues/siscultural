@@ -39,7 +39,7 @@ public class Presentation implements Serializable {
     @NotNull(message = "Insira o nome do grupo ou artista responsável pela apresentação")
     private String groupOrArtist;
 
-    @Size(min = 1, max = 2000, message = "Não pode ser nulo. Valor máximo - 2000 caracteres")
+    @Size(min = 1, max = 5000, message = "Não pode ser nulo. Valor máximo - 2000 caracteres")
     @NotNull(message = "Insira o texto release apresentação")
     private String releaseText;
 
