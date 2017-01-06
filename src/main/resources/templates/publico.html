@@ -192,15 +192,12 @@
 
                                 <!--número de público-->
                                 <div class="form-group col-md-6">
-                                    <div class="container-fluid">
+                                    <label for="score" class="control-label">Público no contador</label>
 
-                                        <label for="score" class="control-label">Público no contador</label>
+                                    <input type="number" class="form-control" id="score" name="score" min="0"
+                                    />
+                                    <!--<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="help-block"></p>-->
 
-                                        <input type="number" class="form-control" id="score" name="score" min="0"
-                                        />
-                                        <!--<p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="help-block"></p>-->
-
-                                    </div>
                                 </div>
 
                             </div>
@@ -266,6 +263,7 @@
 
             </div>
 
+            <!--aqui zabuto-->
             <div class="row">
                 <div class="col-xs-12">
                     <div id="date-popover" class="popover top"
@@ -278,13 +276,24 @@
 
                     <div class="col-md-10 col-md-offset-1">
                         <!--<div id="my-calendar"></div>-->
-                        <div id="chart_div"></div>
+
                     </div>
                 </div>
             </div>
 
+            <!--aqui google chart-->
 
+            <div class="container">
+                <div id="chart_div"></div>
+            </div>
 
+            <div class="col-md-8 col-md-offset-4">
+                <div class="form-inline ">
+                    <label for="year" class="control-label">Ano </label>
+                    <input type="number" class="form-control" id="year" name="year" min="2016" />
+                    <button type="submit" class="form-control btn btn-success" id="buscar-ano"> Buscar</button>
+                </div>
+            </div>
 
         </div>
 
@@ -461,158 +470,111 @@
                     if (erro !== undefined) {
                         show_error(erro);
                     } else {
-                        show_success(response.resultado);
 
-                        $("#confirmOkButton").click(function () {
-                            $(location).attr('href', 'publico');
-                        });
+                        $('#buscar-ano').click();
+//                        show_success(response.resultado);
+//
+//                        $("#confirmOkButton").click(function () {
+////                            $(location).attr('href', 'publico');
+////                            alert('úa');
+////                            $("#my-calendar").zabuto_calendar({
+////                                year: 2015,
+////                                month: 3
+////                            });
+//                        });
 
                     }
                 });
 
             });
 
-
-//            $('#btn-editar').click(function (e) {
-//                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
-//                var email = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
-//                var type = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
-//                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(4)').text();
-//
-//                $("#edit-name").val(nome);
-//                $("#edit-email").val(email);
-//
-//                $("#edit-type option").filter(function () {
-//                    return $(this).text() === type;
-//                }).prop('selected', true);
-//
-//                $("#edit-id").val(id);
-//
-//                $('#editar_modal').modal({
-//                    show: 'true'
-//                });
-//            });
-//
-//            $('#confirmar_editar').click(function (e) {
-//                e.preventDefault();
-//                $.post('usuarios/edit', $('#editar-usuario').serialize(), function (response) {
-//                    var erro = response.erro;
-//
-//                    $('#editar_modal').modal('hide');
-//
-//
-//                    if (erro !== undefined) {
-//
-//                        show_error(erro);
-//                    } else {
-//
-//                        show_success(response.resultado);
-//                        $("#confirmOkButton").click(function () {
-//                            $(location).attr('href', 'usuarios');
-//                        });
-//
-//                    }
-//                });
-//
-//            });
-
-//            $('#btn-deletar').click(function (e) {
-//                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
-//                var id = $('.table-selectable > tbody > tr.active').find('t:nth-child(4)').text();
-//
-//                $("#id_delet").val(id);
-//                $("#nome_delet").html(nome);
-//
-//                $('#deletar_modal').modal({
-//                    show: 'true'
-//                });
-//            });
-//
-//            $('#confirmar_exclusao').click(function (e) {
-//                e.preventDefault();
-//                $.post('/usuarios/delete', $('#delete_modal').serialize(), function (response) {
-//                    var erro = response.erro;
-//                    $('#deletar_modal').modal('hide');
-//
-//                    if (erro !== undefined) {
-//                        show_error(erro);
-//                    } else {
-//                        show_success(response.resultado);
-//                        $("#confirmOkButton").click(function () {
-//                            $(location).attr('href', 'usuarios');
-//                        });
-//
-//                    }
-//                });
-//            });
-
         </script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script>
-            google.charts.load('current', {'packages':['calendar'], 'language': 'pt_BR'});
-            google.charts.setOnLoadCallback(drawChart);
-
-            function drawChart() {
 
 
-                $.getJSON('/getAll',
 
-                    function (result) {
+                    google.charts.load('current', {'packages':['calendar'], 'language': 'pt_BR'});
 
-                        var data2 = new google.visualization.DataTable();
-                        data2.addColumn('date', 'Dias');
-                        data2.addColumn('number', 'Público');
+                    google.charts.setOnLoadCallback(function () {
+                        var ano = new Date().getFullYear().toString();
+                        $('#year').val(ano);
+                        drawChart(ano);
+                    });
 
-                        for (var i in result){
-                            var _date = result[0, i]['date'];
-                            var dateFormatted = new Date(_date.year, _date.monthValue -1, _date.dayOfMonth);
-                            var _score = result[0, i]['mainPublicScore'];
+                    function drawChart(ano) {
 
-                            if ($('#diasFechados').prop('checked')== true) {
-                                data2.addRow([dateFormatted, _score]);
-                            } else
-                            if (_score > 0)
-                                data2.addRow([dateFormatted, _score]);
+                        $.getJSON('/scorePerYear', { year: ano},
 
-                        }
+                            function (result) {
 
-                        data2.sort({column: 0, desc: true});
+                                var data2 = new google.visualization.DataTable();
+                                data2.addColumn('date', 'Dias');
+                                data2.addColumn('number', 'Público');
 
-                        var options = {
-                            title: 'Público Diário',
-//                            width: 900,
-                            height: 500,
-                            hAxis: {
-                                format: 'dd/MM/yyyy',
-                                gridlines: {count: 15}
-                            },
-                            vAxis: {
-                                gridlines: {color: 'none'},
-                                minValue: 0
-                            },
-                            calendar: {
-                                daysOfWeek: 'DSTQQSS'
-                            }
-                        };
+                                for (var i in result){
+                                    var _date = result[0, i]['date'];
+                                    var dateFormatted = new Date(_date.year, _date.monthValue -1, _date.dayOfMonth);
+                                    var _score = result[0, i]['mainPublicScore'];
 
-                        var chart = new google.visualization.Calendar(document.getElementById('chart_div'));
+                                    if ($('#diasFechados').prop('checked')== true) {
+                                        data2.addRow([dateFormatted, _score]);
+                                    } else
+                                    if (_score > 0)
+                                        data2.addRow([dateFormatted, _score]);
 
-                        chart.draw(data2, options);
+                                }
 
-                        google.visualization.events.addListener(chart, 'select', function () {
-//                            var imgUri = chart.getImageURI();
-//                            window.open(imgUri);
-//                            alert('asdf');
+                                data2.sort({column: 0, desc: true});
 
-                            if (chart.getSelection()[0] != undefined ){
-                                console.log(chart.getSelection()[0]);
-                                var date = new Date(chart.getSelection()[0]['date']);
-                                date.setDate(date.getDate() + 1);
+                                var options = {
+                                    title: 'Público Diário',
+                                    chartArea:{left:0,top:0,width:"50%",height:"100%"},
+                                    width: 1000,
+                                    height: 250,
+                                    hAxis: {
+                                        format: 'dd/MM/yyyy',
+                                        gridlines: {count: 15}
+                                    },
+                                    vAxis: {
+                                        gridlines: {color: 'none'},
+                                        minValue: 0
+                                    },
+                                    calendar: {
+                                        daysOfWeek: 'DSTQQSS'
+                                    }
+                                };
 
-                                $('#date5').val(date.toLocaleDateString());
+                                var chart = new google.visualization.Calendar(document.getElementById('chart_div'));
 
-                                $('#deletar_modal').modal('show');
-                            }
+                                chart.draw(data2, options);
+
+                                google.visualization.events.addListener(chart, 'select', function () {
+
+                                    if (chart.getSelection()[0] != undefined ){
+//                                console.log(chart.getSelection());
+                                        var date = new Date(chart.getSelection()[0]['date']);
+                                        date.setDate(date.getDate() + 1);
+
+                                        $('#date5').val(date.toLocaleDateString());
+
+                                        $('#deletar_modal').modal('show');
+
+                                        $.getJSON('/scorePerDate', {
+                                            date: date.toLocaleDateString()
+                                        }, function (result) {
+
+                                            if (result != undefined)
+                                                $('#score').val(result);
+                                            else
+                                                $('#score').val(0);
+//
+                                        }).fail(function () {
+                                            $('#score').val(0);
+                                        });
+
+
+                                    }
 
 
 
@@ -620,7 +582,7 @@
 //                            alert(date.toLocaleDateString());
 //                            console.log(date.toDateString() + ' ' + date.toLocaleDateString());
 
-                        });
+                                });
 
 //                        var button = document.getElementById('change');
 //
@@ -635,9 +597,19 @@
 //                            chart.draw(data, options);
 //                        };
 
+                            }
+                        );
                     }
-                );
-            }
+
+                    $('#buscar-ano').click(function (e) {
+
+                        var ano = $('#year').val();
+                        drawChart(ano);
+
+                    });
+
+
+
 
         </script>
 

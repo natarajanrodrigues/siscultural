@@ -29,6 +29,14 @@ public interface DailyPublicScoreRepository extends JpaRepository<DailyPublicSco
             "where d.date between ?1 and ?2 " +
             "group by extract(month from d.date)" +
                     "order by mês asc")
+
     public List<?> getMonthPublicScore(LocalDate inicialDate, LocalDate finalDate);
+
+    @Query (value=
+                    "select d " +
+                    "from DailyPublicScore d " +
+                    "where d.date between ?1 and ?2 ")
+
+    public List<?> getPublicScoresBetween(LocalDate inicialDate, LocalDate finalDate);
 
 }

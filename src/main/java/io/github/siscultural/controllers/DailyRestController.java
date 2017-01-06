@@ -3,7 +3,9 @@ package io.github.siscultural.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.siscultural.entities.DailyPublicScore;
 import io.github.siscultural.services.DailyPublicScoreService;
+import io.github.siscultural.utils.ContractUtils;
 import io.github.siscultural.utils.DailyDTO;
+import io.github.siscultural.utils.LocalDateToStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +44,22 @@ public class DailyRestController {
         LocalDate finalDateConverted = LocalDate.parse(finalDate, formatter);
 //        return dailyPublicScoreService.getMonthScore(LocalDate.of(2016, 11, 1), LocalDate.of(2016, 11, 30));
         return dailyPublicScoreService.getMonthScore(inicialDateConverted, finalDateConverted);
+    }
+
+    @RequestMapping("/scorePerDate")
+    public int getScoreByDate(@RequestParam("date") String date) {
+        DailyPublicScore dps = dailyPublicScoreService.findByDate(LocalDate.parse(date, LocalDateToStringConverter.formatter));
+        return dps.getMainPublicScore();
+    }
+
+    @RequestMapping("/scorePerYear")
+    public List<?> getScoreByYear(@RequestParam("year") String year) throws JsonProcessingException {
+        try {
+            return dailyPublicScoreService.getYearScore(year);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

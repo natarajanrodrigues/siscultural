@@ -7,7 +7,9 @@ import com.google.gson.*;
 import io.github.siscultural.entities.DailyPublicScore;
 import io.github.siscultural.repositories.DailyPublicScoreRepository;
 import io.github.siscultural.utils.DailyDTO;
+import io.github.siscultural.utils.JsonView;
 import io.github.siscultural.utils.LocalDateSerializer;
+import io.github.siscultural.utils.LocalDateToStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by natarajan on 01/11/16.
@@ -42,6 +42,26 @@ public class DailyPublicScoreService {
     public DailyPublicScore findByDate(LocalDate date) { return dailyPublicScoreRepository.findByDate(date); }
 
     public DailyPublicScore save(DailyPublicScore dps) { return dailyPublicScoreRepository.save(dps);}
+
+    public Map<String, String> save2(DailyPublicScore dps, int score) {
+
+        Map<String, String> map = new HashMap<>();
+
+        if (dps == null)
+            map.put("erro", "Data não encontrada.");
+        else {
+            if (!dps.isOpenToVisitors()) {
+                map.put("erro", "Nesta data o Centro Cultural não está aberto ao público.");
+            } else {
+                dps.setMainPublicScore(score);
+                dailyPublicScoreRepository.save(dps);
+            }
+        }
+
+        map.put("resultado", "Operação realizada com sucesso.");
+
+        return map;
+    }
 
     public void delete (DailyPublicScore dps){ dailyPublicScoreRepository.delete(dps); }
 
@@ -97,6 +117,12 @@ public class DailyPublicScoreService {
 
     public List<?> getMonthScore(LocalDate inicialDate, LocalDate finalDate) throws JsonProcessingException {
         return dailyPublicScoreRepository.getMonthPublicScore(inicialDate, finalDate);
+    }
+
+    public List<?> getYearScore(String year) throws JsonProcessingException {
+        LocalDate inicialDate = LocalDate.parse("01/01/"+ year, LocalDateToStringConverter.formatter);
+        LocalDate finalDate =   LocalDate.parse("31/12/"+ year, LocalDateToStringConverter.formatter);
+        return dailyPublicScoreRepository.getPublicScoresBetween(inicialDate, finalDate);
     }
 
 

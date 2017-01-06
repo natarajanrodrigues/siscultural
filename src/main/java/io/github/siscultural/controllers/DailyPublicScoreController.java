@@ -90,23 +90,25 @@ public class DailyPublicScoreController {
     public ModelAndView addMainScore(@RequestParam("date") String date,
                                      @RequestParam("score") String score) {
 
-        Map<String, String> map = new HashMap<>();
+//        Map<String, String> map = new HashMap<>();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        DailyPublicScore dps = dailyPublicScoreService.findByDate(LocalDate.parse(date, formatter));
+//        if (dps == null)
+//            map.put("erro", "Data não encontrada.");
+//        else {
+//            dps.setMainPublicScore(Integer.parseInt(score));
+//        }
+//        dailyPublicScoreService.save(dps);
+//        map.put("resultado", "Operação realizada com sucesso.");
+//        return JsonView.returnJsonFromMap(map);
+
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
         DailyPublicScore dps = dailyPublicScoreService.findByDate(LocalDate.parse(date, formatter));
 
-        if (dps == null)
-            map.put("erro", "Data não encontrada.");
-        else {
-            dps.setMainPublicScore(Integer.parseInt(score));
-        }
+        int scoreInt = Integer.parseInt(score);
 
-        dailyPublicScoreService.save(dps);
-
-        map.put("resultado", "Operação realizada com sucesso.");
-
-        return JsonView.returnJsonFromMap(map);
+        return JsonView.returnJsonFromMap(dailyPublicScoreService.save2(dps, scoreInt));
     }
 
 }
