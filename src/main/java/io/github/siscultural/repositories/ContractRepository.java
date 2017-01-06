@@ -6,6 +6,7 @@
 package io.github.siscultural.repositories;
 
 import io.github.siscultural.entities.Accomplishment;
+import io.github.siscultural.entities.Committe;
 import io.github.siscultural.entities.Contract;
 import io.github.siscultural.entities.Presentation;
 import org.hibernate.annotations.Fetch;
@@ -35,5 +36,7 @@ public interface ContractRepository extends JpaRepository<Contract, Long>{
     public void delete(Contract contract);
 
     public List<Contract> findByPresentation(Presentation presentation);
+
+    public List<Contract> findByCommitte(Committe committe);
 
 }

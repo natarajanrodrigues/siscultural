@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Programas</title>
+
+    <!-- CSS's-->
+
+
+    <link href="../css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/bootstrap-select.min.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+</head>
+
+    <body class="home-body">
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container"  style="margin-bottom: 50px">
+
+            <div class="">
+                <ol class="breadcrumb">
+                    <li><a href="home">Home</a></li>
+                    <li class="active">Agenda</li>
+                </ol>
+            </div>
+
+            <!--<div class="col-md-10 col-md-offset-2 col-md-pull-1" >-->
+
+                <!--&lt;!&ndash;<th:block th:with="programa=${contracts[0].program.name}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div th:text="${programa}"/>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<th:block th:each="contract : ${contracts}" th:with="aux=${contract.program.name}">&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;<div th:if="${programa != aux}" th:with="programa=${contract.program.name}">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div th:text="'teste: ' + ${programa}"/>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;<h3 th:text="${aux}"/>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;<th:block th:each="payment : ${contract.paymentProposals}">&ndash;&gt;-->
+                            <!--&lt;!&ndash;uma proposta de pagamento&ndash;&gt;-->
+                        <!--&lt;!&ndash;</th:block>&ndash;&gt;-->
+
+
+                    <!--&lt;!&ndash;</th:block>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;</th:block>&ndash;&gt;-->
+
+                <!--<table class="table table-bordered table-hover table-selectable">-->
+                    <!--<thead>-->
+                    <!--<tr class="alert-info text-align-center">-->
+                        <!--<th>Proposta</th>-->
+                        <!--<th>Data(s) da Proposta</th>-->
+                        <!--<th>Rubrica</th>-->
+                        <!--<th>Fornecedor</th>-->
+                        <!--<th class="text-center">Valor</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+
+                    <!--<tbody class="searchable" id="materiaisTable">-->
+
+                        <!--<tr th:each="contract : ${contracts}" th:with="total=${0}">-->
+                            <!--<tr th:each="payment: ${contract.paymentProposals}">-->
+                            <!--&lt;!&ndash;&ndash;&gt;-->
+
+                                <!--<td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" th:text="${contract.presentation.name}">-->
+                                <!--</td>-->
+                                <!--<td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" >-->
+                                    <!--<div th:each="acc : ${contract.accomplishments}" th:text="${#temporals.format(acc.dateTime, 'dd/MM/yyyy hh:mm')}"/>-->
+                                <!--</td>-->
+
+                                <!--<td th:text="${payment.rubricAccount.rubric.name}"></td>-->
+                                <!--<td th:text="${payment.provider.name}"></td>-->
+                                <!--<td class="text-center" th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 2, 'COMMA')}"></td>-->
+                                <!--&lt;!&ndash;<td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;Total&ndash;&gt;-->
+                                <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<td th:if="${paymentStat.count} == 1 and contract.paymentProposals != null" th:rowspan="${contract.paymentProposals.size()}" th:text="${#aggregate.sum(contract.paymentProposals.![amount.doubleValue()])}"></td>&ndash;&gt;-->
+                            <!--</tr>-->
+
+                            <!--<tr th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:with="soma=${#aggregates.sum(contract.paymentProposals.![amount])}">-->
+                                <!--<td th:colspan="4">-->
+                                    <!--Total-->
+                                <!--</td>-->
+                                <!--<td th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:text="${#numbers.formatDecimal(soma, 0, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>-->
+                            <!--</tr>-->
+
+
+                        <!--</tr>-->
+                        <!--&lt;!&ndash;<tr th:each="contract : ${contracts}" th:with="soma=${#aggregates.sum(contract.paymentProposals.![amount])}">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td th:colspan="4">&ndash;&gt;-->
+                                <!--&lt;!&ndash;Total&ndash;&gt;-->
+                            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<td th:text="${#aggregate.sum(contract.paymentProposals.![amount])}"/>&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<td th:text="${#aggregate.sum(contract.paymentProposals.![amount])}"></td>&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:text="${#numbers.formatDecimal(soma, 0, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<td th:if="${contract.paymentProposals.size() ==  0}" th:text="eee">eeeee</td>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+
+
+
+                    <!--</tbody>-->
+                <!--</table>-->
+
+            <!--</div>-->
+
+            <div class="col-md-10 col-md-offset-2 col-md-pull-1" >
+
+
+                <th:block th:each="element: ${teste}">
+
+                    <h4>
+                        <span th:text="${element.key.name}"/>
+                        <span th:text="' (R$ ' + ${#numbers.formatDecimal(T(io.github.siscultural.utils.ContractUtils).total(element.value), 0, 'POINT', 2, 'COMMA')} + ' )'"/>
+                    </h4>
+
+
+
+                    <small><th:block th:if="${contract.paymentProposals.size() != 0}" th:each="contract : ${element.value}">
+
+                        <table class="table table-bordered table-hover table-selectable" id="minitable">
+                            <thead>
+                            <tr class="alert-info text-align-center" style="white-space: nowrap; width: 0.2%;">
+                                <th>Proposta</th>
+                                <th>Data(s) da Proposta</th>
+                                <th>Rubrica</th>
+                                <th>Fornecedor</th>
+                                <th class="text-center">Valor</th>
+                            </tr>
+                            </thead>
+
+                            <tbody class="searchable" id="materiaisTable">
+
+                            <!--<tr th:each="contract : ${contracts}" th:with="total=${0}">-->
+                                <tr th:each="payment: ${contract.paymentProposals}">
+                                    <!---->
+
+                                    <td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" th:text="${contract.presentation.name}">
+                                    </td>
+                                    <td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" >
+                                        <div th:each="acc : ${contract.accomplishments}" th:text="${#temporals.format(acc.dateTime, 'dd/MM/yyyy hh:mm')}"/>
+                                    </td>
+
+                                    <td th:text="${payment.rubricAccount.rubric.name}"></td>
+                                    <td th:text="${payment.provider.name}"></td>
+                                    <td class="text-center" th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 2, 'COMMA')}"></td>
+
+                                </tr>
+
+
+
+                                <tr th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:with="soma=${#aggregates.sum(contract.paymentProposals.![amount])}">
+                                    <!--<td th:colspan="4" class="text-right">-->
+                                    <td th:colspan="4" >
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td  class="alert-success" th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:text="${#numbers.formatDecimal(soma, 0, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>
+                                </tr>
+
+                                <tr>
+                                    <td th:colspan="5">
+                                        Release: <span th:text="${contract.presentation.releaseText}"></span>
+                                    </td>
+                                    <!--<td th:colspan="4" th:text="${contract.presentation.releaseText}"></td>-->
+                                </tr>
+
+
+
+
+                            <!--</tr>-->
+
+                            </tbody>
+                        </table>
+
+                    </th:block></small>
+
+
+
+                </th:block>
+
+            </div>
+
+
+            <!--<div class="col-md-10 col-md-offset-2 col-md-pull-1" >-->
+
+
+            <!--<th:block th:each="element : ${teste}">-->
+            <!--<h4 th:text="${element.key.name}"/>-->
+
+            <!--<table class="small table table-bordered table-hover table-selectable">-->
+            <!--<thead>-->
+            <!--<tr class="alert-info text-align-center" style="white-space: nowrap; width: 0.2%;">-->
+            <!--<th>Proposta</th>-->
+            <!--<th>Data(s) da Proposta</th>-->
+            <!--<th>Rubrica</th>-->
+            <!--<th>Fornecedor</th>-->
+            <!--<th class="text-center">Valor</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+
+
+            <!--<small><th:block th:if="${contract.paymentProposals.size() != 0}" th:each="contract : ${element.value}">-->
+            <!---->
+            <!--<tbody class="searchable" id="materiaisTable">-->
+            <!---->
+            <!--<tr th:each="payment: ${contract.paymentProposals}">-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+
+            <!--<td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" th:text="${contract.presentation.name}">-->
+            <!--</td>-->
+            <!--<td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" >-->
+            <!--<div th:each="acc : ${contract.accomplishments}" th:text="${#temporals.format(acc.dateTime, 'dd/MM/yyyy hh:mm')}"/>-->
+            <!--</td>-->
+
+            <!--<td th:text="${payment.rubricAccount.rubric.name}"></td>-->
+            <!--<td th:text="${payment.provider.name}"></td>-->
+            <!--<td class="text-center" th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 2, 'COMMA')}"></td>-->
+
+            <!--</tr>-->
+
+
+
+            <!--<tr th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:with="soma=${#aggregates.sum(contract.paymentProposals.![amount])}">-->
+            <!--<td th:colspan="4" >-->
+            <!--<strong>Total</strong>-->
+            <!--</td>-->
+            <!--<td  class="alert-success" th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:text="${#numbers.formatDecimal(soma, 0, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>-->
+            <!--</tr>-->
+
+            <!--<tr>-->
+            <!--<td th:colspan="5">-->
+            <!--Release: <span th:text="${contract.presentation.releaseText}"></span>-->
+            <!--</td>-->
+            <!--&lt;!&ndash;<td th:colspan="4" th:text="${contract.presentation.releaseText}"></td>&ndash;&gt;-->
+            <!--</tr>-->
+
+            <!--</tbody>-->
+
+            <!--</th:block></small>-->
+            <!--</table>-->
+            <!---->
+            <!--</th:block>-->
+
+            <!--</div>-->
+            <br/><br/><br/><hr/>
+
+            <div id="table_div"></div>
+
+            <div id="table_div2"></div>
+
+            <div id="table_div3"></div>
+
+
+            <!--<div class="container-fluid col-md-8 col-md-offset-2" >-->
+                <!--<h3 class="text-center">Público por mês 2</h3>-->
+
+                <!--<div id="table_div3" class="col-md-8 col-md-offset-1"></div>-->
+
+                <!--<div class="form-group col-md-5  col-md-offset-1">-->
+                    <!--<label for="datetimepicker6" class="control-label">Início</label>-->
+                    <!--<div class="form-group">-->
+                        <!--<div class='input-group date' id='datetimepicker6'>-->
+                            <!--<input type='text' class="form-control" name="inicialDate2" />-->
+                            <!--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="form-group col-md-5">-->
+                    <!--<label for="datetimepicker7" class="control-label">Fim</label>-->
+                    <!--<div class="form-group">-->
+                        <!--<div class='input-group date' id='datetimepicker7'>-->
+                            <!--<input type='text' class="form-control" name="finalDate2"/>-->
+                            <!--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class='form-group col-md-12  col-md-offset-1'>-->
+                    <!--&lt;!&ndash;<label for="" class="control-label col-md-14">  </label>&ndash;&gt;-->
+                    <!--<div class="form-group">-->
+                        <!--<button class="btn btn-success" onclick="consultar3()">Buscar</button>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+
+            <!--</div>-->
+        </div>
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+
+
+        <script src="../js/jquery-3.1.0.min.js"></script>
+        <script src="../js/moment.js"></script>
+
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/bootstrap-datetimepicker.min.js"></script>
+        <script src="../js/locale/pt-br.js"></script>
+        <script src="../js/bootstrap-select.min.js"></script>
+
+        <script src="../js/tableselection.js"></script>
+        <!--<script src="https://use.fontawesome.com/42680f3b68.js"></script>-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script type="text/javascript">
+
+            $(function () {
+
+                $('#datetimepicker2').datetimepicker({
+                    locale: 'pt-br'
+                });
+
+                $('#datetimepicker3').datetimepicker({
+                    locale: 'pt-br'
+                });
+
+                $('#datetimepicker4').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'L'
+                });
+
+                $('#datetimepicker5').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'L'
+                });
+
+                $('#datetimepicker6').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'L'
+                });
+
+                $('#datetimepicker7').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'L'
+                });
+
+            });
+
+            google.charts.load('current', {'packages':['table', 'corechart', 'bar', 'line'], 'language': 'pt_BR'});
+
+//            google.charts.setOnLoadCallback(consultar3);
+
+            function consultar(){
+
+                $.getJSON('/agenda2',
+
+
+                    function (result) {
+
+                        var programa = "nada";
+
+                        //cria um data table
+
+                        for (var i in result) {
+
+                            if (result[i][1] != programa) {
+                                programa = result[i][1];
+                                //imprime um h3 com o nome do programa
+
+                                //criar um novo div
+                                //gerar o chart no novo div com as infos que existem (se o número de linhas != 0)
+
+                                //limpa as linhas do dateTable
+                                //continua coletando dados
+                            } else {
+                                //continua coletando dados
+                            }
+                        }
+
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'Id contrato');
+                        data.addColumn('string', 'Programa');
+                        data.addColumn('string', 'Apresentação');
+                        data.addColumn('string', 'Rubrica');
+                        data.addColumn('string', 'Fornecedor');
+                        data.addColumn('number', 'Valor');
+
+                        var ativ = 0;
+                        var publico = 0;
+                        for (var i in result) {
+//                            console.log(result[i]);
+                            ativ += result[i][1];
+                            publico += result[i][2];
+                            data.addRow(result[i]);
+                        }
+
+//                        data.addRow([{
+//                            v: 'Total',
+//                            p: {
+//                                className: 'TotalCell'
+//                            }
+//                        }, ativ, publico]);
+
+
+                        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+                        //add the listener events
+                        google.visualization.events.addListener(table, 'ready', function () {
+//                            resetStyling('table_div');
+                        });
+
+                        //sorting event
+                        google.visualization.events.addListener(table, 'sort', function (ev) {
+                            //find the last row
+                            var parentRow = $('#table_div td.TotalCell').parent();
+                            //set the TotalRow row to the last row again.
+                            if (!parentRow.is(':last-child')) {
+                                parentRow.siblings().last().after(parentRow);
+                            }
+
+                            //reset the styling of the table
+//                            resetStyling('table_div');
+                        });
+
+                        var options = {
+                            fontName: 'Alte DIN',
+                            showRowNumber: false,
+                            width: '100%',
+                            height: '100%'
+                        };
+
+                        table.draw(data, options);
+                    });
+
+            }
+
+
+            function consultar2(){
+
+                $.getJSON('/agenda2',
+
+
+                    function (result) {
+
+//                        var programa = "nada";
+                        var programa = result[0][1];
+
+                        //cria um data table
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'Id contrato');
+                        data.addColumn('string', 'Programa');
+                        data.addColumn('string', 'Apresentação');
+                        data.addColumn('string', 'Rubrica');
+                        data.addColumn('string', 'Fornecedor');
+                        data.addColumn('number', 'Valor');
+
+
+                        var tables = 0;
+                        var id_table;
+                        var soma = 0;
+                        var nf = Intl.NumberFormat(7,2);
+
+                        for (var i in result) {
+
+                            if (result[i][1] != programa) {
+
+                                tables++;
+
+                                //gerar o chart no novo div com as infos que existem (se o número de linhas != 0)
+                                if (data.getNumberOfRows() > 0) {
+
+                                    //imprime um h3 com o nome do programa
+                                    $( "#table_div2" ).append( "<h3>" + programa + "</h3>");
+
+                                    //criar um novo div
+                                    $( "#table_div2" ).append( "<div>Test " + tables + " </div>" );
+                                    var id_table = 'table' + tables;
+
+                                    var the_div = $( "#table_div2 div" ).last();
+                                    the_div.attr("id", id_table);
+
+                                    soma.toLocaleString('pt-BR', { minimumFractionDigits: 2});
+
+                                    var total =  "<div>Total: " + soma.toLocaleString('pt-BR', { minimumFractionDigits: 2}) + " </div>" ;
+
+
+                                    $(total).addClass('text-left').appendTo("#table_div2");
+
+//                                    data.addRow([  , {v: 'Total', p: {className: 'colspan_4, alert-danger'}}, '', '', '', {v: soma, p: {className: 'text-right'}}]);
+
+
+                                    drawTable(data, id_table);
+
+                                    //limpa as linhas do dateTable
+                                    data.removeRows(0, data.getNumberOfRows());
+                                    soma = 0;
+                                }
+
+                                //continua coletando dados
+                                soma += result[i][5];
+                                data.addRow(result[i]);
+                                programa = result[i][1];
+
+                            } else {
+
+                                //continua coletando dados
+                                soma += result[i][5];
+                                data.addRow(result[i]);
+                            }
+
+
+                        }
+
+
+                        //imprime um h3 com o nome do programa
+                        $( "#table_div2" ).append( "<h3>" + programa + "</h3>");
+
+                        //criar um novo div
+                        tables++;
+                        $( "#table_div2" ).append( "<div>Test</div>" );
+                        var id_table = 'table' + tables;
+                        var the_div = $( "#table_div2 div" ).last();
+                        the_div.attr("id", id_table);
+                        $( "#table_div2" ).append( "<div>Total: " + soma.toLocaleString('pt-BR', { minimumFractionDigits: 2}) + " </div>" );
+                        drawTable(data, id_table);
+
+//                        drawTable(data, id_table);
+
+                    });
+
+            }
+
+            function drawTable(data, div_id){
+//                alert(div_id);
+
+                var table = new google.visualization.Table(document.getElementById(div_id));
+
+//                var table = new google.visualization.Table(the_table_div);
+
+                var options = {
+                    fontName: 'Alte DIN',
+                    showRowNumber: false,
+                    width: '100%',
+                    height: '100%'
+                };
+
+                table.draw(data, options);
+            }
+
+
+            function consultar3(){
+
+                $.getJSON('/agenda3',
+
+                    function (result) {
+
+
+                        var aux = result;
+//                        console.log(aux);
+
+                        var contratos_por_programa = aux.reduce((groups, n) => {
+                            let key = n.program.name;
+//                            console.log(key);
+                            if (n.paymentProposals.length != 0)
+                                (groups[key] = groups[key] || []).push(n);
+                            return groups;
+                        }, {});
+
+                        console.log(contratos_por_programa);
+
+                        //cria um data table
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'Id contrato');
+//                        data.addColumn('string', 'Programa');
+                        data.addColumn('string', 'Apresentação');
+                        data.addColumn('string', 'Rubrica');
+                        data.addColumn('string', 'Fornecedor');
+                        data.addColumn('string', 'Valor');
+
+
+                        var tables = 0;
+                        var id_table;
+                        var soma = 0;
+                        var nf = Intl.NumberFormat(7,2);
+
+                        for (var i in contratos_por_programa) {
+                            soma = 0;
+                            tables++;
+
+                            data.removeRows(0, data.getNumberOfRows());
+
+                            //imprime um h3 com o nome do programa
+                            var contrato = contratos_por_programa[i][0];
+                            $( "#table_div3" ).append( "<h3>" + contrato.program.name + "</h3>");
+
+                            //criar um novo div
+                            $( "#table_div3" ).append( "<div>Test " + tables + " </div>" );
+                            var id_table = 'table' + tables;
+
+                            var the_div = $( "#table_div3 div" ).last();
+                            the_div.attr("id", id_table);
+
+
+                            for (var payment in contrato.paymentProposals) {
+                                console.log(contrato.paymentProposals[payment]);
+                                var id =  contrato.id;
+                                var pres = contrato.presentation.name;
+                                var rubrica = contrato.paymentProposals[payment].rubricAccount.rubric.name;
+                                var fornece = contrato.paymentProposals[payment].provider.name;
+                                var valor = contrato.paymentProposals[payment].amount;
+                                data.addRow([id, pres, rubrica, fornece, valor.toLocaleString('pt-BR', { minimumFractionDigits: 2})]);
+
+//                                alert(payment);
+
+                                data.setProperties(0, 0, {style: 'text-align: right; color: blue'});
+                                soma += valor;
+                            }
+
+
+                            soma.toLocaleString('pt-BR', { minimumFractionDigits: 2});
+                            var total =  "<div>Total: " + soma.toLocaleString('pt-BR', { minimumFractionDigits: 2}) + " </div>" ;
+                            $(total).addClass('text-left').appendTo("#table_div3");
+
+                            drawTable(data, id_table);
+                        }
+
+
+                    });
+
+
+            }
+
+            function drawTable3(data, div_id){
+
+                var table = new google.visualization.Table(document.getElementById(div_id));
+
+                var options = {
+                    fontName: 'Alte DIN',
+                    showRowNumber: false,
+                    width: '100%',
+                    height: '100%'
+                };
+
+                table.draw(data, options);
+            }
+
+        </script>
+
+
+    </body>
+
+</html>

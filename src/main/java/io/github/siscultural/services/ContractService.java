@@ -12,10 +12,13 @@ import io.github.siscultural.repositories.PresentationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by susanneferraz on 16/09/16.
@@ -108,5 +111,10 @@ public class ContractService {
     public List<Contract> findByPresentation(Presentation presentation) {
         return contractRepository.findByPresentation(presentation);
     }
+
+    public List<Contract> findAvailables() {
+        return contractRepository.findByCommitte(null);
+    }
+
 
 }

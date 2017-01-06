@@ -81,6 +81,7 @@ input:focus {
     -khtml-border-radius:10px;
     border-radius:10px;
     background-color:#fff; padding:10px;
+    margin-bottom: 100px;
 }
 
 .container-area{
@@ -140,3 +141,33 @@ input:focus {
 }
 
 .material-icons.md-18 { font-size: 18px; }
+
+
+.table td.fit,
+.table th.fit,
+.table tr.fit{
+    white-space: nowrap;
+    width: 1%;
+}
+
+#minitable td,
+#minitable tr,
+#minitable th {
+    padding: 3px;
+}
+
+#th_proposta {
+    width: 20%;
+}
+
+#th_datas {
+    width: 10%;
+}
+
+#th_rubrica {
+    width: 15%;
+}
+
+#th_valor {
+    width: 10%;
+}

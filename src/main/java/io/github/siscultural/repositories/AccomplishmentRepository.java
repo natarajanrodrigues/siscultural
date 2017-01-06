@@ -50,4 +50,22 @@ public interface AccomplishmentRepository extends JpaRepository<Accomplishment, 
             "where a.dateTime between ?1 AND ?2 " +
             "group by p.name")
     public List<?> accomplishmentReports2(LocalDateTime startDate, LocalDateTime finalDate);
+
+    @Query (value = "select c.id, c.program.name, " +
+//            "a.dateTime, " +
+            "c.presentation.name, proposals.rubricAccount.rubric.name, proposals.provider.name, proposals.amount " +
+            "from Accomplishment a join fetch a.contract c join fetch c.program p join fetch c.paymentProposals proposals " +
+            "order by c.program.name"
+    )
+    public List<?> accomplishmentReports3();
+
+    @Query (value = "select c.program.name, c.presentation.name, proposals, a " +
+            "from Accomplishment a join fetch a.contract c join fetch c.program p join fetch c.paymentProposals proposals " +
+//            "group by c.program.name" +
+
+            "order by c.program.name"
+    )
+    public List<?> accomplishmentReports4();
+
+
 }

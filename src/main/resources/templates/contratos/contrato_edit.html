@@ -352,48 +352,49 @@
                     </div>
 
                     <!--panel propostas de pagamento-->
-                    <!--<div class="container-fluid">-->
-                        <!--<div class="panel panel-info">-->
-                            <!--<div class="panel-heading clearfix">-->
-                                <!--<div class="panel-body">-->
-                                    <!--Propostas de pagamento-->
-                                    <!--<div class="pull-right">-->
-                                        <!--<button class="btn btn-xs btn-success glyphicon glyphicon-plus" data-toggle="modal"-->
-                                                <!--data-target="#modal_add_proposta"></button>-->
-                                        <!--<button id="btn-editar" class="btn btn-xs btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true" data-toggle="modal"-->
-                                                <!--data-target="#modal_edit_realizacao"></button>-->
-                                        <!--<button id="btn-deletar" class="btn btn-xs  btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>-->
+                    <div class="container-fluid">
+                        <div class="panel panel-info">
+                            <div class="panel-heading clearfix">
+                                <div class="panel-body">
+                                    Propostas de pagamento
+                                    <div class="pull-right">
+                                        <button class="btn btn-xs btn-success glyphicon glyphicon-plus" data-toggle="modal"
+                                                data-target="#modal_add_proposta"></button>
+                                        <button id="btn-editar2" class="btn btn-xs btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true" data-toggle="modal"
+                                                data-target="#modal_edit_realizacao"></button>
+                                        <button id="btn-deletar2" class="btn btn-xs  btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
 
 
-                                    <!--</div>-->
+                                    </div>
 
-                                <!--</div>-->
+                                </div>
 
-                            <!--</div>-->
+                            </div>
 
-                            <!--<table class="table table-bordered table-hover table-selectable2" id="prop_pagamentos">-->
-                                <!--<thead>-->
-                                <!--<tr class="alert-info text-align-center">-->
-                                    <!--<th>Conta</th>-->
-                                    <!--<th>Fornecedor</th>-->
-                                    <!--<th class="text-center">Valor (R$)</th>-->
-                                <!--</tr>-->
-                                <!--</thead>-->
+                            <table class="table table-bordered table-hover table-selectable2" id="prop_pagamentos">
+                                <thead>
+                                <tr class="alert-info text-align-center">
+                                    <th>Conta</th>
+                                    <th>Fornecedor</th>
+                                    <th class="text-center">Valor (R$)</th>
+                                </tr>
+                                </thead>
 
-                                <!--<tbody class="searchable" id="materiaisTable">-->
+                                <tbody class="searchable" id="materiaisTable">
 
                                 <!--<tr th:each="proposal : ${proposals}">-->
-                                    <!--<td th:text="${proposal.rubricAccount.rubric.name} + ' - ' + ${proposal.rubricAccount.budget.name}"></td>-->
-                                    <!--<td th:text="${proposal.provider.name}"></td>-->
-                                    <!--<td class="text-center" th:text="${proposal.amount}"></td>-->
-                                    <!--<td th:text="${proposal.id}" th:hidden="true"></td>-->
-                                <!--</tr>-->
+                                <tr th:each="proposal : ${contract.paymentProposals}">
+                                    <td th:text="${proposal.rubricAccount.rubric.name} + ' - ' + ${proposal.rubricAccount.budget.name}"></td>
+                                    <td th:text="${proposal.provider.name}"></td>
+                                    <td class="text-center" th:text="${#numbers.formatDecimal(proposal.amount, 0, 'POINT', 2, 'COMMA')}"></td>
+                                    <td th:text="${proposal.id}" th:hidden="true"></td>
+                                </tr>
 
-                                <!--</tbody>-->
-                            <!--</table>-->
-                        <!--</div>-->
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <!--</div>-->
+                    </div>
 
 
                 </div>
@@ -514,6 +515,25 @@
 
 
             // operações sobre propostas
+
+            $('#btn-editar2').click(function (e) {
+                var locality = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var dateTime = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+
+                //set select
+                $("#locality-edit option").filter(function() {
+                    return this.text == locality;
+                }).attr('selected', true);
+                //set id and dateTime
+                $("#id-edit").val(id);
+                $("#dateTime-edit").val(dateTime);
+
+
+                $('#editar_modal').modal({
+                    show: 'true'
+                });
+            });
 
             $('#btn-deletar2').click(function (e) {
                 var nome2 = $('.table-selectable2 > tbody > tr.active').find('td:nth-child(2)').text();

@@ -6,14 +6,13 @@
 package io.github.siscultural.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.eclipse.persistence.annotations.PrivateOwned;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -42,6 +41,7 @@ public class Contract implements Serializable {
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //    @PrivateOwned
+    @JoinColumn(name="contract_id")
     private List<PaymentProposal> paymentProposals;
 
     @ManyToOne
@@ -49,6 +49,11 @@ public class Contract implements Serializable {
 
     @ManyToOne
     private SpecialEvent specialEvent;
+
+    @ManyToOne
+//    @JsonIgnore
+//    @JoinColumn(name="committe_id")
+    private Committe committe;
     
     private LocalDate contractDate;
 
@@ -131,6 +136,23 @@ public class Contract implements Serializable {
         this.specialEvent = specialEvent;
     }
 
+    public Committe getCommitte() {
+        return committe;
+    }
+
+    public void setCommitte(Committe committe) {
+        this.committe = committe;
+    }
+
+    public BigDecimal total (){
+        BigDecimal soma = new BigDecimal(0);
+        for (PaymentProposal p : paymentProposals) {
+            soma = soma.add(p.getAmount());
+        }
+
+        return soma;
+    }
+
 //    @Override
 //    public int hashCode() {
 //        int hash = 5;
@@ -154,4 +176,36 @@ public class Contract implements Serializable {
 //        return Objects.equals(this.id, other.id);
 //    }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Contract contract = (Contract) o;
+
+        if (getId() != null ? !getId().equals(contract.getId()) : contract.getId() != null) return false;
+        if (!getPresentation().equals(contract.getPresentation())) return false;
+        if (getAccomplishments() != null ? !getAccomplishments().equals(contract.getAccomplishments()) : contract.getAccomplishments() != null)
+            return false;
+        if (getPaymentProposals() != null ? !getPaymentProposals().equals(contract.getPaymentProposals()) : contract.getPaymentProposals() != null)
+            return false;
+        if (getProgram() != null ? !getProgram().equals(contract.getProgram()) : contract.getProgram() != null)
+            return false;
+//        if (!getSpecialEvent().equals(contract.getSpecialEvent())) return false;
+//        if (getCommitte() != null ? !getCommitte().equals(contract.getCommitte()) : contract.getCommitte() != null)
+//            return false;
+//        return getContractDate().equals(contract.getContractDate());
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getAccomplishments() != null ? getAccomplishments().hashCode() : 0);
+        result = 31 * result + (getPaymentProposals() != null ? getPaymentProposals().hashCode() : 0);
+        result = 31 * result + (getProgram() != null ? getProgram().hashCode() : 0);
+        return result;
+    }
 }

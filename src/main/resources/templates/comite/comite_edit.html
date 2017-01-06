@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Comitê</title>
+
+    <!-- CSS's-->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+</head>
+
+    <body class="home-body">
+
+        <!--modal add realização-->
+        <div class="modal fade" id="modal_add_contrato">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Adicionar Contratos</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class='container-fluid'>
+
+                            <form method="post" role="form" class="form-horizontal" id="cadastro-realizacao" th:action="@{comite/contract/add}" th:field="${contract}">
+
+                                <div class="form-group">
+
+                                    <label for="contracts" class="control-label">Contratos</label>
+
+                                    <select name="contracts" data-live-search="true" class="selectpicker form-control" id="contracts" th:attr="data-actions-box=true" multiple="true">
+
+                                        <!--<option th:if="${presentationChoosed != null}" th:value="${presentationChoosed.id}" th:text="${presentationChoosed.name}"></option>-->
+                                        <!--<option th:if="${presentationChoosed == null}" th:each="pres : ${presentations}" th:value="${pres.id}" th:text="${pres.name}"></option>-->
+                                        <option th:each="c : ${availableContracts}" th:value="${c.id}" th:text="${c.id} + ' - ' + ${c.presentation.name}"></option>
+
+                                    </select>
+
+                                </div>
+                                <!--<div th:each="c : ${availableContracts}" th:text="${c.id}"></div>-->
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
+                                <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
+                        <!--</button>-->
+                        <button type="submit" th:form="cadastro-realizacao" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--fim modal add realização-->
+
+        <!--modal delete -->
+        <div class="modal fade" id="deletar_modal">
+            <div class="modal-dialog modal-lm">
+                <div class="modal-content">
+                    <form id="delete_modal" method="post" th:action="@{/comite/contract/remove}">
+                        <div class="modal-header align-center">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">Confirmar Exclusão</h3>
+                        </div>
+
+                        <div class="modal-body align-center">
+                            <div class="row">
+                                <div class="col-sm-12 align-center">
+                                    <h4>Tem certeza que deseja excluir " <span name="descricao" id="nome_delet"></span> " do sistema ?</h4>
+                                    <p>Esta operação é irreversível.</p>
+                                    <input type="text" class="hidden" id="id_delet" name="contractId" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" for="deletar" id="confirmar_exclusao" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirmar</button>
+                            <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--fim modal delete -->
+
+        <!--modais para confirmação de tarefa-->
+        <div th:include="menu_header :: operationmodals"></div>
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container"  style="margin-bottom: 50px">
+
+            <div class="">
+                <ol class="breadcrumb">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="comite">Comitê</a></li>
+                    <li class="active">Detalhes</li>
+                </ol>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class='container-fluid'>
+
+                        <form th:action="@{/comite_add}" th:object="${committe}" id="form_committe" method="post">
+
+                            <div class="form-group col-md-12">
+                                <label for="description" class="control-label">Descrição</label>
+
+                                <input type="text" class="form-control" id="description" name="description"
+                                       placeholder="Descrição" autofocus="true" th:field="*{description}"  />
+                                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="help-block"></p>
+
+                            </div>
+
+                            <input th:hidden="true" th:value="${date2}" id="date2"/>
+
+                            <div class="form-group col-md-12">
+                                <label for="date" class="control-label">Data</label>
+
+                                <div class="row">
+                                    <div class='col-md-3'>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='datetimepicker2'>
+                                                <input type='text' class="form-control" name="date" id="date"/>
+                                                <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <!--<div class="container-fluid">-->
+                        <!--<div class="panel panel-info">-->
+                            <!--<div class="panel-heading clearfix">-->
+                                <!--<div class="panel-body">-->
+                                    <!--Contratos-->
+                                    <!--<div class="pull-right">-->
+                                        <!--<button class="btn btn-xs btn-success glyphicon glyphicon-plus" data-toggle="modal"-->
+                                                <!--data-target="#modal_add_contrato"></button>-->
+                                        <!--<button id="btn-editar" class="btn btn-xs btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true" data-toggle="modal"-->
+                                                <!--data-target="#modal_edit_realizacao"></button>-->
+                                        <!--<button id="btn-deletar" class="btn btn-xs  btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+
+                            <!--</div>-->
+
+                            <!--<table class="table table-bordered table-hover table-selectable">-->
+                                <!--<thead>-->
+                                <!--<tr class="alert-info text-align-center">-->
+                                    <!--<th>id</th>-->
+                                    <!--&lt;!&ndash;<th class="text-center">Data e Hora</th>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<th class="text-center">Ações</th>&ndash;&gt;-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+
+                                <!--<tbody class="searchable" id="materiaisTable">-->
+
+                                <!--<tr th:each="contract : ${committe.contracts}">-->
+
+                                    <!--<td th:text="${contract.id}"></td>-->
+                                    <!--&lt;!&ndash;<td th:text="${#temporals.format(accompl.dateTime, 'dd/MM/yyyy HH:mm')}" class="text-center"></td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td th:text="${accompl.id}" th:hidden="true"></td>&ndash;&gt;-->
+
+                                <!--</tr>-->
+
+                                <!--</tbody>-->
+                            <!--</table>-->
+
+
+
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+
+                    <div class="container-fluid">
+                        <th:block th:each="element: ${teste}">
+
+                            <h4>
+                                <span th:text="${element.key.name}"/>
+                                <span th:text="' (R$ ' + ${#numbers.formatDecimal(T(io.github.siscultural.utils.ContractUtils).total(element.value), 1, 'POINT', 2, 'COMMA')} + ' )'"/>
+                            </h4>
+
+
+
+                            <small><th:block th:each="contract : ${element.value}">
+
+                                <table class="table table-bordered table-hover table-selectable" id="minitable">
+                                    <thead>
+                                    <tr class="alert-info text-align-center" style="white-space: nowrap; width: 0.2%;">
+                                        <th id="th_proposta">
+                                            <span>Proposta: </span>
+                                            <a th:href="@{/contrato_edit(id=${contract.id})}"><span th:text="${contract.id}"></span></a>
+                                            <span class="pull-right">
+                                                <button class="btn-del label label-xs label-danger" ><i class="fa fa-minus-circle" aria-hidden="true"><span th:attr="id=${contract.id}"/></i> Remover</button>
+                                            </span>
+                                        </th>
+                                        <th id="th_datas">Data(s) da Proposta</th>
+                                        <th id="th_rubrica">Rubrica</th>
+                                        <th>Fornecedor</th>
+                                        <th class="text-center" id="th_valor">Valor</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody class="searchable" id="materiaisTable">
+
+                                    <tr th:each="payment: ${contract.paymentProposals}">
+
+                                        <td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" th:text="${contract.presentation.name}">
+                                        </td>
+                                        <td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" >
+                                            <div th:each="acc : ${contract.accomplishments}" th:text="${#temporals.format(acc.dateTime, 'dd/MM/yyyy hh:mm')}"/>
+                                        </td>
+
+                                        <td th:text="${payment.rubricAccount.rubric.name}"></td>
+                                        <td th:text="${payment.provider.name}"></td>
+                                        <td class="text-center" th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 2, 'COMMA')}"></td>
+
+                                    </tr>
+
+                                    <tr th:if="${contract.paymentProposals.size() == 0}">
+                                        <td th:rowspan="1" th:text="${contract.presentation.name}">
+                                        </td>
+                                        <td th:rowspan="1" >
+                                            <div th:each="acc : ${contract.accomplishments}" th:text="${#temporals.format(acc.dateTime, 'dd/MM/yyyy hh:mm')}"/>
+                                        </td>
+
+                                        <td th:text="'-'"></td>
+                                        <td th:text="'-'"></td>
+                                        <td class="text-center" th:text="${#numbers.formatDecimal(0, 1, 'POINT', 2, 'COMMA')}"></td>
+                                    </tr>
+
+                                    <tr  th:with="soma=${#aggregates.sum(contract.paymentProposals.![amount])}">
+                                        <td th:colspan="4" >
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td class="alert-success" th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:text="${#numbers.formatDecimal(soma, 0, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>
+                                        <td class="alert-success" th:if="${contract.paymentProposals == null OR contract.paymentProposals.size() ==  0}" th:text="${#numbers.formatDecimal(0, 1, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td th:colspan="5">
+                                            Release: <span th:text="${contract.presentation.releaseText}"></span>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+
+                            </th:block></small>
+
+                        </th:block>
+                        <h4 class="text-right">
+                            <span >TOTAL: </span>
+                            <span th:text="' (R$ ' + ${#numbers.formatDecimal(T(io.github.siscultural.utils.ContractUtils).totalPerList(committe.contracts), 1, 'POINT', 2, 'COMMA')} + ' )'"/>
+                        </h4>
+
+                    </div>
+
+                </div>
+
+                <div class="panel-footer container-fluid">
+
+                    <span class="pull-right ">
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
+                                <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>-->
+                            <!--Cancelar-->
+                        <!--</button>-->
+                        <button class="btn btn-success" data-toggle="modal"
+                                data-target="#modal_add_contrato">Adicionar Contratos</button>
+
+                        <button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_committe">Salvar</button>
+
+                        <!--<a th:href="@{/apresentacao_details(id=${contract.presentation.id})}"><button id="Voltar" class="btn btn-primary" >Voltar</button></a>-->
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+
+
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/moment.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-select.min.js"></script>
+
+        <script src="js/bootstrap-datetimepicker.min.js"></script>
+        <script src="js/locale/pt-br.js"></script>
+
+
+        <script src="js/tableselection.js"></script>
+        <script src="https://use.fontawesome.com/42680f3b68.js"></script>
+        <script type="text/javascript">
+            $(function () {
+
+                $('.selectpicker').selectpicker({
+                    actionsBox: true
+                });
+
+            });
+
+            $( document ).ready(function() {
+                $('#datetimepicker2').datetimepicker({
+                    locale: 'pt-br',
+                    format: 'L'
+                });
+
+                var ancient_date = $("#date2").val();
+
+                $('#date').val(ancient_date).change();
+
+            });
+
+            function show_success() {
+                $('#sucessModal').modal({
+                    show: 'true'
+                });
+            }
+
+            function show_error(textError) {
+                $('p#error-body').html(textError);
+                $('#errorModal').modal({
+                    show: 'true'
+                });
+            }
+
+            $('#btn-editar').click(function (e) {
+                var locality = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var dateTime = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+
+                //set select
+                $("#locality-edit option").filter(function() {
+                    return this.text == locality;
+                }).attr('selected', true);
+                //set id and dateTime
+                $("#id-edit").val(id);
+                $("#dateTime-edit").val(dateTime);
+
+
+                $('#editar_modal').modal({
+                    show: 'true'
+                });
+            });
+
+            $('.btn-del').click(function (e) {
+
+                var id = $(this).find('span:first-child')[0].id;
+//                console.log(my);
+//                var id = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+//                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+                var nome = id;
+
+                $("#id_delet").val(id);
+                $("#nome_delet").html(nome);
+
+                $('#deletar_modal').modal({
+                    show: 'true'
+                });
+            });
+
+        </script>
+
+
+    </body>
+
+</html>

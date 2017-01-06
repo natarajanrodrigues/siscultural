@@ -8,6 +8,7 @@ package io.github.siscultural.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -103,6 +104,10 @@ public class Program implements Serializable {
     @Override
     public String toString() {
         return "Program{" + "id=" + id + ", name=" + name + ", rubrics=" + rubrics + '}';
+    }
+
+    public static class Comparators {
+        public static final Comparator<Program> NAME = (Program p1, Program p2) -> p1.getName().compareTo(p2.getName());
     }
             
 }

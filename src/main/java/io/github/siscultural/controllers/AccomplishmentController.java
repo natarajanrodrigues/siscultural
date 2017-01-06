@@ -84,8 +84,8 @@ public class AccomplishmentController {
 //        modelAndView.addObject("accomplishments", contract.getAccomplishments());
         modelAndView.addObject("localities", localityService.findAll());
         modelAndView.addObject("providers", providerService.getAllProviders());
-//        modelAndView.addObject("accounts", rubricAccountService.getRubricAccounts(contract.getProgram()));
-        modelAndView.addObject("proposals", paymentProposalRepository.findByContract(contract));
+        modelAndView.addObject("accounts", rubricAccountService.getRubricAccounts(contract.getProgram()));
+//        modelAndView.addObject("proposals", paymentProposalRepository.findByContract(contract));
         modelAndView.addObject("specialEvents", specialEventService.findAll());
 
         modelAndView.addObject("contract", contract);

@@ -5,7 +5,9 @@
  */
 package io.github.siscultural;
 
+import io.github.siscultural.utils.LocalDateToStringConverter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,6 +35,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/menu_orcamento").setViewName("menu_orcamento");
         registry.addViewController("/fornecedores/fornecedor_fisico").setViewName("fornecedores/fornecedor_fisico");
         registry.addViewController("/fornecedores/fornecedor_juridico").setViewName("fornecedores/fornecedor_juridico");
+//        registry.addViewController("/agenda").setViewName("agenda/agenda");
 
     }
 
@@ -58,6 +61,12 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         }
 
         return mav;
+    }
+
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new LocalDateToStringConverter());
     }
 
 }

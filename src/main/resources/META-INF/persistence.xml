@@ -17,6 +17,7 @@
     <class>io.github.siscultural.entities.Rubric</class>
     <class>io.github.siscultural.entities.RubricAccount</class>
     <class>io.github.siscultural.entities.Provider</class>
+    <class>io.github.siscultural.entities.Committe</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Siscultural"/>
