@@ -185,12 +185,15 @@ public class ContractController {
 //
     @PostMapping(value = "/contrato/delete")
     @ResponseBody
-    public ModelAndView deteleContrato(@RequestParam("id") String id) {
+    public ModelAndView deteleContrato(@ModelAttribute("committe") Committe committe, @RequestParam("id") String id) {
 
         Map<String, String> map = new HashMap<>();
         map.clear();
 
         Contract contract = contractService.findById(Long.parseLong(id));
+        if (committe != null)
+            committe.removeContract(contract);
+
 
         return JsonView.returnJsonFromMap(contractService.delete(contract));
 

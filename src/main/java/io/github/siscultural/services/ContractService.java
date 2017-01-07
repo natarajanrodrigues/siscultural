@@ -1,14 +1,8 @@
 package io.github.siscultural.services;
 
-import io.github.siscultural.entities.Accomplishment;
-import io.github.siscultural.entities.Contract;
-import io.github.siscultural.entities.PaymentProposal;
-import io.github.siscultural.entities.Presentation;
+import io.github.siscultural.entities.*;
 import io.github.siscultural.enums.ErrorMessages;
-import io.github.siscultural.repositories.AccomplishmentRepository;
-import io.github.siscultural.repositories.ContractRepository;
-import io.github.siscultural.repositories.PaymentProposalRepository;
-import io.github.siscultural.repositories.PresentationRepository;
+import io.github.siscultural.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,16 +26,18 @@ public class ContractService {
     private AccomplishmentRepository accomplishmentRepository;
     private PaymentProposalRepository paymentProposalRepository;
     private SpecialEventService specialEventService;
+    private CommitteRepository committeRepository;
 
     @Autowired
     public ContractService(PresentationRepository presentationRepository, ContractRepository contractRepository,
                            AccomplishmentRepository accomplishmentRepository, PaymentProposalRepository paymentProposalRepository,
-                           SpecialEventService specialEventService) {
+                           SpecialEventService specialEventService, CommitteRepository committeRepository) {
         this.presentationRepository = presentationRepository;
         this.contractRepository = contractRepository;
         this.accomplishmentRepository = accomplishmentRepository;
         this.paymentProposalRepository = paymentProposalRepository;
         this.specialEventService = specialEventService;
+        this.committeRepository = committeRepository;
     }
 
     public Contract findById(Long id) {
@@ -91,6 +87,13 @@ public class ContractService {
             for (PaymentProposal paymentProposal : paymentProposals) {
                 paymentProposalRepository.delete(paymentProposal);
             }
+
+            //tirando dos comitês
+            Committe committe = contract.getCommitte();
+            contract.setCommitte(null);
+            committe.removeContract(contract);
+            committeRepository.save(committe);
+
 
             contractRepository.delete(contract);
 

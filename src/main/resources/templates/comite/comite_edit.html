@@ -9,11 +9,11 @@
 
     <!-- CSS's-->
 
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
-    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" type="text/css"/>
-    <link rel="stylesheet" href="css/bootstrap-select.min.css" type="text/css"/>
+    <link href="../css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/bootstrap-select.min.css" type="text/css"/>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
@@ -287,17 +287,22 @@
 
                 <div class="panel-footer container-fluid">
 
-                    <span class="pull-right ">
+                    <span class="">
                         <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
                                 <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
                         <!--</button>-->
                         <!--<button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>-->
                             <!--Cancelar-->
                         <!--</button>-->
-                        <button class="btn btn-success" data-toggle="modal"
+                        <button class="btn btn-success pull-left" data-toggle="modal"
                                 data-target="#modal_add_contrato">Adicionar Contratos</button>
 
-                        <button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_committe">Salvar</button>
+                        <div class="pull-right">
+                            <button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_committe"> Salvar</button>
+
+                            <a th:href="@{/comite}" id="voltar" class="btn btn-default "> Voltar</a>
+                        </div>
+
 
                         <!--<a th:href="@{/apresentacao_details(id=${contract.presentation.id})}"><button id="Voltar" class="btn btn-primary" >Voltar</button></a>-->
                     </span>
@@ -314,16 +319,16 @@
         </footer>
 
 
-        <script src="js/jquery-3.1.0.min.js"></script>
-        <script src="js/moment.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap-select.min.js"></script>
+        <script src="../js/jquery-3.1.0.min.js"></script>
+        <script src="../js/moment.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/bootstrap-select.min.js"></script>
 
-        <script src="js/bootstrap-datetimepicker.min.js"></script>
-        <script src="js/locale/pt-br.js"></script>
+        <script src="../js/bootstrap-datetimepicker.min.js"></script>
+        <script src="../js/locale/pt-br.js"></script>
 
 
-        <script src="js/tableselection.js"></script>
+        <script src="../js/tableselection.js"></script>
         <script src="https://use.fontawesome.com/42680f3b68.js"></script>
         <script type="text/javascript">
             $(function () {

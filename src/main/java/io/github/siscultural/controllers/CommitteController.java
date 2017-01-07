@@ -131,6 +131,18 @@ public class CommitteController {
 
     }
 
+    @RequestMapping(value = "/comite/voltar", method = RequestMethod.GET)
+    public ModelAndView back(@ModelAttribute("committe") Committe committe, SessionStatus sessionStatus) {
+        ModelAndView modelAndView = new ModelAndView("/comite");
+
+        List<Committe> committes = committeService.findAll();
+        modelAndView.addObject("committes", committes);
+
+        return modelAndView;
+    }
+
+
+
 
 
 }
