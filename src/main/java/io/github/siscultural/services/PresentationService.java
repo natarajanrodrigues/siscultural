@@ -8,6 +8,8 @@ import io.github.siscultural.repositories.AccomplishmentRepository;
 import io.github.siscultural.repositories.ContractRepository;
 import io.github.siscultural.repositories.PresentationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,6 +43,14 @@ public class PresentationService {
 
     public List<Presentation> findAll () {
         return presentationRepository.findAll();
+    }
+
+    public Page<Presentation> findAllPagable (Pageable pageble) {
+        return presentationRepository.findAll(pageble);
+    }
+
+    public Page<Presentation> findByName (String name, Pageable pageble) {
+        return presentationRepository.findByNameContainingIgnoreCase(name, pageble);
     }
 
     public Presentation save (Presentation presentation) {

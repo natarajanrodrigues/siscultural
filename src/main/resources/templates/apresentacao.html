@@ -9,10 +9,10 @@
 
     <!-- Bootstrap -->
 
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/style.css" type="text/css"/>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
@@ -59,12 +59,12 @@
 
         <header th:include="menu_header :: header"></header>
 
-        <div class="container">
+        <div class="container" style="margin-bottom: 70px">
 
             <div class="">
                 <ol class="breadcrumb">
-                    <li><a href="home">Home</a></li>
-                    <li><a href="menu_atividades">Área de Atividades</a></li>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/menu_atividades">Área de Atividades</a></li>
                     <li class="active">Apresentações</li>
                 </ol>
             </div>
@@ -86,20 +86,47 @@
                         <!--</div>-->
                     <!--</form>-->
 
-                    <form class="form-inline float-right col-xs-6 no-margin-right col-md-8">
-                        <div class="form-group col-xs-12 no-margin-right">
-                            <div class="input-group col-xs-12 float-right">
-                                <input type="text" id="filter" class="form-control" placeholder="..."/>
-                                <span class="btn input-group-addon glyphicon glyphicon-search"></span>
+
+                        <!--<div class="form-group col-xs-12 no-margin-right container">-->
+                            <!--<div class="row">-->
+
+                                <!--<form class="form-search float-right col-xs-6 no-margin-right col-md-8" th:action="@{/comite_add}" id="search">-->
+                                    <!--<div class="input-group col-xs-12 float-right">-->
+                                        <!--<input type="text" id="filter" class="form-control" placeholder="..."/>-->
+                                        <!--<span th:form="search" class="input-group-btn">-->
+                                    <!--<button type="submit" class="btn btn-search glyphicon glyphicon-search"></button>-->
+                                <!--</span>-->
+                                        <!--&lt;!&ndash;<button type="submit" class="btn input-group-addon glyphicon glyphicon-search"></button>&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</form>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+
+                    <div class="row">
+                        <div class="form-group col-xs-6 col-md-8 no-margin-right container">
+                            <div class="row">
+                                <div class="col-md-10 col-sm-8 col-xs-12 col-lg-10">
+                                    <form class="form-search" th:action="@{/presentation/search}" id="search">
+                                        <div class="input-group">
+                                            <input type="text" th:attr="value=${name}" name="name" id="name" class="form-control" placeholder="Procurar por nome da apresentação"/>
+                                            <span class="input-group-btn">
+                                            <button type="submit" th:form="search" class="btn btn-search"><i class="glyphicon glyphicon-search"/> Buscar</button>
+                                        </span>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </form>
 
-                    <div class="col-md-4 col-xs-6">
-                        <a href="apresentacao_add"><button class="btn btn-info glyphicon glyphicon-plus" ></button></a>
-                        <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>
-                        <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
+
+                        <div class="col-md-4 col-xs-6">
+                            <a href="apresentacao_add"><button class="btn btn-info glyphicon glyphicon-plus" ></button></a>
+                            <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>
+                            <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
+                        </div>
                     </div>
+
 
                 </div>
 
@@ -126,6 +153,10 @@
                 </table>
             </div>
 
+            <div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" >
+                <a th:if="${pagination gt 0}" th:href="@{/apresentacao2(page=${pagination}-1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>
+                <a th:if="${presentations.size() != 0  and presentations.size() >= 10}" th:href="@{/apresentacao2(page=${pagination}+1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>
+            </div>
         </div>
 
 

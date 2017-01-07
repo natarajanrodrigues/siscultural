@@ -6,6 +6,8 @@
 package io.github.siscultural.repositories;
 
 import io.github.siscultural.entities.Presentation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -17,5 +19,9 @@ import java.util.List;
 public interface PresentationRepository extends JpaRepository<Presentation, Long>{
     
     public Presentation findById(long id);
+
+    public Page<Presentation> findAll(Pageable pageble);
+
+    public Page<Presentation> findByNameContainingIgnoreCase(String name, Pageable pageable);
     
 }

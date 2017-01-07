@@ -10,6 +10,8 @@ import io.github.siscultural.services.ContractService;
 import io.github.siscultural.services.PresentationService;
 import io.github.siscultural.utils.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,6 +50,39 @@ public class PresentationController {
         return mav;
 
     }
+
+    @RequestMapping(value = "/apresentacao2")
+    public ModelAndView apresentacao2(Pageable pageable) {
+
+        ModelAndView mav = new ModelAndView("apresentacao");
+
+        Page<Presentation> list = presentationService.findAllPagable(pageable);
+
+
+        mav.addObject("presentations", list.getContent());
+        mav.addObject("pagination", pageable.getPageNumber());
+
+
+        return mav;
+
+    }
+
+    @RequestMapping(value = "/presentation/search")
+    public ModelAndView search(@RequestParam("name") String name, Pageable pageable) {
+
+        ModelAndView mav = new ModelAndView("apresentacao");
+
+        Page<Presentation> list = presentationService.findByName(name, pageable);
+
+        mav.addObject("name", name);
+        mav.addObject("presentations", list.getContent());
+        mav.addObject("pagination", pageable.getPageNumber());
+
+
+        return mav;
+
+    }
+
 
 
 

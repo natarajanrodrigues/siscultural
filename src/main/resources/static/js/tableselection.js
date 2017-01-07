@@ -81,20 +81,20 @@ $('.table-selectable > tbody > tr').dblclick(function (event) {
 });
 
 
-$(document).ready(function () {
-
-    (function ($) {
-
-        $('#filter').keyup(function () {
-
-            var rex = new RegExp($(this).val(), 'i');
-            $('.searchable tr').hide();
-            $('.searchable tr').filter(function () {
-                // return rex.test($(this).find(':nth-child(2)').text()); //antigo só buscava em umas das colunas
-                return rex.test($(this).find('td').text());
-            }).show();
-
-        });
-
-    }(jQuery));
-});
+// $(document).ready(function () {
+//
+//     (function ($) {
+//
+//         $('#filter').keyup(function () {
+//
+//             var rex = new RegExp($(this).val(), 'i');
+//             $('.searchable tr').hide();
+//             $('.searchable tr').filter(function () {
+//                 // return rex.test($(this).find(':nth-child(2)').text()); //antigo só buscava em umas das colunas
+//                 return rex.test($(this).find('td').text());
+//             }).show();
+//
+//         });
+//
+//     }(jQuery));
+// });
