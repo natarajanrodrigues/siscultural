@@ -72,12 +72,21 @@
             <div class="panel panel-default">
                 <div class="panel-body">
 
-                    <a href="apresentacao_add"><button class="btn btn-info glyphicon glyphicon-plus" ></button></a>
-                    <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>
-                    <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
-                    <!--<button id="btn-details" class="btn btn-default glyphicon glyphicon-info-sign disabled" th:disabled="true"></button>-->
+                    <!--<a href="apresentacao_add"><button class="btn btn-info glyphicon glyphicon-plus" ></button></a>-->
+                    <!--<button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>-->
+                    <!--<button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>-->
+                    <!--&lt;!&ndash;<button id="btn-details" class="btn btn-default glyphicon glyphicon-info-sign disabled" th:disabled="true"></button>&ndash;&gt;-->
 
-                    <form class="form-inline float-right col-xs-8 no-margin-right">
+                    <!--<form class="form-inline float-right col-xs-8 no-margin-right">-->
+                        <!--<div class="form-group col-xs-12 no-margin-right">-->
+                            <!--<div class="input-group col-xs-12 float-right">-->
+                                <!--<input type="text" id="filter" class="form-control" placeholder="..."/>-->
+                                <!--<span class="btn input-group-addon glyphicon glyphicon-search"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+
+                    <form class="form-inline float-right col-xs-6 no-margin-right col-md-8">
                         <div class="form-group col-xs-12 no-margin-right">
                             <div class="input-group col-xs-12 float-right">
                                 <input type="text" id="filter" class="form-control" placeholder="..."/>
@@ -85,6 +94,12 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="col-md-4 col-xs-6">
+                        <a href="apresentacao_add"><button class="btn btn-info glyphicon glyphicon-plus" ></button></a>
+                        <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>
+                        <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
+                    </div>
 
                 </div>
 

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Imprimir Contrato</title>
+
+    <!-- CSS's-->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+</head>
+
+    <body class="home-body">
+
+        <!--modais para confirmação de tarefa-->
+        <div th:include="menu_header :: operationmodals"></div>
+
+        <header th:include="menu_header :: header"></header>
+
+        <div class="container"  style="margin-bottom: 50px">
+
+            <div class="">
+                <ol class="breadcrumb">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="menu_atividades">Área de Atividades</a></li>
+                    <li><a href="apresentacao">Apresentações</a></li>
+                    <li><a th:href="@{/apresentacao_details(id=${contract.presentation.id})}">Detalhe da Apresentação</a></li>
+                    <li class="active">Configurar Impresão</li>
+                </ol>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class='container-fluid'>
+
+                        <form th:action="@{/press}" th:object="${providers}" id="form_cada_user" method="post">
+
+                            <div class="form-group">
+                                <label for="provider" class="control-label">Fornecedores do Contrato</label>
+
+                                <select name="provider" data-live-search="true" class="selectpicker form-control" id="provider" >
+                                    <option th:each="prov : ${providers}" th:value="${prov.id}" th:text="${prov.name}" ></option>
+                                </select>
+                                <!--<p th:if="${#fields.hasErrors('presentation')}" th:errors="*{presentation}" class="help-block"></p>-->
+
+                            </div>
+
+                            <!--<div class="form-group">-->
+                                <!--<label for="specialEvent" class="control-label">Especial</label>-->
+
+                                <!--<select name="specialEvent" data-live-search="true" class="selectpicker form-control" id="specialEvent" th:field="*{specialEvent}">-->
+                                    <!--<option th:each="se : ${specialEvents}" th:value="${se.id}" th:text="${se.name}" ></option>-->
+                                <!--</select>-->
+                                <!--<p th:if="${#fields.hasErrors('specialEvent')}" th:errors="*{specialEvent}" class="help-block"></p>-->
+
+                            <!--</div>-->
+
+                            <!--<div class="form-group">-->
+
+                                <!--<label for="program" class="control-label">Programa</label>-->
+
+                                <!--<select name="program" data-live-search="true" class="selectpicker form-control" id="program" th:field="*{program}">-->
+                                    <!--<option th:each="program : ${programs}" th:value="${program.id}" th:text="${program.name}" ></option>-->
+                                <!--</select>-->
+                                <!--<p th:if="${#fields.hasErrors('program')}" th:errors="*{program}" class="help-block"></p>-->
+
+                            <!--</div>-->
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div class="panel-footer container-fluid">
+
+                    <span class="pull-right ">
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
+                                <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
+                        <!--</button>-->
+                        <!--<button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/>-->
+                            <!--Cancelar-->
+                        <!--</button>-->
+                        <button id="btnEnviar" type="submit" class="btn btn-primary" th:form="form_cada_user">Imprimir</button>
+                        <a th:href="@{/apresentacao_details(id=${contract.presentation.id})}"><button id="Voltar" class="btn btn-default" >Voltar</button></a>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <footer class="navbar navbar-default navbar-fixed-bottom text-center">
+            <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
+        </footer>
+
+
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/moment.js"></script>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-datetimepicker.min.js"></script>
+        <script src="js/locale/pt-br.js"></script>
+        <script src="js/bootstrap-select.min.js"></script>
+
+        <script src="js/tableselection.js"></script>
+        <script src="https://use.fontawesome.com/42680f3b68.js"></script>
+        <script type="text/javascript">
+            $(function () {
+
+                $('#datetimepicker2').datetimepicker({
+                    locale: 'pt-br'
+                });
+
+                $('#datetimepicker3').datetimepicker({
+                    locale: 'pt-br'
+                });
+            });
+
+            function show_success() {
+                $('#sucessModal').modal({
+                    show: 'true'
+                });
+            }
+
+            function show_error(textError) {
+                $('p#error-body').html(textError);
+                $('#errorModal').modal({
+                    show: 'true'
+                });
+            }
+
+            $('#btn-editar').click(function (e) {
+                var locality = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var dateTime = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+
+                //set select
+                $("#locality-edit option").filter(function() {
+                    return this.text == locality;
+                }).attr('selected', true);
+                //set id and dateTime
+                $("#id-edit").val(id);
+                $("#dateTime-edit").val(dateTime);
+
+
+                $('#editar_modal').modal({
+                    show: 'true'
+                });
+            });
+
+            $('#btn-deletar').click(function (e) {
+                var nome = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+
+                $("#id_delet").val(id);
+                $("#nome_delet").html(nome);
+
+                $('#deletar_modal').modal({
+                    show: 'true'
+                });
+            });
+//
+//            $('#confirmar_exclusao').click(function (e) {
+//                e.preventDefault();
+//
+//                $.post('/realizacao/delete', $('#delete_modal').serialize(), function (response) {
+//
+//                    var erro = response.erro;
+//                    $('#deletar_modal').modal('hide');
+//
+//                    if (erro !== undefined) {
+//                        show_error(erro);
+//                    } else {
+//
+//                        show_success(response.resultado);
+//
+//                        $("#confirmOkButton").click(function () {
+//
+//                            location.reload();
+//                        });
+//
+//                    }
+//                });
+//            });
+
+
+            // operações sobre propostas
+
+            $('#btn-editar2').click(function (e) {
+                var locality = $('.table-selectable > tbody > tr.active').find('td:first-child').text();
+                var dateTime = $('.table-selectable > tbody > tr.active').find('td:nth-child(2)').text();
+                var id = $('.table-selectable > tbody > tr.active').find('td:nth-child(3)').text();
+
+                //set select
+                $("#locality-edit option").filter(function() {
+                    return this.text == locality;
+                }).attr('selected', true);
+                //set id and dateTime
+                $("#id-edit").val(id);
+                $("#dateTime-edit").val(dateTime);
+
+
+                $('#editar_modal').modal({
+                    show: 'true'
+                });
+            });
+
+            $('#btn-deletar2').click(function (e) {
+                var nome2 = $('.table-selectable2 > tbody > tr.active').find('td:nth-child(2)').text();
+                var id2 = $('.table-selectable2 > tbody > tr.active').find('td:nth-child(4)').text();
+
+                $("#id_prop_delet").val(id2);
+                $("#nome_delet2").html(nome2);
+
+                $('#deletar_proposta_modal').modal({
+                    show: 'true'
+                });
+            });
+
+//            $('#confirmar_exclusao2').click(function (e) {
+//                e.preventDefault();
+//
+//                $.post('/proposta/delete', $('#deletar_proposta_modal').serialize(), function (response) {
+//
+//                    var erro = response.erro;
+//                    $('#deletar_modal').modal('hide');
+//
+//                    if (erro !== undefined) {
+//                        show_error(erro);
+//                    } else {
+//
+//                        show_success(response.resultado);
+//
+//                        $("#confirmOkButton").click(function () {
+//
+//                            location.reload();
+//                        });
+//
+//                    }
+//                });
+//            });
+
+        </script>
+
+
+    </body>
+
+</html>

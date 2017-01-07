@@ -41,7 +41,15 @@
                         <h3>Contratos da apresentação: "<span th:text="${presentation.name}"></span>"</h3>
 
                         <div th:each="contract, contractStatus: ${detailsContracts}">
-                            <a th:href="@{/contrato_edit(id=${contract.id})}"><h5>Nº: "<span th:text="${contract.id}"></span>" de <span th:text="${#temporals.format(contract.contractDate, 'dd/MM/yyyy')}"></span></h5></a>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a th:href="@{/contrato_edit(id=${contract.id})}"><h5>Nº: "<span th:text="${contract.id}"></span>" de <span th:text="${#temporals.format(contract.contractDate, 'dd/MM/yyyy')}"></span></h5></a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a th:href="@{/press_area(id=${contract.id})}"> <h5>Imprimir Contrato</h5></a>
+                                </div>
+
+                            </div>
 
                             <h4>Apresentações</h4>
                             <div th:each="accomp, accompSatatus : ${contract.accomplishments}">

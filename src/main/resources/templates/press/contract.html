@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SisCultural - Imprimir Contrato</title>
+
+    <!-- CSS's-->
+
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" type="text/css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <style >
+        .dina {
+            margin-bottom: 0px;
+        }
+        .dina > p{
+            margin-bottom: 0px;
+        }
+        .dina > p:last-child{
+            margin-bottom: 10px;
+        }
+    </style>
+
+
+</head>
+
+    <body class="home-body">
+
+        <!--modais para confirmação de tarefa-->
+        <!--<div th:include="menu_header :: operationmodals"></div>-->
+
+        <!--<header th:include="menu_header :: header"></header>-->
+
+        <div class="container"  style="margin-top: 50px">
+
+            <p class="pull-right text-justify strong" style="padding-left:40%; padding-bottom: 10px">
+                <b>
+                <span>CONTRATO DE LOCAÇÃO DE SERVIÇOS PROFISSIONAIS E ARTÍSTICOS QUE ENTRE SI FIRMAM,
+                DE UM LADO, O BANCO DO NORDESTE DO BRASIL S/A E, DO OUTRO </span><span th:text="${provider.name}"/><span>, NA FORMA ABAIXO.</span>
+                </b>
+            </p>
+
+            <p class="text-justify ">
+                Pelo presente instrumento particular, o BANCO DO NORDESTE DO BRASIL S.A, CNPJ/ MF sob n° 07.237.373/0001-20,
+                com sede na Rua Pedro Ramalho, 5700, Fortaleza - CE, doravante denominado simplesmente CONTRATANTE, neste ato representado
+                pela Gerente do Ambiente de Gestão da Cultura, a Sra. Luiza Cristina de Alencar Rodrigues, inscrita no CPF/ MF sob n°
+                219.283.473-04 de um lado, e do outro,
+                <span th:text="${provider.name}"/>,
+
+                <span th:if="${provider instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="'inscrito no CPF sob n.' + ${provider.cpf}"/>,
+                residente à <span th:text="${provider.address + ', ' + provider.city + '-' + provider.state}"/>,
+
+                doravante designado simplesmente CONTRATADO, têm justo e acertado o presente Contrato de Locação de Serviços Profissionais e Artísticos, mediante as seguintes cláusulas e condições:
+            </p>
+
+            <p class="text-justify ">
+                <b>CLÁUSULA PRIMEIRA – DO OBJETO</b>: Constitui objeto do presente contrato a realização de
+                <span th:text="${#numbers.formatDecimal(contract.accomplishments.size(), 2, 'POINT', 0, 'COMMA')}"/>
+
+                <th:block th:switch="${num}">
+                    <span th:case="1" th:text="|(uma)|"/>
+                    <span th:case="2" th:text="(duas)"/>
+                    <span th:unless="${num == 1 or num == 2}" th:text="|(${converter.toWords(num)})|"/>
+                </th:block>
+
+                apresentação(ões) da atividade "<span th:text="${contract.presentation.name}"/>" a se realizar
+                <th:block th:each="acc : ${contract.accomplishments}">
+                    <span th:text="${' no local ' + acc.locality.description + ' em ' + #temporals.format(acc.dateTime, 'dd/MM/yyyy hh:mm') + ', '}"></span>
+                </th:block>
+                 pelo programa
+                <span th:text="${contract.program.name}"/>,
+                dentro da programação do Centro Cultural Banco do Nordeste,
+                situado à R. Cel. José Gomes de Sá, 07, Centro, Sousa/PB.
+
+            </p>
+
+            <p class="text-justify ">
+                <b>CLÁUSULA SEGUNDA – DAS CONDIÇÕES DA LOCAÇÃO DOS SERVIÇOS</b>:
+
+                A apresentação do artista a que alude a cláusula anterior corresponde a
+                <span th:text="${#numbers.formatDecimal(contract.accomplishments.size(), 2, 'POINT', 0, 'COMMA')}"/>
+                <th:block th:switch="${num}">
+                    <span th:case="1" th:text="|(uma)|"/>
+                    <span th:case="2" th:text="(duas)"/>
+                    <span th:unless="${num == 1 or num == 2}" th:text="|(${converter.toWords(num)})|"/>
+                </th:block>
+                apresentação(ões) da atividade,
+                com a duração prevista de
+                <span th:text="${contract.presentation.duration}"/>
+                <!--<span th:text="|(${converter.toWords(contract.presentation.duration)})|"/>-->
+                 minutos cada, a realizar-se em local e horário determinados pelo CONTRATANTE.
+
+
+
+
+            </p>
+
+
+
+
+            <p class="text-justify dina">
+                <b>CLÁUSULA TERCEIRA – DO PREÇO E DA FORMA DE PAGAMENTO</b>:
+                O valor ora ajustado pela prestação dos serviços objeto deste contrato será no total de R$
+
+                <span th:text="${#numbers.formatDecimal(total, 1, 'POINT', 2, 'COMMA')}"/>
+                <span th:text="|( ${converterReal.toWords(T(Double).parseDouble(total).doubleValue())} )|"/>,
+
+                cujo pagamento será efetuados mediante Nota Fiscal ou Recibo.
+            </p>
+            <p class="text-justify dina">
+                <b>PARÁGRAFO PRIMEIRO</b>-
+                O pagamento será feito exclusivamente em nome do CONTRATADO, mediante depósito em conta bancária do contratado, até 10 dias úteis após o espetáculo, desde que apresentados os documentos necessários.
+            </p>
+            <p class="text-justify">
+                <b>PARÁGRAFO SEGUNDO</b>-
+                Todos os descontos serão feitos de acordo com a legislação vigente, obedecendo as tabelas fornecidas pelos órgãos competentes.
+            </p>
+            <p class="text-justify dina">
+                <b>CLÁUSULA QUARTA – DAS OBRIGAÇÕES DO CONTRATANTE</b>-
+                Constituem obrigações do CONTRATANTE:
+            </p>
+            <div class="text-justify dina" >
+                <p> a) efetuar o pagamento na forma estabelecida na cláusula anterior; </p>
+                <p> b) promover a divulgação do espetáculo;</p>
+                <p> c) responsabilizar-se pela segurança do evento; </p>
+                <p> d) suprir as exigências técnicas com vistas à instalação dos equipamentos necessários à realização do evento;</p>
+                <p> e) fornecer pessoal de segurança para garantir a guarda de instrumentos musicais e equipamentos de palco de propriedade do CONTRATADO;</p>
+                <p> f) evitar a superlotação no espetáculo;</p>
+                <p> g) dotar o evento de instalações elétricas compatíveis com os equipamentos a serem utilizados no show, inclusive pondo à disposição da CONTRATADO os técnicos necessários para a realização do evento;</p>
+
+                <p th:if="${contract.program.name == 'Música'}" th:text="|h) responsabilizar-se pelo pagamento das despesas relativas aos direitos autorais (ECAD).|"> </p>
+            </div>
+
+            <p class="text-justify dina">
+                <b>CLÁUSULA QUINTA – DAS OBRIGAÇÕES DO CONTRATADO</b> -
+                Constituem obrigações do CONTRATADO:
+            </p>
+            <div class="text-justify dina" >
+                <p> a) realizar o espetáculo musical da forma prevista na CLÁUSULA PRIMEIRA, deste contrato; </p>
+                <p> b) comunicar ao CONTRATANTE, com antecedência de 5 (cinco) dias úteis, a eventual impossibilidade de realização do evento por motivos de força maior;</p>
+
+                <th:block th:if="${contract.program.name == 'Artes Cênicas'}">
+                    <p> c) apresentar lista dos atores e atrizes, comprovando a regularidade com a DRT, até 5 (cinco) dias úteis antes do espetáculo; </p>
+                    <p> d) custear as despesas referentes aos cachês dos atores, atrizes e técnicos envolvidos na peça teatral;</p>
+                    <p> e) responsabilizar-se pela autorização junto a SBAT (Sociedade Brasileira de Autores) ou diretamente com o autor para liberação da peça teatral.</p>
+                </th:block>
+
+                <th:block th:if="${contract.program.name == 'Música'}">
+                    <p> c) apresentar lista dos músicos, comprovando a regularidade com a OMB (Ordem dos Músicos do Brasil), até 5 dias úteis antes do espetáculo; </p>
+                    <p> d) custear as despesas referentes aos cachês dos músicos;</p>
+                    <p> e) responsabilizar-se pela Nota Contratual da OMB (Ordem dos Músicos do Brasil), liberando o evento.</p>
+                </th:block>
+
+            </div>
+            <p class="text-justify dina">
+                <b>CLÁUSULA SEXTA – DAS CONDIÇÕES ESPECIAIS</b> -
+            </p>
+            <div class="text-justify dina" >
+                <p> a) responde o CONTRATANTE por eventuais danos decorrentes de fatos de terceiros ocasionados nos instrumentos e equipamentos do CONTRATADO, durante a realização do evento, exceto os casos fortuitos e de força maior; </p>
+                <p> b) a contratação dos músicos é de inteira responsabilidade do CONTRATADO, não gerando qualquer vínculo empregatício com o CONTRATANTE;</p>
+                <p> c) a transmissão ou reprodução do som e imagem do evento depende da autorização expressa do CONTRATADO, ficando, no entanto, desde já autorizada a filmagem de takes para registro do espetáculo e gravação de áudio; </p>
+                <p> d) em caso de interrupção do espetáculo, transcorridos, no mínimo, 50 (cinqüenta) minutos após o seu início, será considerado executado o objeto contratado;</p>
+                <p> e) o CONTRATADO e os respectivos artistas não são responsáveis por danos materiais causados pelo público presente ao espetáculo.</p>
+            </div>
+
+            <p class="text-justify dina">
+                <b>CLÁUSULA SÉTIMA – DA SESSÃO E USO DE IMAGENS E INFORMAÇÕES</b> -
+                O CONTRATADO autoriza o CONTRATANTE a utilizar seu nome, imagem e som de voz, podendo gravar, fotografar e filmar
+                as atividades vinculadas ao presente contrato, para uso e transmissão posterior, sem qualquer finalidade lucrativa e
+                com objetivo exclusivo de divulgação de temas ligados à arte e cultura.
+            </p>
+
+            <p class="text-justify dina">
+                <b>PARÁGRAFO PRIMEIRO</b> -
+                Esta autorização é dada em caráter irrevogável, podendo o Banco do Nordeste do Brasil veicular o material gravado em suas mídias
+                sociais na Internet, para conhecimento e divulgação ao público em geral.
+            </p>
+            <p class="text-justify">
+                <b>PARÁGRAFO SEGUNDO</b> -
+                O Banco do Nordeste do Brasil, portanto, fica isento da obrigação de pagar qualquer quantia pelo uso, transmissão e divulgação, em qualquer mídia, da imagem ou da voz do signatário nos termos acima estipulados.
+            </p>
+            <p class="text-justify">
+                <b>CLÁUSULA OITAVA – DAS OBRIGAÇÕES GERAIS DO CONTRATADO</b> -
+                Não alocar, na execução direta de serviços objeto deste Contrato, empregado ou sócio que seja cônjuge, companheiro ou parente em linha reta, colateral ou por afinidade, até o terceiro grau de empregado que exerça cargo em comissão ou função de confiança no âmbito do Banco do Nordeste do Brasil S. A., e que esteja lotado na área demandante da contratação (área gestora e fiscal deste contrato) ou na área que realiza a licitação/contratação, inclusive em relação à autoridade hierarquicamente superior às áreas mencionadas.
+            </p>
+            <p class="text-justify dina">
+                <b>CLÁUSULA NONA - DAS PENALIDADES</b> -
+                No caso de descumprimento de qualquer cláusula deste contrato, a parte infratora pagará à outra a importância de 20% (vinte por cento) sobre o valor ajustado, sem prejuízo da responsabilidade civil decorrente, se for o caso.
+            </p>
+            <p class="text-justify dina">
+                <b>PARÁGRAFO PRIMEIRO</b> -
+                Na hipótese de cancelamento do show, sem a ocorrência de caso fortuito ou força maior, previstas na lei civil, a parte responsável pelo fato pagará à outra o valor total ajustado contratualmente, servindo o presente instrumento para o manejo da ação de execução competente, se necessário.
+            </p>
+            <p class="text-justify dina">
+                <b>PARÁGRAFO SEGUNDO</b> -
+                No caso de ocorrência de caso fortuito ou força maior, devidamente comprovado, CONTRATANTE e CONTRATADO poderão, de comum acordo, remarcar nova data para o evento.
+            </p>
+            <p class="text-justify dina">
+                <b>PARÁGRAFO TERCEIRO</b> -
+                a eventualidade de queda de energia elétrica, de modo a impossibilitar o andamento do espetáculo, o CONTRATADO somente fará jus ao pagamento total do preço ajustado se o imprevisto tiver ocorrido depois de transcorridos 10 (dez) minutos do início do show.
+            </p>
+            <p class="text-justify ">
+                <b>PARÁGRAFO QUARTO</b> -
+                Considera-se caso fortuito e força maior os eventos da natureza, tais como chuvas, desabamentos, intempéries e, ainda, falecimento, desastre ou outro fato que impossibilite, induvidosamente, a realização do show.
+            </p>
+
+            <p class="text-justify ">
+                <b>CLÁUSULA DÉCIMA – DA ALTERAÇÃO DO CONTRATO</b> -
+                As alterações que venham a ser efetivadas no presente ajuste somente terão validade mediante aditivo contratual, devidamente formalizado.
+            </p>
+
+            <p class="text-justify ">
+                <b>CLÁUSULA DÉCIMA PRIMEIRA– DO FORO</b> -
+                Para dirimir qualquer questão oriunda deste contrato as partes elegem o foro da comarca de Fortaleza, Capital do Estado do Ceará.
+                E por estarem assim justos e acertados, firmam o presente instrumento em 02 (duas) vias de igual teor, na presença das testemunhas abaixo identificadas e assinadas, para que produza os seus esperados efeitos jurídicos.
+            </p>
+
+            <br/><br/>
+
+            <p class="text-center">
+                Sousa-PB, _____ de __________________ de __________
+            </p>
+
+            <br/><br/>
+
+            <p class="text-center dina">
+                <p class="text-center dina">______________________________________________</p>
+                <p class="text-center dina">BANCO DO NORDESTE DO BRASIL S/A</p>
+                <p class="text-center dina">CNPJ/ MF sob n° 07.237.373/0001-20</p>
+                <p class="text-center ">CONTRATANTE</p>
+            </p>
+
+            <br/><br/>
+
+            <p class="text-center dina">
+                <p class="text-center dina">______________________________________________</p>
+                <p class="text-center dina" th:text="${provider.name}"></p>
+                <p class="text-center dina">
+                    <span th:if="${provider instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="'CPF: ' + ${provider.cpf}"/>
+                    <span th:if="${provider instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="'CNPJ: ' + ${provider.cnpj}"/>
+                </p>
+                <p class="text-center dina">CONTRATADO</p>
+            </p>
+
+            <br/><br/>
+
+            <p class="dina">TESTEMUNHAS:</p>
+            <p class="dina">_______________________________________________________________</p>
+            <p class="">1)</p>
+            <br/><br/>
+
+            <p class="dina">_______________________________________________________________</p>
+            <p class="">2)</p>
+            <br/><br/>
+
+        </div>
+
+
+        <!--<footer class="navbar navbar-default navbar-fixed-bottom text-center">-->
+            <!--<p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>-->
+        <!--</footer>-->
+
+
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/moment.js"></script>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-datetimepicker.min.js"></script>
+        <script src="js/locale/pt-br.js"></script>
+        <script src="js/bootstrap-select.min.js"></script>
+
+        <script src="js/tableselection.js"></script>
+    </body>
+
+</html>

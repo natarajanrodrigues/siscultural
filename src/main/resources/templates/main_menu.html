@@ -23,101 +23,211 @@
     <header th:include="menu_header :: header">
     </header>
 
+    <div class="col-md-offset-3 col-md-6 col-sm-6 col-sm-offset-3 main-menu-container container" >
 
-    <div class="container">
-        <div class="row">
-            <section class="col-md-offset-3 col-md-6 col-md-offset-3 main-menu-container">
-                <article class="col-md-12 container-area">
-                    <h2>Administração</h2>
-                    <br/>
-                    <a class="col-md-4 col-sm-2 users-container text-center" href="/usuarios" title="Usuários">
-                        <div class="users-icon-container">
-                            <i class="material-icons">&#xE7EF;</i>
+
+
+        <div class="container-fluid col-md-12" style="padding-bottom: 30px">
+            <h2 class="container h-menu">Atividades Culturais</h2>
+            <div class="container-fluid">
+                <div class="col-md-3 col-xs-4 col-xg-3 text-center">
+                    <a href="/menu_atividades" title="Atividades">
+                        <i class="material-icons">&#xE405;</i>
+                        <div class="users-icon-text">
+                            <span>Atividades</span>
                         </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-xs-4 col-xg-3 text-center">
+                    <a href="/publico" title="Público">
+                        <i class="material-icons">face</i>
+                        <div class="users-icon-text">
+                            <span>Público</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-xs-4 col-xg-3 text-center">
+                    <a href="/reports" title="Relatórios">
+                        <i class="material-icons">&#xE8E5;</i>
+                        <div class="users-icon-text">
+                            <span>Relatórios</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-xs-4 col-xg-3 text-center icon-menu">
+                    <a href="/agenda" title="Agenda">
+                        <i class="material-icons">&#xE54B;</i>
+                        <div class="users-icon-text">
+                            <span>Agenda</span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container-fluid col-md-12" style="padding-bottom: 30px">
+            <h2 class="container h-menu">Administração</h2>
+            <div class="container-fluid">
+
+                <div class="col-md-3 col-xs-4 col-xg-4 text-center">
+                    <a href="/usuarios" title="Atividades">
+                        <i class="material-icons">&#xE7EF;</i>
                         <div class="users-icon-text">
                             <span>Usuários</span>
                         </div>
                     </a>
-                    <a class="col-md-4 col-sm-2 users-container text-center" th:href="@{/menu_orcamento}" title="Orçamentos">
-                        <div class="users-icon-container">
-                            <i class="material-icons">&#xE227;</i>
-                        </div>
+                </div>
+
+
+                <div class="col-md-3 col-xs-4 col-xg-4 text-center" >
+                    <a th:href="@{/menu_orcamento}" title="Orçamentos">
+                        <i class="material-icons">&#xE227;</i>
                         <div class="users-icon-text">
                             <span>Área Orçamentária</span>
                         </div>
                     </a>
-                    <a class="col-md-4 col-sm-2 users-container text-center" th:href="@{/comite}" title="Orçamentos">
-                        <div class="users-icon-container">
-                            <i class="material-icons">&#xE876;</i>
-                        </div>
+                </div>
+                <div class="col-md-3 col-xs-4 col-xg-4 text-center" >
+                    <a th:href="@{/comite}" title="Comitê">
+                        <i class="material-icons">&#xE876;</i>
                         <div class="users-icon-text">
                             <span>Comitê</span>
                         </div>
                     </a>
-                </article>
-                <article class="col-md-12 container-area">
-                    <h2>Atividades Culturais</h2>
-                    <br/>
-                    <a class="col-md-3 activities-container text-center" href="/menu_atividades" title="Atividades">
-                        <div class="activities-icon-container">
-                            <i class="material-icons">&#xE405;</i>
-                        </div>
-                        <div class="activities-icon-text">
-                            <span>Atividades</span>
-                        </div>
-                    </a>
-                    <a class="col-md-3 payments-container text-center" href="/publico" title="Pagamentos">
-                        <div class="payments-icon-container">
-                            <!--<i class="material-icons">swap_horiz</i>-->
-                            <i class="material-icons">face</i>
-                        </div>
-                        <div class="payments-icon-text">
-                            <span>Público</span>
-                        </div>
-                    </a>
-                    <a class="col-md-3 reports-container text-center" href="/reports" title="Relatórios">
-                        <div class="reports-icon-container">
-                            <i class="material-icons">&#xE8E5;</i>
-                        </div>
-                        <div class="reports-icon-text">
-                            <span>Relatórios</span>
-                        </div>
-                    </a>
-                    <a class="col-md-3 reports-container text-center" href="/agenda" title="Agenda">
-                        <div class="reports-icon-container">
-                            <i class="material-icons">&#xE54B;</i>
-                        </div>
-                        <div class="reports-icon-text">
-                            <span>Agenda</span>
-                        </div>
-                    </a>
-                </article>
-                <article class="col-md-12 container-area">
-                    <h2>Área Pagamentos</h2>
-                    <br/>
-                    <a class="col-md-3 provider-container text-center" href="/fornecedores" title="Fornecedores">
-                        <div class="users-icon-container">
-                            <i class="material-icons">&#xE558;</i>
-                        </div>
-                        <div class="provider-icon-text">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container-fluid col-md-12" style="padding-bottom: 40px">
+            <h2 class="container h-menu">Atividades Culturais</h2>
+            <div class="container-fluid">
+                <div class="col-md-3 col-xs-6 col-xg-3 text-center">
+                    <a href="/fornecedores" title="Fornecedores">
+                        <i class="material-icons">&#xE558;</i>
+
+                        <div class="users-icon-text">
                             <span>Fornecedores</span>
                         </div>
                     </a>
-                    <a class="col-md-3 payments-container text-center" href="#" title="Pagamentos">
-                        <div class="payments-icon-container">
-                            <i class="material-icons">&#xE85D;</i>
-                        </div>
-                        <div class="payments-icon-text">
+                </div>
+                <div class="col-md-3 col-xs-6 col-xg-3 text-center">
+                    <a href="#" title="Pagamentos">
+
+                        <i class="material-icons">&#xE85D;</i>
+
+                        <div class="users-icon-text">
                             <span>Pagamentos</span>
                         </div>
                     </a>
-                </article>
-            </section>
+                </div>
+
+            </div>
+
         </div>
+
     </div>
+
+
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<section class="col-md-offset-3 col-md-6 col-md-offset-3 main-menu-container">-->
+                <!--<article class="col-md-12 container-area">-->
+                    <!--<h2>Administração</h2>-->
+                    <!--<br/>-->
+                    <!--<a class="col-md-4 col-sm-2 users-container text-center" href="/usuarios" title="Usuários">-->
+                        <!--<div class="users-icon-container">-->
+                            <!--<i class="material-icons">&#xE7EF;</i>-->
+                        <!--</div>-->
+                        <!--<div class="users-icon-text">-->
+                            <!--<span>Usuários</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                    <!--<a class="col-md-4 col-sm-2 users-container text-center" th:href="@{/menu_orcamento}" title="Orçamentos">-->
+                        <!--<div class="users-icon-container">-->
+                            <!--<i class="material-icons">&#xE227;</i>-->
+                        <!--</div>-->
+                        <!--<div class="users-icon-text">-->
+                            <!--<span>Área Orçamentária</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                    <!--<a class="col-md-4 col-sm-2 users-container text-center" th:href="@{/comite}" title="Orçamentos">-->
+                        <!--<div class="users-icon-container">-->
+                            <!--<i class="material-icons">&#xE876;</i>-->
+                        <!--</div>-->
+                        <!--<div class="users-icon-text">-->
+                            <!--<span>Comitê</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                <!--</article>-->
+                <!--<article class="col-md-12 container-area">-->
+                    <!--<h2>Atividades Culturais</h2>-->
+                    <!--<br/>-->
+                    <!--<a class="col-md-3 activities-container text-center" href="/menu_atividades" title="Atividades">-->
+                        <!--<div class="activities-icon-container">-->
+                            <!--<i class="material-icons">&#xE405;</i>-->
+                        <!--</div>-->
+                        <!--<div class="activities-icon-text">-->
+                            <!--<span>Atividades</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                    <!--<a class="col-md-3 payments-container text-center" href="/publico" title="Pagamentos">-->
+                        <!--<div class="payments-icon-container">-->
+                            <!--&lt;!&ndash;<i class="material-icons">swap_horiz</i>&ndash;&gt;-->
+                            <!--<i class="material-icons">face</i>-->
+                        <!--</div>-->
+                        <!--<div class="payments-icon-text">-->
+                            <!--<span>Público</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                    <!--<a class="col-md-3 reports-container text-center" href="/reports" title="Relatórios">-->
+                        <!--<div class="reports-icon-container">-->
+                            <!--<i class="material-icons">&#xE8E5;</i>-->
+                        <!--</div>-->
+                        <!--<div class="reports-icon-text">-->
+                            <!--<span>Relatórios</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                    <!--<a class="col-md-3 reports-container text-center" href="/agenda" title="Agenda">-->
+                        <!--<div class="reports-icon-container">-->
+                            <!--<i class="material-icons">&#xE54B;</i>-->
+                        <!--</div>-->
+                        <!--<div class="reports-icon-text">-->
+                            <!--<span>Agenda</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                <!--</article>-->
+                <!--<article class="col-md-12 container-area">-->
+                    <!--<h2>Área Pagamentos</h2>-->
+                    <!--<br/>-->
+                    <!--<a class="col-md-3 provider-container text-center" href="/fornecedores" title="Fornecedores">-->
+                        <!--<div class="users-icon-container">-->
+                            <!--<i class="material-icons">&#xE558;</i>-->
+                        <!--</div>-->
+                        <!--<div class="provider-icon-text">-->
+                            <!--<span>Fornecedores</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                    <!--<a class="col-md-3 payments-container text-center" href="#" title="Pagamentos">-->
+                        <!--<div class="payments-icon-container">-->
+                            <!--<i class="material-icons">&#xE85D;</i>-->
+                        <!--</div>-->
+                        <!--<div class="payments-icon-text">-->
+                            <!--<span>Pagamentos</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                <!--</article>-->
+            <!--</section>-->
+        <!--</div>-->
+    <!--</div>-->
     <footer class="navbar navbar-default navbar-fixed-bottom text-center">
         <p class="text-muted">Desenvolvido por <a href="https://github.com/Hero-Code">Circo de Soled</a></p>
     </footer>
     </body>
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
 </html>

@@ -14,11 +14,23 @@ footer{
     padding-top: 13px;
 }
 
-header{
-    margin-bottom: 90px;
+.users-icon-text {
+    font-size: 0.95em;
+}
+
+.h-menu {
     padding-bottom: 10px;
+}
+
+header{
+    /*margin-bottom: 90px;*/
+    /*padding-bottom: 10px;*/
     height: 80px;
     background-color: white;
+}
+
+.navbar-brand {
+    padding-top:10px;
 }
 
 .logo-box img{
@@ -80,9 +92,12 @@ input:focus {
     -webkit-border-radius:10px;
     -khtml-border-radius:10px;
     border-radius:10px;
-    background-color:#fff; padding:10px;
+    background-color:#fff;
+    padding:10px;
     margin-bottom: 100px;
 }
+
+
 
 .container-area{
     margin-bottom: 20px;
@@ -170,4 +185,17 @@ input:focus {
 
 #th_valor {
     width: 10%;
+}
+
+
+
+@media (max-width: 768px) {
+    .icon-menu {
+        margin-top: 20px;
+    }
+
+    .users-icon-text {
+        font-size: 1em;
+    }
+
 }
