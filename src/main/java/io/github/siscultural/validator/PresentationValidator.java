@@ -18,7 +18,7 @@ public class PresentationValidator {
 
     @Size(min = 1, max = 150, message = "Não pode ser nulo. Valor máximo - 150 caracteres")
     @NotNull(message = "Insira o nome do grupo ou artista responsável pela apresentação")
-    private String groupOrArtist;
+    private String artist;
 
     @Size(min = 1, max = 2000, message = "Não pode ser nulo. Valor máximo - 2000 caracteres")
     @NotNull(message = "Insira o texto release apresentação")
@@ -37,12 +37,12 @@ public class PresentationValidator {
         this.name = name;
     }
 
-    public String getGroupOrArtist() {
-        return groupOrArtist;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setGroupOrArtist(String groupOrArtist) {
-        this.groupOrArtist = groupOrArtist;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public String getReleaseText() {

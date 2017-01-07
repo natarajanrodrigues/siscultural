@@ -6,16 +6,10 @@
 package io.github.siscultural.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,7 +31,7 @@ public class Presentation implements Serializable {
 
     @Size(min = 1, max = 150, message = "Não pode ser nulo. Valor máximo - 150 caracteres")
     @NotNull(message = "Insira o nome do grupo ou artista responsável pela apresentação")
-    private String groupOrArtist;
+    private String artist;
 
     @Size(min = 1, max = 5000, message = "Não pode ser nulo. Valor máximo - 5000 caracteres")
     @NotNull(message = "Insira o texto release apresentação")
@@ -53,10 +47,10 @@ public class Presentation implements Serializable {
         
     }
 
-    public Presentation(String name, String groupOrArtist, String releaseText, int duration) {
+    public Presentation(String name, String artist, String releaseText, int duration) {
 
         this.name = name;
-        this.groupOrArtist = groupOrArtist;
+        this.artist = artist;
         this.releaseText = releaseText;
         this.duration = duration;
         
@@ -79,12 +73,12 @@ public class Presentation implements Serializable {
         this.name = name;
     }
 
-    public String getGroupOrArtist() {
-        return groupOrArtist;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setGroupOrArtist(String groupOrArtist) {
-        this.groupOrArtist = groupOrArtist;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public String getReleaseText() {
@@ -114,14 +108,14 @@ public class Presentation implements Serializable {
         if (duration != that.duration) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (!name.equals(that.name)) return false;
-        if (!groupOrArtist.equals(that.groupOrArtist)) return false;
+        if (!artist.equals(that.artist)) return false;
         return releaseText.equals(that.releaseText);
 
     }
 
     @Override
     public String toString() {
-        return "Presentation{" + "name=" + name + ", groupOrArtist=" + groupOrArtist + ", releaseText=" + releaseText + ", duration=" + duration + '}';
+        return "Presentation{" + "name=" + name + ", artist=" + artist + ", releaseText=" + releaseText + ", duration=" + duration + '}';
     }
 
 }

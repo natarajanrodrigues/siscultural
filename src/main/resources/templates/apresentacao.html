@@ -109,7 +109,7 @@
                                 <div class="col-md-10 col-sm-8 col-xs-12 col-lg-10">
                                     <form class="form-search" th:action="@{/presentation/search}" id="search">
                                         <div class="input-group">
-                                            <input type="text" th:attr="value=${name}" name="name" id="name" class="form-control" placeholder="Procurar por nome da apresentação"/>
+                                            <input type="text" th:attr="value=${name}" name="name" id="name" class="form-control" placeholder="Procurar por nome do artista ou da apresentação"/>
                                             <span class="input-group-btn">
                                             <button type="submit" th:form="search" class="btn btn-search"><i class="glyphicon glyphicon-search"/> Buscar</button>
                                         </span>
@@ -145,7 +145,7 @@
                     <tr th:each="presentation : ${presentations}">
                         <td th:text="${presentation.id}"></td>
                         <td th:text="${presentation.name}"></td>
-                        <td th:text="${presentation.groupOrArtist}"></td>
+                        <td th:text="${presentation.artist}"></td>
                         <td class="text-center"><a th:href="@{/apresentacao_details(id=${presentation.id})}"><button id="btn-details" class="btn btn-xs btn-default glyphicon glyphicon-info-sign"></button></a></td>
                     </tr>
 

@@ -98,12 +98,12 @@ public class PresentationController {
             RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
 
         String name = presentation.getName();
-        String groupOrArtist = presentation.getGroupOrArtist();
+        String artist = presentation.getArtist();
         String releaseText = presentation.getReleaseText();
         int duration = presentation.getDuration();
 
         model.addAttribute("name", name);
-        model.addAttribute("groupOrArtist", groupOrArtist);
+        model.addAttribute("artist", artist);
         model.addAttribute("releaseText", releaseText);
         model.addAttribute("duration", duration);
 

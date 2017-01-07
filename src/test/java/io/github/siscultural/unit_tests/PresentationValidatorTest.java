@@ -39,7 +39,7 @@ public class PresentationValidatorTest {
 
         presentationValidator.setName("Oh, terrinha boa!");
         presentationValidator.setDuration(60);
-        presentationValidator.setGroupOrArtist("Grupo Arcoíris");
+        presentationValidator.setArtist("Grupo Arcoíris");
         presentationValidator.setReleaseText("Release fictício...");
 
     }

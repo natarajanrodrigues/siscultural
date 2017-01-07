@@ -50,7 +50,7 @@ public class PresentationService {
     }
 
     public Page<Presentation> findByName (String name, Pageable pageble) {
-        return presentationRepository.findByNameContainingIgnoreCase(name, pageble);
+        return presentationRepository.findByNameContainingIgnoreCaseOrArtistContainingIgnoreCase(name, name, pageble);
     }
 
     public Presentation save (Presentation presentation) {

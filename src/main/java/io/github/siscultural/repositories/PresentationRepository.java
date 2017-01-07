@@ -22,6 +22,6 @@ public interface PresentationRepository extends JpaRepository<Presentation, Long
 
     public Page<Presentation> findAll(Pageable pageble);
 
-    public Page<Presentation> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    public Page<Presentation> findByNameContainingIgnoreCaseOrArtistContainingIgnoreCase(String name, String artist, Pageable pageable);
     
 }
