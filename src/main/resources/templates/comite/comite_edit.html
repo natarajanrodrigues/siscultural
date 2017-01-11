@@ -104,7 +104,7 @@
 
         <div class="container"  style="margin-bottom: 50px">
 
-            <div class="">
+            <div class="hidden-print">
                 <ol class="breadcrumb">
                     <li><a href="home">Home</a></li>
                     <li><a href="comite">Comitê</a></li>
@@ -214,9 +214,9 @@
                                     <thead>
                                     <tr class="alert-info text-align-center" style="white-space: nowrap; width: 0.2%;">
                                         <th id="th_proposta">
-                                            <span>Proposta: </span>
-                                            <a th:href="@{/contrato_edit(id=${contract.id})}"><span th:text="${contract.id}"></span></a>
-                                            <span class="pull-right">
+                                            <span>Proposta </span>
+                                            <a class="hidden-print" th:href="@{/contrato_edit(id=${contract.id})}"><span th:text="${contract.id}"></span></a>
+                                            <span class="pull-right hidden-print">
                                                 <button class="btn-del label label-xs label-danger" ><i class="fa fa-minus-circle" aria-hidden="true"><span th:attr="id=${contract.id}"/></i> Remover</button>
                                             </span>
                                         </th>
@@ -238,7 +238,11 @@
                                         </td>
 
                                         <td th:text="${payment.rubricAccount.rubric.name}"></td>
-                                        <td th:text="${payment.provider.name}"></td>
+                                        <td>
+                                            <span th:text="${payment.provider.name}"></span>
+                                            <span th:if="${payment.provider instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="'(' + ${payment.provider.cpf} + ')'"/>
+                                            <span th:if="${payment.provider instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="'(' + ${payment.provider.cnpj} + ')'"/>
+                                        </td>
                                         <td class="text-center" th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 2, 'COMMA')}"></td>
 
                                     </tr>
@@ -287,7 +291,7 @@
 
                 <div class="panel-footer container-fluid">
 
-                    <span class="">
+                    <span class="hidden-print">
                         <!--<button type="submit" class="btn btn-success" id="cadastrar"><span-->
                                 <!--class="glyphicon glyphicon-ok"></span> Cadastrar-->
                         <!--</button>-->

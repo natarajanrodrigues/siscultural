@@ -165,26 +165,51 @@
             <div class="panel panel-default">
                 <div class="panel-body">
 
-                    <form class="form-inline float-right col-xs-6 no-margin-right col-md-8">
-                        <div class="form-group col-xs-12 no-margin-right">
-                            <div class="input-group col-xs-12 float-right">
-                                <input type="text" id="filter" class="form-control" placeholder="..."/>
-                                <span class="btn input-group-addon glyphicon glyphicon-search"></span>
+
+                    <div class="row">
+                        <div class="form-group col-xs-6 col-md-8 no-margin-right container">
+                            <div class="row">
+                                <div class="col-md-10 col-sm-8 col-xs-12 col-lg-10">
+                                    <form class="form-search"  id="search">
+                                        <div class="input-group">
+                                            <input type="text" th:attr="value=${name}" name="name" id="filter" class="form-control" placeholder="Procurar por usuário"/>
+                                            <span class="input-group-btn">
+                                            <button type="submit" th:form="search" class="btn btn-search"><i class="glyphicon glyphicon-search"/> Buscar</button>
+                                        </span>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </form>
 
-                    <div class="col-md-4 col-xs-6">
-
-                        <button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>
-                        <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" ></button>
-                        <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" ></button>
+                        <div class="col-md-4 col-xs-6">
+                            <button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>
+                            <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" ></button>
+                            <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" ></button>
+                        </div>
 
                     </div>
 
+                    <!--<form class="form-inline float-right col-xs-6 no-margin-right col-md-8">-->
+                        <!--<div class="form-group col-xs-12 no-margin-right">-->
+                            <!--<div class="input-group col-xs-12 float-right">-->
+                                <!--<input type="text" id="filter" class="form-control" placeholder="..."/>-->
+                                <!--<span class="btn input-group-addon glyphicon glyphicon-search"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+
+                    <!--<div class="col-md-4 col-xs-6">-->
+
+                        <!--<button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>-->
+                        <!--<button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" ></button>-->
+                        <!--<button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" ></button>-->
+
+                    <!--</div>-->
+
                 </div>
 
-                <table class="table table-bordered table-hover table-selectable">
+                <table class="table table-bordered table-hover table-selectable" style="table-layout: fixed">
                     <thead>
                         <tr class="alert-info text-align-center">
                             <th >Nome</th>
@@ -193,12 +218,12 @@
                         </tr>
                     </thead>
 
-                    <tbody class="searchable" id="materiaisTable">
+                    <tbody class="searchable " id="materiaisTable">
 
                         <tr th:each="user : ${functionaries}" >
                             <td th:text="${user.name}"></td>
-                            <td th:text="${user.email}"></td>
-                            <td th:text="${user.userType}"></td>
+                            <small><td th:text="${user.email}" style="word-wrap: break-word" ></td></small>
+                            <td th:text="${user.userType}" style="word-wrap: break-word" ></td>
                             <td class="hidden" th:text="${user.id}"></td>
                         </tr>
 

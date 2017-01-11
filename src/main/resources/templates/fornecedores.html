@@ -54,6 +54,33 @@
             </div>
         </div>
 
+        <div class="modal fade" id="upload">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header align-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Carregar Arquivo</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class='container-fluid'>
+                            <!--<form method="post" role="form" class="form-horizontal" id="cadastro-orcamento" th:action="@{/orcamento/add}">-->
+                            <form method="post" role="form" class="form-horizontal" id="form_upload" th:action="@{/upload_xls}" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input id="file" name="file" type="file" class="file"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" th:form="form_upload" class="btn btn-success" id="upload"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
+                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>-->
+                        <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="editar_modal">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
@@ -148,6 +175,7 @@
                         <button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>
                         <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" ></button>
                         <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" ></button>
+                        <button class="btn glyphicon glyphicon-upload " data-toggle="modal" data-target="#upload" ></button>
                     </div>
                 </div>
 
@@ -156,6 +184,7 @@
                         <tr class="alert-info text-align-center">
                             <th >CPF/CNPJ</th>
                             <th >Nome</th>
+                            <th >Acumulado</th>
                         </tr>
                     </thead>
 
@@ -165,11 +194,17 @@
                             <th th:text="${cp.cnpj}"></th>
                             <th th:text="'Nome: ' + ${cp.name} + '  /  Nome Fantasia: ' + ${cp.tradingName}"></th>
                             <th class="hidden" th:text="${cp.id}"></th>
+                            <!--<th th:if="${cp instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="${T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(cp.cnpj)}" />-->
+                            <th class="text-center"  th:if="${cp instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="${#numbers.formatDecimal( T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(cp.cnpj) , 1, 'POINT', 2, 'COMMA')}" />
                         </tr>
                         <tr th:each="ip : ${ips}" >
                             <td th:text="${ip.cpf}"></td>
                             <td th:text="${ip.name}"></td>
                             <td class="hidden" th:text="${ip.id}"></td>
+                            <!--th:text="' (R$ ' + ${#numbers.formatDecimal(T(io.github.siscultural.utils.ContractUtils).total(element.value), 0, 'POINT', 2, 'COMMA')} + ' )'"-->
+                            <!--<td th:text="${#numbers.formatDecimal(T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(ip.cpf), 0, 'POINT', 2, 'COMMA')}" />-->
+                            <td th:if="${ip instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="${T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(ip.cpf)}" />
+
                         </tr>
 
                     </tbody>

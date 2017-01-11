@@ -40,7 +40,7 @@ and open the template in the editor.
                                placeholder="Nome" />
                         <label>CPF</label>
                         <input type="text" class="form-control" id="cpf" name="cpf"
-                               placeholder="CPF"  />
+                               placeholder="000.000.000-00"  onKeyPress="MascaraCPF(form_fjuridico.cpf);"/>
                         <label>nisNit</label>
                         <input type="text" class="form-control" id="nisNit" name="nisNit"
                                placeholder="nisNit"  />
@@ -68,4 +68,7 @@ and open the template in the editor.
         </div>
 
     </body>
+    <script src="../js/jquery-3.1.0.min.js"></script>
+    <script src="../js/validator.js"></script>
+
 </html>
