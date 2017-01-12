@@ -19,7 +19,9 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,6 +47,8 @@ public class ProviderController {
 
     @Autowired
     private ProviderService providerService;
+
+    static Pageable pageablebyName = new PageRequest(0, 20, new Sort(new Sort.Order(Sort.Direction.ASC, "name")));
 
     @GetMapping(value = "/fornecedores2")
     public ModelAndView providers() {
@@ -89,10 +93,13 @@ public class ProviderController {
 //        mav.addObject("cps", companyProviders);
 //        mav.addObject("providers", allProviders);
 
-        Page<Provider> providers = providerService.findAll(pageable);
+
+        Pageable myPageable = new PageRequest(pageable.getPageNumber(), 10, new Sort(new Sort.Order(Sort.Direction.ASC, "name")));
+        Page<Provider> providers = providerService.findAll(myPageable);
+
 
         mav.addObject("providers", providers);
-
+        mav.addObject("pagination", pageable.getPageNumber());
 
         return mav;
 

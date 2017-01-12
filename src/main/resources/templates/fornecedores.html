@@ -232,6 +232,16 @@
                 </table>
             </div>
 
+            <div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" >
+                <a th:if="${pagination gt 0}" th:href="@{/fornecedores(page=${pagination}-1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>
+                <a th:if="${providers.totalPages - 1 > pagination}" th:href="@{/fornecedores(page=${pagination}+1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>
+            </div>
+
+            <!--<div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" >-->
+                <!--<a th:if="${pagination gt 0}" th:href="@{/apresentacao2(page=${pagination}-1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>-->
+                <!--<a th:if="${presentations.size() != 0  and presentations.size() >= 10}" th:href="@{/apresentacao2(page=${pagination}+1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>-->
+            <!--</div>-->
+
         </div>
 
 
