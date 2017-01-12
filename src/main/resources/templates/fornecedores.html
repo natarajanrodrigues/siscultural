@@ -199,22 +199,33 @@
 
                     <tbody class="searchable" id="materiaisTable">
 
-                        <tr th:each="cp : ${cps}" >
-                            <td th:text="${cp.cnpj}"></td>
-                            <td th:text="${cp.name} + '  /  Nome Fantasia: ' + ${cp.tradingName}"></td>
-                            <td class="hidden" th:text="${cp.id}"></td>
-                            <!--<th th:if="${cp instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="${T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(cp.cnpj)}" />-->
-                            <td class="text-center"  th:if="${cp instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="${#numbers.formatDecimal( T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(cp.cnpj) , 1, 'POINT', 2, 'COMMA')}" />
-                        </tr>
-                        <tr th:each="ip : ${ips}" >
-                            <td th:text="${ip.cpf}"></td>
-                            <td th:text="${ip.name}"></td>
-                            <td class="hidden" th:text="${ip.id}"></td>
-                            <!--th:text="' (R$ ' + ${#numbers.formatDecimal(T(io.github.siscultural.utils.ContractUtils).total(element.value), 0, 'POINT', 2, 'COMMA')} + ' )'"-->
-                            <!--<td th:text="${#numbers.formatDecimal(T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(ip.cpf), 0, 'POINT', 2, 'COMMA')}" />-->
-                            <!--<td class="text-center" th:if="${ip instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="${T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(ip.cpf)}" />-->
-                            <td class="text-center" th:if="${ip instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="${#numbers.formatDecimal( T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(ip.cpf) , 1, 'POINT', 2, 'COMMA')}"  />
+                        <!--<tr th:each="cp : ${cps}" >-->
+                            <!--<td th:text="${cp.cnpj}"></td>-->
+                            <!--<td th:text="${cp.name} + '  /  Nome Fantasia: ' + ${cp.tradingName}"></td>-->
+                            <!--<td class="hidden" th:text="${cp.id}"></td>-->
+                            <!--&lt;!&ndash;<th th:if="${cp instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="${T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(cp.cnpj)}" />&ndash;&gt;-->
+                            <!--<td class="text-center"  th:if="${cp instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="${#numbers.formatDecimal( T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(cp.cnpj) , 1, 'POINT', 2, 'COMMA')}" />-->
+                        <!--</tr>-->
+                        <!--<tr th:each="ip : ${ips}" >-->
+                            <!--<td th:text="${ip.cpf}"></td>-->
+                            <!--<td th:text="${ip.name}"></td>-->
+                            <!--<td class="hidden" th:text="${ip.id}"></td>-->
+                            <!--&lt;!&ndash;th:text="' (R$ ' + ${#numbers.formatDecimal(T(io.github.siscultural.utils.ContractUtils).total(element.value), 0, 'POINT', 2, 'COMMA')} + ' )'"&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td th:text="${#numbers.formatDecimal(T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(ip.cpf), 0, 'POINT', 2, 'COMMA')}" />&ndash;&gt;-->
+                            <!--&lt;!&ndash;<td class="text-center" th:if="${ip instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="${T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(ip.cpf)}" />&ndash;&gt;-->
+                            <!--<td class="text-center" th:if="${ip instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="${#numbers.formatDecimal( T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(ip.cpf) , 1, 'POINT', 2, 'COMMA')}"  />-->
 
+                        <!--</tr>-->
+
+                        <tr th:each="provider : ${providers}" >
+                            <td th:text="${provider.code}"></td>
+                            <td >
+                                <span th:text="${provider.name}"></span>
+                                <span th:if="${provider.code.length() > 11}" th:text="'  /  Nome Fantasia: ' + ${provider.tradingName}"></span>
+                            </td>
+                            <td class="hidden" th:text="${provider.id}"></td>
+                            <!--<th th:if="${cp instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="${T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(cp.cnpj)}" />-->
+                            <td class="text-center" th:text="${#numbers.formatDecimal( T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(provider.code) , 1, 'POINT', 2, 'COMMA')}" />
                         </tr>
 
                     </tbody>

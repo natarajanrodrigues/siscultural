@@ -21,6 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -169,6 +170,9 @@ public class PresentationController {
         return modelAndView;
     }
 
+    public static class Comparators {
+        public static final Comparator<Presentation> NAME = (Presentation p1, Presentation p2) ->p1.getName().compareTo(p2.getName()) ;
+    }
 
 
 }

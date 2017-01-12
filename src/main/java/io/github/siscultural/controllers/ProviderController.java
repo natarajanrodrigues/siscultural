@@ -15,9 +15,7 @@ import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.services.ProviderService;
 import io.github.siscultural.utils.JsonView;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,8 +49,19 @@ public class ProviderController {
 
         ModelAndView mav = new ModelAndView("fornecedores");
 
-        mav.addObject("ips", providerService.findAllIndividualProvider());
-        mav.addObject("cps", providerService.findAllCompanyProvider());
+        List<CompanyProvider> companyProviders = providerService.findAllCompanyProvider();
+        List<IndividualProvider> individualProviders = providerService.findAllIndividualProvider();
+
+        List<Provider> allProviders = new ArrayList<>();
+        allProviders.addAll(companyProviders);
+        allProviders.addAll(individualProviders);
+
+        Collections.sort(allProviders, Comparator.comparing(Provider::getName));
+
+        mav.addObject("ips", individualProviders);
+        mav.addObject("cps", companyProviders);
+        mav.addObject("providers", allProviders);
+
 
         return mav;
 

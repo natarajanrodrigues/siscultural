@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.*;
 
@@ -207,5 +208,9 @@ public class Contract implements Serializable {
         result = 31 * result + (getPaymentProposals() != null ? getPaymentProposals().hashCode() : 0);
         result = 31 * result + (getProgram() != null ? getProgram().hashCode() : 0);
         return result;
+    }
+
+    public static class Comparators {
+        public static final Comparator<Contract> PRESENTATION_NAME = (Contract c1, Contract bc2) -> c1.getPresentation().getName().compareTo(bc2.getPresentation().getName());
     }
 }
