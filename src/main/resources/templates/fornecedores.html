@@ -218,10 +218,10 @@
                         <!--</tr>-->
 
                         <tr th:each="provider : ${providers}" >
-                            <td th:text="${provider.code}"></td>
+                            <td th:text="${T(io.github.siscultural.utils.NumberRegisterUtils).formatCode(provider.code)}" ></td>
                             <td >
                                 <span th:text="${provider.name}"></span>
-                                <span th:if="${provider.code.length() > 11}" th:text="'  /  Nome Fantasia: ' + ${provider.tradingName}"></span>
+                                <span th:if="${provider.code.length() > 11 and provider.tradingName != null}" th:text="'  /  Nome Fantasia: ' + ${provider.tradingName}"></span>
                             </td>
                             <td class="hidden" th:text="${provider.id}"></td>
                             <!--<th th:if="${cp instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="${T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(cp.cnpj)}" />-->

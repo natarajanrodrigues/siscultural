@@ -72,7 +72,7 @@
 
                 apresentação(ões) da atividade "<span th:text="${contract.presentation.name}"/>" a se realizar
                 <th:block th:each="acc : ${contract.accomplishments}">
-                    <span th:text="${' no local ' + acc.locality.description + ' em ' + #temporals.format(acc.dateTime, 'dd/MM/yyyy hh:mm') + ', '}"></span>
+                    <span th:text="${' no local ' + acc.locality.description + ' em ' + #temporals.format(acc.dateTime, 'dd/MM/yyyy HH:mm') + ', '}"></span>
                 </th:block>
                  pelo programa
                 <span th:text="${contract.program.name}"/>,

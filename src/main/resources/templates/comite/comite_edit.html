@@ -235,7 +235,7 @@
                                         <td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" th:text="${contract.presentation.name}">
                                         </td>
                                         <td th:if="${paymentStat.count} == 1" th:rowspan="${contract.paymentProposals.size()}" >
-                                            <div th:each="acc : ${contract.accomplishments}" th:text="${#temporals.format(acc.dateTime, 'dd/MM/yyyy hh:mm')}"/>
+                                            <div th:each="acc : ${contract.accomplishments}" th:text="${#temporals.format(acc.dateTime, 'dd/MM/yyyy HH:mm')}"/>
                                         </td>
 
                                         <td th:text="${payment.rubricAccount.rubric.name}"></td>
@@ -243,7 +243,8 @@
                                             <span th:text="${payment.provider.name}"></span>
                                             <!--<span th:if="${payment.provider instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="'(' + ${payment.provider.cpf} + ')'"/>-->
                                             <!--<span th:if="${payment.provider instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="'(' + ${payment.provider.cnpj} + ')'"/>-->
-                                            <span th:text="'(' + ${payment.provider.code} + ')'"/>
+                                            <span th:text="'(' + ${T(io.github.siscultural.utils.NumberRegisterUtils).formatCode(payment.provider.code)} + ')'"/>
+
                                         </td>
                                         <!--<td class="text-center" th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 2, 'COMMA')}"></td>-->
                                         <td class="text-center" th:text="${#numbers.formatDecimal( T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(payment.provider.code) , 1, 'POINT', 2, 'COMMA')}"  />
@@ -255,7 +256,7 @@
                                         <td th:rowspan="1" th:text="${contract.presentation.name}">
                                         </td>
                                         <td th:rowspan="1" >
-                                            <div th:each="acc : ${contract.accomplishments}" th:text="${#temporals.format(acc.dateTime, 'dd/MM/yyyy hh:mm')}"/>
+                                            <div th:each="acc : ${contract.accomplishments}" th:text="${#temporals.format(acc.dateTime, 'dd/MM/yyyy HH:mm')}"/>
                                         </td>
 
                                         <td th:text="'-'"></td>
