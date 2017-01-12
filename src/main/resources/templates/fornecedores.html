@@ -218,7 +218,7 @@
                         <!--</tr>-->
 
                         <tr th:each="provider : ${providers}" >
-                            <td th:text="${provider.code}"></td>
+                            <td th:text="${T(io.github.siscultural.utils.NumberRegisterUtils).formatCode(provider.code)}" ></td>
                             <td >
                                 <span th:text="${provider.name}"></span>
                                 <span th:if="${provider.code.length() > 11}" th:text="'  /  Nome Fantasia: ' + ${provider.tradingName}"></span>
