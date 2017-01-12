@@ -102,6 +102,8 @@ public abstract class Provider implements Serializable {
         this.phone = phone;
     }
 
+    public abstract String getCode();
+
     @Override
     public int hashCode() {
         int hash = 7;

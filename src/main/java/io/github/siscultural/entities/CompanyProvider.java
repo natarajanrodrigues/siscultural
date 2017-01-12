@@ -5,10 +5,7 @@
  */
 package io.github.siscultural.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Classe que representa uma fornecedor do tipo Pessoa Jurídica.
@@ -20,10 +17,17 @@ public class CompanyProvider extends Provider{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @Column(unique=true)
     private String  cnpj;
     private String  tradingName; // Nome fantasia
 
     public CompanyProvider() {
+    }
+
+    @Override
+    public String getCode() {
+        return this.cnpj;
     }
 
     public CompanyProvider(String cnpj, String tradingName, String name, String address, String city, String state, Phone phone) {

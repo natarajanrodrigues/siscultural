@@ -14,9 +14,11 @@ import io.github.siscultural.entities.Provider;
 import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.services.ProviderService;
 import io.github.siscultural.utils.JsonView;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +37,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- *
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
 @Controller
@@ -59,11 +60,17 @@ public class ProviderController {
 
     @PostMapping(value = "/fornecedores/add")
     @ResponseBody
-    public ModelAndView addProvider(Provider provider) {
+    public ModelAndView addProvider(Provider provider, RedirectAttributes redirectAttributes) {
 
         ModelAndView mav = new ModelAndView("redirect:/fornecedores");
 
-        providerService.save(provider);
+//        Map<String, String> result = providerService.save(provider);
+//
+//        if (result.keySet().contains("erro")) {
+//            mav.addObject("erro", result.get("erro"));
+//        }
+//        if (redirectAttributes.containsAttribute("erro"))
+//            mav.addObject("erro", "Já existe fornecedor cadastrado com este CNPJ/CPF");
 
         return mav;
 
@@ -71,20 +78,32 @@ public class ProviderController {
 
     @RequestMapping(value = "/fjuridico_add", method = RequestMethod.POST)
     public ModelAndView companyProviderAdd(@Validated @ModelAttribute("companyProvider") CompanyProvider companyProvider, BindingResult result,
-            RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
+                                           RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
 
-        providerService.save(companyProvider);
+        ModelAndView mav = new ModelAndView("redirect:/fornecedores");
 
-        return new ModelAndView("redirect:/fornecedores");
+        Map<String, String> resultMap = providerService.save(companyProvider);
+
+        if (resultMap.keySet().contains("erro")) {
+            redirectAttributes.addFlashAttribute("erro", resultMap.get("erro"));
+        }
+
+        return mav;
     }
 
     @RequestMapping(value = "/ffisico_add", method = RequestMethod.POST)
     public ModelAndView individualProviderAdd(@Validated @ModelAttribute("companyProvider") IndividualProvider individualProvider, BindingResult result,
-            RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
+                                              RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
 
-        providerService.save(individualProvider);
+        ModelAndView mav = new ModelAndView("redirect:/fornecedores");
 
-        return new ModelAndView("redirect:/fornecedores");
+        Map<String, String> resultMap = providerService.save(individualProvider);
+
+        if (resultMap.keySet().contains("erro")) {
+            redirectAttributes.addFlashAttribute("erro", resultMap.get("erro"));
+        }
+
+        return mav;
     }
 
     @PostMapping(value = "/provider_delete")
@@ -101,33 +120,33 @@ public class ProviderController {
         return JsonView.returnJsonFromMap(map);
 
     }
-    
+
     @GetMapping("fornecedores/edit")
-    public ModelAndView getEditFornecedor(long id){
-        
+    public ModelAndView getEditFornecedor(long id) {
+
         Provider provider = providerService.findById(id);
-        
+
         ModelAndView mav = new ModelAndView();
-        
-        try{
-            
-            mav.addObject("provider",(IndividualProvider) provider);
+
+        try {
+
+            mav.addObject("provider", (IndividualProvider) provider);
             mav.setViewName("fornecedores/fornecedor_fisico_edt");
-            
-        }catch(ClassCastException ex){
-            
-            mav.addObject("provider",(CompanyProvider) provider);
+
+        } catch (ClassCastException ex) {
+
+            mav.addObject("provider", (CompanyProvider) provider);
             mav.setViewName("fornecedores/fornecedor_juridico_edt");
-            
+
         }
-        
-        
+
+
         mav.addObject(provider);
-        
+
         return mav;
-        
+
     }
-    
+
 //    
 //    
 //    public ModelAndView addOrcamento(@RequestParam("name") String name, @RequestParam("descricao") String descricao) {

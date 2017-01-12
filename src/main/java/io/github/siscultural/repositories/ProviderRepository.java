@@ -20,5 +20,8 @@ public interface ProviderRepository extends JpaRepository<Provider, Long>{
 
     @Query(value = "select * from provider p where p.type=?1", nativeQuery = true)
     public List<Provider> findByType(String type);
+
+    @Query(value = "select * from provider p where p.cpf=?1 or p.cnpj=?1", nativeQuery = true)
+    public List<Provider> findByCpfOrCNPJ(String cpfOrCnpj);
     
 }

@@ -10,7 +10,10 @@ import io.github.siscultural.entities.IndividualProvider;
 import io.github.siscultural.entities.Provider;
 import io.github.siscultural.repositories.ProviderRepository;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,9 +47,27 @@ public class ProviderService {
         return result;
     }
 
-    public void save(Provider provider) {
+    public Map<String, String> save(Provider provider) {
 
-        providerRepository.save(provider);
+        Map<String, String> result = new HashMap<>();
+
+        String code = provider.getCode();
+
+        List<Provider> providers = providerRepository.findByCpfOrCNPJ(code);
+
+        if (providers != null && providers.size() > 0) {
+
+            result.put("erro", "Já existe fornecedor com o CNPJ / CPF cadastrado");
+
+        } else {
+
+            Provider p = providerRepository.save(provider);
+            if (p != null)
+                result.put("ok", "Cadastrado com sucesso");
+        }
+
+        return result;
+
     }
     
     public void remove(long providerId){

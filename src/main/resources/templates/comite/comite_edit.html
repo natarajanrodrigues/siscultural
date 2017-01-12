@@ -223,7 +223,8 @@
                                         <th id="th_datas">Data(s) da Proposta</th>
                                         <th id="th_rubrica">Rubrica</th>
                                         <th>Fornecedor</th>
-                                        <th class="text-center" id="th_valor">Valor</th>
+                                        <th class="text-center" ><small>Acumulado (R$)</small></th>
+                                        <th class="text-center" id="th_valor">Valor (R$)</th>
                                     </tr>
                                     </thead>
 
@@ -240,10 +241,13 @@
                                         <td th:text="${payment.rubricAccount.rubric.name}"></td>
                                         <td>
                                             <span th:text="${payment.provider.name}"></span>
-                                            <span th:if="${payment.provider instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="'(' + ${payment.provider.cpf} + ')'"/>
-                                            <span th:if="${payment.provider instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="'(' + ${payment.provider.cnpj} + ')'"/>
+                                            <!--<span th:if="${payment.provider instanceof  T(io.github.siscultural.entities.IndividualProvider)}" th:text="'(' + ${payment.provider.cpf} + ')'"/>-->
+                                            <!--<span th:if="${payment.provider instanceof  T(io.github.siscultural.entities.CompanyProvider)}" th:text="'(' + ${payment.provider.cnpj} + ')'"/>-->
+                                            <span th:text="'(' + ${payment.provider.code} + ')'"/>
                                         </td>
-                                        <td class="text-center" th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 2, 'COMMA')}"></td>
+                                        <!--<td class="text-center" th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 2, 'COMMA')}"></td>-->
+                                        <td class="text-center" th:text="${#numbers.formatDecimal( T(io.github.siscultural.utils.SystemPaymentSum).totalFornecedor(payment.provider.code) , 1, 'POINT', 2, 'COMMA')}"  />
+                                        <td class="text-center alert-success" th:text="${#numbers.formatDecimal(payment.amount, 0, 'POINT', 2, 'COMMA')}"></td>
 
                                     </tr>
 
@@ -259,16 +263,18 @@
                                         <td class="text-center" th:text="${#numbers.formatDecimal(0, 1, 'POINT', 2, 'COMMA')}"></td>
                                     </tr>
 
-                                    <tr  th:with="soma=${#aggregates.sum(contract.paymentProposals.![amount])}">
-                                        <td th:colspan="4" >
-                                            <strong>Total</strong>
-                                        </td>
-                                        <td class="alert-success" th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:text="${#numbers.formatDecimal(soma, 0, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>
-                                        <td class="alert-success" th:if="${contract.paymentProposals == null OR contract.paymentProposals.size() ==  0}" th:text="${#numbers.formatDecimal(0, 1, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>
-                                    </tr>
+                                    <!--aqui total por contrato-->
+
+                                    <!--<tr  th:with="soma=${#aggregates.sum(contract.paymentProposals.![amount])}">-->
+                                        <!--<td th:colspan="4" >-->
+                                            <!--<strong>Total</strong>-->
+                                        <!--</td>-->
+                                        <!--<td class="alert-success" th:if="${contract.paymentProposals != null AND contract.paymentProposals.size() !=  0}" th:text="${#numbers.formatDecimal(soma, 0, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>-->
+                                        <!--<td class="alert-success" th:if="${contract.paymentProposals == null OR contract.paymentProposals.size() ==  0}" th:text="${#numbers.formatDecimal(0, 1, 'POINT', 2, 'COMMA')}" style="text-align: center"></td>-->
+                                    <!--</tr>-->
 
                                     <tr>
-                                        <td th:colspan="5">
+                                        <td th:colspan="6">
                                             Release: <span th:text="${contract.presentation.releaseText}"></span>
                                         </td>
                                     </tr>
@@ -278,7 +284,7 @@
 
 
                             </th:block></small>
-
+                            <hr class="strong"/>
                         </th:block>
                         <h4 class="text-right">
                             <span >TOTAL: </span>
