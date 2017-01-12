@@ -9,6 +9,8 @@ import io.github.siscultural.entities.CompanyProvider;
 import io.github.siscultural.entities.IndividualProvider;
 import io.github.siscultural.entities.Provider;
 import io.github.siscultural.repositories.ProviderRepository;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,19 +53,29 @@ public class ProviderService {
 
         Map<String, String> result = new HashMap<>();
 
-        String code = provider.getCode();
-
-        List<Provider> providers = providerRepository.findByCpfOrCNPJ(code);
-
-        if (providers != null && providers.size() > 0) {
-
-            result.put("erro", "Já existe fornecedor com o CNPJ / CPF cadastrado");
-
-        } else {
+        if (provider.getId() != null) {
 
             Provider p = providerRepository.save(provider);
             if (p != null)
-                result.put("ok", "Cadastrado com sucesso");
+                result.put("ok", "Atualizado com sucesso");
+            else
+                result.put("erro", "Erro ao atualizar cadastro do fornecedor");
+        } else {
+
+            String code = provider.getCode();
+
+            List<Provider> providers = providerRepository.findByCpfOrCNPJ(code);
+
+            if (providers != null && providers.size() > 0) {
+
+                result.put("erro", "Já existe fornecedor com o CNPJ / CPF cadastrado");
+
+            } else {
+
+                Provider p = providerRepository.save(provider);
+                if (p != null)
+                    result.put("ok", "Cadastrado com sucesso");
+            }
         }
 
         return result;
