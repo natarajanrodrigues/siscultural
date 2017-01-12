@@ -18,6 +18,8 @@ import io.github.siscultural.utils.JsonView;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,23 +46,52 @@ public class ProviderController {
     @Autowired
     private ProviderService providerService;
 
-    @GetMapping(value = "/fornecedores")
+    @GetMapping(value = "/fornecedores2")
     public ModelAndView providers() {
 
         ModelAndView mav = new ModelAndView("fornecedores");
 
-        List<CompanyProvider> companyProviders = providerService.findAllCompanyProvider();
-        List<IndividualProvider> individualProviders = providerService.findAllIndividualProvider();
+//        List<CompanyProvider> companyProviders = providerService.findAllCompanyProvider();
+//        List<IndividualProvider> individualProviders = providerService.findAllIndividualProvider();
+//
+//        List<Provider> allProviders = new ArrayList<>();
+//        allProviders.addAll(companyProviders);
+//        allProviders.addAll(individualProviders);
+//
+//        Collections.sort(allProviders, Comparator.comparing(Provider::getName));
+//
+//        mav.addObject("ips", individualProviders);
+//        mav.addObject("cps", companyProviders);
+//        mav.addObject("providers", allProviders);
 
-        List<Provider> allProviders = new ArrayList<>();
-        allProviders.addAll(companyProviders);
-        allProviders.addAll(individualProviders);
+//        mav.addObject("providers", providerService.findAll());
 
-        Collections.sort(allProviders, Comparator.comparing(Provider::getName));
 
-        mav.addObject("ips", individualProviders);
-        mav.addObject("cps", companyProviders);
-        mav.addObject("providers", allProviders);
+        return mav;
+
+    }
+
+    @GetMapping(value = "/fornecedores")
+    public ModelAndView providers2(Pageable pageable) {
+
+        ModelAndView mav = new ModelAndView("fornecedores");
+
+//        List<CompanyProvider> companyProviders = providerService.findAllCompanyProvider();
+//        List<IndividualProvider> individualProviders = providerService.findAllIndividualProvider();
+//
+//        List<Provider> allProviders = new ArrayList<>();
+//        allProviders.addAll(companyProviders);
+//        allProviders.addAll(individualProviders);
+//
+//        Collections.sort(allProviders, Comparator.comparing(Provider::getName));
+//
+//        mav.addObject("ips", individualProviders);
+//        mav.addObject("cps", companyProviders);
+//        mav.addObject("providers", allProviders);
+
+        Page<Provider> providers = providerService.findAll(pageable);
+
+        mav.addObject("providers", providers);
 
 
         return mav;
