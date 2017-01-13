@@ -74,7 +74,8 @@ public class CommitteRemoveContractController {
                 //ordenando cada um dos Set com os contratos
                 for (Map.Entry<Program, Set<Contract>> entry: test.entrySet()) {
 
-                    SortedSet<Contract> newSet = new TreeSet<>(Contract.Comparators.PRESENTATION_NAME);
+//                    SortedSet<Contract> newSet = new TreeSet<>(Contract.Comparators.PRESENTATION_NAME);
+                    SortedSet<Contract> newSet = new TreeSet<>(Contract.Comparators.PRESENTATION_DATE);
                     newSet.addAll(entry.getValue());
 
                     test.put(entry.getKey(), newSet);
