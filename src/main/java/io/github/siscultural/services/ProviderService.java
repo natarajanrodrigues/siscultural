@@ -42,6 +42,11 @@ public class ProviderService {
         return providerRepository.findAll(pageable);
     }
 
+    public Page<Provider> findByName(String name, Pageable pageable) {
+
+        return providerRepository.findByNameContaining(name, pageable);
+    }
+
     public List<IndividualProvider> findAllIndividualProvider() {
 
         List<IndividualProvider> result = new ArrayList<>();

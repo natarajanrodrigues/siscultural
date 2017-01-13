@@ -121,7 +121,7 @@
 
 
                         <div class="col-md-4 col-xs-6">
-                            <a href="apresentacao_add"><button class="btn btn-info glyphicon glyphicon-plus" ></button></a>
+                            <a href="/apresentacao_add"><button class="btn btn-info glyphicon glyphicon-plus" ></button></a>
                             <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" th:disabled="true"></button>
                             <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" th:disabled="true"></button>
                         </div>
@@ -153,10 +153,26 @@
                 </table>
             </div>
 
-            <div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" >
-                <a th:if="${pagination gt 0}" th:href="@{/apresentacao2(page=${pagination}-1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>
-                <a th:if="${presentations.size() != 0  and presentations.size() >= 10}" th:href="@{/apresentacao2(page=${pagination}+1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>
+            <!--<div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" >-->
+                <!--<a th:if="${pagination gt 0}" th:href="@{/apresentacao2(page=${pagination}-1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>-->
+                <!--<a th:if="${presentations.size() != 0  and presentations.size() >= 10}" th:href="@{/apresentacao2(page=${pagination}+1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>-->
+            <!--</div>-->
+
+            <div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" th:if="${name == null}">
+                <a th:if="${pagination gt 0}" th:href="@{${path}(page=${pagination}-1, size= 10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>
+                <a th:if="${presentations.size() != 0  and presentations.size() >= 10}" th:href="@{${path}(page=${pagination}+1, size= 10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>
             </div>
+
+            <div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" th:if="${name ne null}">
+                <a th:if="${pagination gt 0}" th:href="@{${path}(page=${pagination}-1, size= 10, name=${name})}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>
+                <!--<a th:if="${presentations.size() != 0  and presentations.size() > 10}" th:href="@{${path}(page=${pagination}+1, size= 10, name=${name})}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>-->
+                <a th:if="${presentations.totalPages - 1 > pagination}" th:href="@{${path}(page=${pagination}+1, name=${name})}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>
+            </div>
+
+            <!--<div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" >-->
+                <!--<a th:if="${pagination gt 0}" th:href="@{${path}(page=${pagination}-1, name=${name})}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>-->
+                <!--<a th:if="${presentations.totalPages - 1 > pagination}" th:href="@{${path}(page=${pagination}+1, name=${name})}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>-->
+            <!--</div>-->
         </div>
 
 

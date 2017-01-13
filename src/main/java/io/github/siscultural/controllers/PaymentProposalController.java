@@ -28,6 +28,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.swing.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,12 +84,21 @@ public class PaymentProposalController {
 
     @RequestMapping(value="/proposal/add", method=RequestMethod.POST)
     public ModelAndView propostaAdd(@ModelAttribute ("contract") Contract contract, @RequestParam("conta") String conta,
-                                      @RequestParam("provider") String provider, @RequestParam("amount") String amount) {
+                                      @RequestParam("provider") String provider, @RequestParam("amount") String amount) throws ParseException {
 
         PaymentProposal paymentProposal = new PaymentProposal();
 
         paymentProposal.setContract(contract);
-        paymentProposal.setAmount(new BigDecimal(amount));
+
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
+        String pattern = "0,00";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
+        decimalFormat.setParseBigDecimal(true);
+
+//        paymentProposal.setAmount(new BigDecimal(amount, new MathContext(2, RoundingMode.CEILING)));
+
+        paymentProposal.setAmount(new BigDecimal(String.valueOf((BigDecimal) decimalFormat.parse(amount))));
         paymentProposal.setProvider(providerService.findbyId(Long.parseLong(provider)));
         paymentProposal.setRubricAccount(rubricAccountService.findById(Long.parseLong(conta)));
 

@@ -9,10 +9,10 @@
 
         <!-- Bootstrap -->
 
-        <link href="css/bootstrap-theme.min.css" rel="stylesheet"/>
-        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../css/bootstrap-theme.min.css" rel="stylesheet"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet"/>
 
-        <link rel="stylesheet" href="css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="../css/style.css" type="text/css"/>
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
@@ -70,11 +70,18 @@
                                     <input id="file" name="file" type="file" class="file"/>
                                 </div>
                             </form>
+
+                            <div id="progressbar" class="progress" >
+                                <div id="myprogressbar" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                    <span id="percentage" >40% Complete (success)</span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" th:form="form_upload" class="btn btn-success" id="upload"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>
-                        <!--<button type="submit" class="btn btn-success" id="cadastrar"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>-->
+                        <!--<button type="submit" th:form="form_upload" class="btn btn-success" id="upload"><span class="glyphicon glyphicon-ok"></span> Cadastrar</button>-->
+                        <button id="enviar" class="btn btn-success" ><span class="glyphicon glyphicon-ok"></span> Enviar</button>
                         <button class="btn btn-danger float-left" data-dismiss="modal"><span class="glyphicon glyphicon-trash"/> Cancelar</button>
                     </div>
                 </div>
@@ -154,7 +161,7 @@
 
             <div class="">
                 <ol class="breadcrumb">
-                    <li><a href="home">Home</a></li>
+                    <li><a href="/home">Home</a></li>
                     <li class="active">Fornecedores</li>
                 </ol>
             </div>
@@ -171,21 +178,47 @@
             <div class="panel panel-default">
                 <div class="panel-body">
 
-                    <form class="form-inline float-right col-xs-6 no-margin-right col-md-8">
-                        <div class="form-group col-xs-12 no-margin-right">
-                            <div class="input-group col-xs-12 float-right">
-                                <input type="text" id="filter" class="form-control" placeholder="..."/>
-                                <span class="btn input-group-addon glyphicon glyphicon-search"></span>
+                    <!--<form class="form-inline float-right col-xs-6 no-margin-right col-md-8">-->
+                        <!--<div class="form-group col-xs-12 no-margin-right">-->
+                            <!--<div class="input-group col-xs-12 float-right">-->
+                                <!--<input type="text" id="filter" class="form-control" placeholder="..."/>-->
+                                <!--<span class="btn input-group-addon glyphicon glyphicon-search"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+
+                    <!--<div class="col-md-4 col-xs-6">-->
+                        <!--<button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>-->
+                        <!--<button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" ></button>-->
+                        <!--<button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" ></button>-->
+                        <!--<button class="btn glyphicon glyphicon-upload " data-toggle="modal" data-target="#upload" ></button>-->
+                    <!--</div>-->
+
+                    <div class="row">
+                        <div class="form-group col-xs-6 col-md-8 no-margin-right container">
+                            <div class="row">
+                                <div class="col-md-10 col-sm-8 col-xs-12 col-lg-10">
+                                    <form class="form-search" th:action="@{/fornecedores/search}" id="search">
+                                        <div class="input-group">
+                                            <input type="text" th:attr="value=${name}" name="name" id="name" class="form-control" placeholder="Procurar por nome do fornecedor"/>
+                                            <span class="input-group-btn">
+                                            <button type="submit" th:form="search" class="btn btn-search"><i class="glyphicon glyphicon-search"/> Buscar</button>
+                                        </span>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </form>
 
-                    <div class="col-md-4 col-xs-6">
-                        <button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>
-                        <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" ></button>
-                        <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" ></button>
-                        <button class="btn glyphicon glyphicon-upload " data-toggle="modal" data-target="#upload" ></button>
+
+                        <div class="col-md-4 col-xs-6">
+                            <button class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#cadastrar_modal" ></button>
+                            <button id="btn-editar" class="btn btn-warning glyphicon glyphicon-pencil disabled" ></button>
+                            <button id="btn-deletar" class="btn btn-danger glyphicon glyphicon-trash disabled" ></button>
+                            <button class="btn glyphicon glyphicon-upload " data-toggle="modal" data-target="#upload" ></button>
+                        </div>
                     </div>
+
                 </div>
 
                 <table class="table table-bordered table-hover table-selectable">
@@ -232,9 +265,14 @@
                 </table>
             </div>
 
+            <!--<div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" >-->
+                <!--<a th:if="${pagination gt 0}" th:href="@{/fornecedores(page=${pagination}-1, size=15)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>-->
+                <!--<a th:if="${providers.totalPages - 1 > pagination}" th:href="@{/fornecedores(page=${pagination}+1, size=15)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>-->
+            <!--</div>-->
+
             <div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" >
-                <a th:if="${pagination gt 0}" th:href="@{/fornecedores(page=${pagination}-1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>
-                <a th:if="${providers.totalPages - 1 > pagination}" th:href="@{/fornecedores(page=${pagination}+1, size=10)}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>
+                <a th:if="${pagination gt 0}" th:href="@{${path}(page=${pagination}-1, name=${name})}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-left"></button></a>
+                <a th:if="${providers.totalPages - 1 > pagination}" th:href="@{${path}(page=${pagination}+1, name=${name})}"><button type="button" class="btn btn-default glyphicon glyphicon-chevron-right"></button></a>
             </div>
 
             <!--<div class="btn-group col-md-3 col-md-offset-5" role="group" aria-label="paginação" >-->
@@ -251,9 +289,9 @@
         </footer>
 
 
-        <script src="js/jquery-3.1.0.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/tableselection.js"></script>
+        <script src="../js/jquery-3.1.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/tableselection.js"></script>
         <script src="https://use.fontawesome.com/42680f3b68.js"></script>
 
         <script type="text/javascript">
@@ -354,6 +392,73 @@
 
                     }
                 });
+            });
+
+            $('#progressbar').hide();
+
+            function atualizar() {
+                $.ajax({
+                    type : "GET",
+                    url : '/status',
+                    cache : false,
+                    success : function(response) {
+                        console.log(response.total);
+
+                        var total = response.total;
+
+                        if (response != undefined) {
+                            // display percentage...
+//                            $('#percentage').innerHTML = response.total + "% Completo";
+                            $('#percentage').html(response.total + "%");
+
+                            $('#myprogressbar').css({'width': total + '%'});
+
+                            if (response.total != '100.0') {
+                                setTimeout("atualizar()", 500);
+                            } else {
+                                $('#percentage').html("100%");
+                                $('#myprogressbar').removeClass('progress-bar-striped active').change();
+//                                $('#myprogressbar').css({'width': '100%'});
+//                                $('#upload').modal('hide');
+                            }
+
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+
+            $("#enviar").click(function () {
+
+//                $("input:file").change(function(objEvent) {
+                    var objFormData = new FormData();
+                    // GET FILE OBJECT
+                    var objFile = $(file)[0].files[0];
+                    // APPEND FILE TO POST DATA
+                    objFormData.append('file', objFile);
+                    return $.ajax({
+                        url: '/upload_xls',
+                        type: 'POST',
+                        contentType: false,
+                        data: objFormData,
+                        //JQUERY CONVERT THE FILES ARRAYS INTO STRINGS.SO processData:false
+                        processData: false
+                        ,
+                        success : function(response) {
+                            if (response == 'ok') {
+
+                                $('#progressbar').show();
+
+                                setTimeout("atualizar()", 100);
+
+                            }
+                        }
+                    });
+//                });
+
+
             });
 
         </script>

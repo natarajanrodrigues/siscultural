@@ -38,6 +38,8 @@ import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
@@ -76,7 +78,7 @@ public class ProviderController {
     }
 
     @GetMapping(value = "/fornecedores")
-    public ModelAndView providers2(Pageable pageable) {
+    public ModelAndView providers2(Pageable pageable, HttpServletRequest request) {
 
         ModelAndView mav = new ModelAndView("fornecedores");
 
@@ -94,12 +96,33 @@ public class ProviderController {
 //        mav.addObject("providers", allProviders);
 
 
-        Pageable myPageable = new PageRequest(pageable.getPageNumber(), 10, new Sort(new Sort.Order(Sort.Direction.ASC, "name")));
+        Pageable myPageable = new PageRequest(pageable.getPageNumber(), 15, new Sort(new Sort.Order(Sort.Direction.ASC, "name")));
         Page<Provider> providers = providerService.findAll(myPageable);
 
 
         mav.addObject("providers", providers);
         mav.addObject("pagination", pageable.getPageNumber());
+        mav.addObject("path", request.getServletPath());
+
+        return mav;
+
+    }
+
+    @GetMapping(value = "/fornecedores/search")
+    public ModelAndView providersFind(@RequestParam("name") String name, Pageable pageable, HttpServletRequest request) {
+
+        ModelAndView mav = new ModelAndView("fornecedores");
+
+        Pageable myPageable = new PageRequest(pageable.getPageNumber(), 10, new Sort(new Sort.Order(Sort.Direction.ASC, "name")));
+
+
+        //here find by name, p.ex.
+        Page<Provider> providers = providerService.findByName(name, myPageable);
+
+        mav.addObject("name", name);
+        mav.addObject("providers", providers);
+        mav.addObject("pagination", pageable.getPageNumber());
+        mav.addObject("path", request.getServletPath());
 
         return mav;
 

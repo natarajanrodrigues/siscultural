@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import java.net.URI;
@@ -20,6 +21,7 @@ import java.net.URISyntaxException;
  * @author Victor Hugo <victor.hugo.origins@gmail.com>
  */
 @SpringBootApplication
+@EnableAsync
 public class Loader extends SpringBootServletInitializer {
 
     @Bean

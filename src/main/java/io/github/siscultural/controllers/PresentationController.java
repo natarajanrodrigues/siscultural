@@ -11,7 +11,9 @@ import io.github.siscultural.services.PresentationService;
 import io.github.siscultural.utils.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -69,15 +72,19 @@ public class PresentationController {
     }
 
     @RequestMapping(value = "/presentation/search")
-    public ModelAndView search(@RequestParam("name") String name, Pageable pageable) {
+    public ModelAndView search(@RequestParam("name") String name, Pageable pageable, HttpServletRequest request) {
 
         ModelAndView mav = new ModelAndView("apresentacao");
 
-        Page<Presentation> list = presentationService.findByName(name, pageable);
+        Pageable myPageable = new PageRequest(pageable.getPageNumber(), 10, new Sort(new Sort.Order(Sort.Direction.ASC, "name")));
+
+        Page<Presentation> list = presentationService.findByName(name, myPageable);
 
         mav.addObject("name", name);
-        mav.addObject("presentations", list.getContent());
+        mav.addObject("presentations", list);
         mav.addObject("pagination", pageable.getPageNumber());
+
+        mav.addObject("path", request.getServletPath());
 
 
         return mav;
@@ -170,9 +177,6 @@ public class PresentationController {
         return modelAndView;
     }
 
-    public static class Comparators {
-        public static final Comparator<Presentation> NAME = (Presentation p1, Presentation p2) ->p1.getName().compareTo(p2.getName()) ;
-    }
 
 
 }

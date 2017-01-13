@@ -30,6 +30,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,9 +48,10 @@ public class SystemPaymentController {
 
 
     @PostMapping("/upload_xls")
-    public ModelAndView cadastrarNovoContrato(@RequestParam("file") MultipartFile multipartFile) {
+    @ResponseBody
+    public String cadastrarNovoContrato(@RequestParam("file") MultipartFile multipartFile) {
 
-        ModelAndView mav = new ModelAndView("fornecedores");
+//        ModelAndView mav = new ModelAndView("fornecedores");
         InputStream file = null;
 
         try {
@@ -65,8 +67,18 @@ public class SystemPaymentController {
             e.printStackTrace();
         }
 
-        return mav;
+        return "ok";
     }
+
+    @RequestMapping("/status")
+    @ResponseBody
+    Map<String, String> cadastrarNovoContrato() {
+
+        return Collections.singletonMap("total", new Double(SystemPaymentUtils.count()).toString());
+
+    }
+
+
 
 
 }

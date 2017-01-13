@@ -35,5 +35,7 @@ public interface ProviderRepository extends JpaRepository<Provider, Long>{
     public List<Provider> findByCpfOrCNPJ(String cpfOrCnpj);
 
     Page<Provider> findAllByOrderByNameAsc(Pageable pageable);
+
+    Page<Provider> findByNameContaining(String name, Pageable pageable);
     
 }
