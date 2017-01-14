@@ -212,6 +212,17 @@ public class Contract implements Serializable {
 
     public static class Comparators {
         public static final Comparator<Contract> PRESENTATION_NAME = (Contract c1, Contract bc2) -> c1.getPresentation().getName().compareTo(bc2.getPresentation().getName());
-        public static final Comparator<Contract> PRESENTATION_DATE = (Contract c1, Contract bc2) -> c1.getAccomplishments().get(0).getDateTime().compareTo(bc2.getAccomplishments().get(0).getDateTime());
+//        public static final Comparator<Contract> PRESENTATION_DATE = (Contract c1, Contract bc2) ->
+//        {
+//            Contract c1 = c1;
+//
+//            if (true){
+//
+//                return c1.getAccomplishments().get(0).getDateTime().compareTo(bc2.getAccomplishments().get(0).getDateTime());
+//            }
+//            return 0;
+//        }
+//        );
+
     }
 }

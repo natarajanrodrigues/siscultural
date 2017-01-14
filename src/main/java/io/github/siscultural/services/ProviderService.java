@@ -11,10 +11,7 @@ import io.github.siscultural.entities.Provider;
 import io.github.siscultural.repositories.ProviderRepository;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,9 +39,17 @@ public class ProviderService {
         return providerRepository.findAll(pageable);
     }
 
+    public List<Provider> findAll() {
+        List<Provider> providers = providerRepository.findAll();
+
+        Collections.sort(providers, Provider.Comparators.NAME);
+
+        return providers;
+    }
+
     public Page<Provider> findByName(String name, Pageable pageable) {
 
-        return providerRepository.findByNameContaining(name, pageable);
+        return providerRepository.findByNameIgnoreCaseContaining(name, pageable);
     }
 
     public List<IndividualProvider> findAllIndividualProvider() {

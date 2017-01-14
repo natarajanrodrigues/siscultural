@@ -130,6 +130,38 @@ public class PaymentProposalController {
     }
 
 
+    @RequestMapping(value="/proposal/edit", method=RequestMethod.POST)
+    public ModelAndView propostaEdit(@ModelAttribute ("contract") Contract contract, @RequestParam("id_payment") String id, @RequestParam("conta") String conta,
+                                    @RequestParam("provider") String provider, @RequestParam("amount") String amount) throws ParseException {
+
+        PaymentProposal paymentProposal = paymentProposalRepository.findById(Long.parseLong(id));
+
+//        contract.removePaymentProposal(paymentProposal);
+
+//        paymentProposal.setContract(contract);
+
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
+        String pattern = "0,00";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
+        decimalFormat.setParseBigDecimal(true);
+
+
+        paymentProposal.setAmount(new BigDecimal(String.valueOf((BigDecimal) decimalFormat.parse(amount))));
+        paymentProposal.setProvider(providerService.findbyId(Long.parseLong(provider)));
+        paymentProposal.setRubricAccount(rubricAccountService.findById(Long.parseLong(conta)));
+
+//        contract.addPaymentProposal(paymentProposal);
+//
+//        contractRepository.save(contract);
+        paymentProposalRepository.save(paymentProposal);
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
+
+        return modelAndView;
+    }
+
+
 
 //    @RequestMapping(value="/proposal/add", method=RequestMethod.POST)
 //    public ModelAndView localidadeAdd(@Validated @ModelAttribute ("paymentProposal") PaymentProposal paymentProposal, BindingResult result,

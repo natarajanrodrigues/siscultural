@@ -6,6 +6,7 @@
 package io.github.siscultural.entities;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -135,6 +136,10 @@ public abstract class Provider implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public static class Comparators {
+        public static final Comparator<Provider> NAME = (Provider p1, Provider p2) -> p1.getName().compareTo(p2.getName());
     }
     
 }

@@ -36,6 +36,6 @@ public interface ProviderRepository extends JpaRepository<Provider, Long>{
 
     Page<Provider> findAllByOrderByNameAsc(Pageable pageable);
 
-    Page<Provider> findByNameContaining(String name, Pageable pageable);
+        Page<Provider> findByNameIgnoreCaseContaining(String name, Pageable pageable);
     
 }

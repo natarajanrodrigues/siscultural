@@ -83,7 +83,9 @@ public class AccomplishmentController {
 //        modelAndView.addObject("accomplishments", accomplishmentRepository.findByContract(contract));
 //        modelAndView.addObject("accomplishments", contract.getAccomplishments());
         modelAndView.addObject("localities", localityService.findAll());
-        modelAndView.addObject("providers", providerService.getAllProviders());
+
+        modelAndView.addObject("providers", providerService.findAll());
+
         modelAndView.addObject("accounts", rubricAccountService.getRubricAccounts(contract.getProgram()));
 //        modelAndView.addObject("proposals", paymentProposalRepository.findByContract(contract));
         modelAndView.addObject("specialEvents", specialEventService.findAll());
@@ -137,7 +139,7 @@ public class AccomplishmentController {
 
 
         ModelAndView modelAndView = new ModelAndView("redirect:/contrato_edit?id=" + contract.getId());
-//        modelAndView.addObject("contract", contract);
+        modelAndView.addObject("contract", contract);
         return modelAndView;
     }
 

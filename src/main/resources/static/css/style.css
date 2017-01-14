@@ -10,9 +10,6 @@ html, body {
     padding: 0px;
 }
 
-body > .container {
-    padding-bottom: 70px;
-}
 
 footer{
     padding-top: 13px;
@@ -99,8 +96,13 @@ input:focus {
     background-color:#fff;
     padding:10px;
     margin-bottom: 100px;
+    padding-bottom: 10px !important;
 }
 
+
+body > .container {
+    padding-bottom: 70px;
+}
 
 
 .container-area{
