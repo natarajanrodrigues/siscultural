@@ -3,13 +3,13 @@ package io.github.siscultural.services;
 import io.github.siscultural.entities.*;
 import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.repositories.*;
+import io.github.siscultural.utils.LocalDateToStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by natarajan on 05/01/2017.
@@ -80,6 +80,44 @@ public class CommitteService {
 
     public List<Contract> findByCommitte(Committe committe) {
         return contractRepository.findByCommitte(committe);
+    }
+
+
+
+    public Map<Program, Set<Contract>> contractsPerProgram(Committe committe) {
+
+        Map<Program, Set<Contract>> test = new LinkedHashMap<>();
+
+        if (committe != null) {
+
+            //pega todos os contratos
+            List<Contract> contracts = committe.getContracts();
+
+            //separa os contratos por Programa
+            Map<Program, Set<Contract>> result =
+                    contracts.stream().collect(
+                            Collectors.groupingBy(Contract::getProgram, Collectors.toSet() )
+                    );
+
+            //adiciona num novo map, ordenando as keys do map (pelo nome do programa)
+            result.entrySet().stream()
+                    .sorted((e1, e2) -> e1.getKey().getName().compareTo(e2.getKey().getName()))
+                    .forEachOrdered(x -> test.put(x.getKey(), x.getValue()));
+
+            result.clear();
+
+            //ordenando cada um dos Set com os contratos
+            for (Map.Entry<Program, Set<Contract>> entry: test.entrySet()) {
+
+                SortedSet<Contract> newSet = new TreeSet<>(Contract.Comparators.PRESENTATION_NAME);
+                newSet.addAll(entry.getValue());
+
+                test.put(entry.getKey(), newSet);
+
+            }
+        }
+
+        return test;
     }
 
 

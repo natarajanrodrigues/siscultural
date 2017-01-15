@@ -52,36 +52,7 @@ public class CommitteRemoveContractController {
                 modelAndView.addObject("committe", committe);
                 modelAndView.addObject("date2", committe.getDate().format(LocalDateToStringConverter.formatter));
 
-
-
-                //pega todos os contratos
-                List<Contract> contracts = committe.getContracts();
-
-                //separa os contratos por Programa
-                Map<Program, Set<Contract>> result =
-                        contracts.stream().collect(
-                                Collectors.groupingBy(Contract::getProgram, Collectors.toSet() )
-                        );
-
-                Map<Program, Set<Contract>> test = new LinkedHashMap<>();
-
-                //adiciona num novo map, ordenando as keys do map (pelo nome do programa)
-                result.entrySet().stream()
-                        .sorted((e1, e2) -> e1.getKey().getName().compareTo(e2.getKey().getName()))
-                        .forEachOrdered(x -> test.put(x.getKey(), x.getValue()));
-
-                result.clear();
-
-                //ordenando cada um dos Set com os contratos
-                for (Map.Entry<Program, Set<Contract>> entry: test.entrySet()) {
-
-                    SortedSet<Contract> newSet = new TreeSet<>(Contract.Comparators.PRESENTATION_NAME);
-//                    SortedSet<Contract> newSet = new TreeSet<>(Contract.Comparators.PRESENTATION_DATE);
-                    newSet.addAll(entry.getValue());
-
-                    test.put(entry.getKey(), newSet);
-
-                }
+                Map<Program, Set<Contract>> test = committeService.contractsPerProgram(committe);
 
                 modelAndView.addObject("teste", test);
             }
