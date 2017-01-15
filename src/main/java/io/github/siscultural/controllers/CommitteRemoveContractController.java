@@ -70,6 +70,7 @@ public class CommitteRemoveContractController {
                         .sorted((e1, e2) -> e1.getKey().getName().compareTo(e2.getKey().getName()))
                         .forEachOrdered(x -> test.put(x.getKey(), x.getValue()));
 
+                result.clear();
 
                 //ordenando cada um dos Set com os contratos
                 for (Map.Entry<Program, Set<Contract>> entry: test.entrySet()) {
