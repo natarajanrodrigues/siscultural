@@ -36,7 +36,7 @@ public class CommitteRemoveContractController {
     ContractService contractService;
 
 
-    @RequestMapping(value = "/committe_edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/comite/edit", method = RequestMethod.GET)
     public ModelAndView apresentacaoDetail2(@RequestParam("id") String id) {
 
         ModelAndView modelAndView = new ModelAndView("comite/comite_edit");
@@ -79,7 +79,7 @@ public class CommitteRemoveContractController {
         }
 
         committeService.save(committe);
-        ModelAndView modelAndView = new ModelAndView("redirect:/committe_edit?id=" + committe.getId());
+        ModelAndView modelAndView = new ModelAndView("redirect:/comite/edit?id=" + committe.getId());
         modelAndView.addObject("committe", committe);
 
         return modelAndView;
@@ -90,7 +90,7 @@ public class CommitteRemoveContractController {
     public ModelAndView accomplishmentDelete(@ModelAttribute("committe") Committe committe,
                                              @RequestParam("contractId") String contractId) {
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/committe_edit?id=" + committe.getId());
+        ModelAndView modelAndView = new ModelAndView("redirect:/comite/edit?id=" + committe.getId());
 
         Contract c = contractService.findById(Long.parseLong(contractId));
 

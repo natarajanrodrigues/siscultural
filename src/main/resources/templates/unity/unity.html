@@ -64,7 +64,7 @@
             <div class="">
                 <ol class="breadcrumb">
                     <li><a href="/home">Home</a></li>
-                    <li class="active">Comitê</li>
+                    <li class="active">Unidade</li>
                 </ol>
             </div>
 
@@ -90,19 +90,16 @@
                     <thead>
                     <tr class="alert-info text-align-center">
                         <th>Id</th>
-                        <th>Data</th>
-                        <th>Descrição</th>
-                        <!--<th>Valor</th>-->
+                        <th>Nome</th>
+
                     </tr>
                     </thead>
 
                     <tbody class="searchable" id="materiaisTable">
 
-                    <tr th:each="committe : ${committes}">
-                        <td th:text="${committe.id}"></td>
-                        <td th:text="${#temporals.format(committe.date, 'dd/MM/yyyy')}"></td>
-                        <td th:text="${committe.description}"></td>
-                        <!--<td th:text="${contract.program.name}"></td>-->
+                    <tr th:each="unity : ${unities}">
+                        <td th:text="${unity.id}"></td>
+                        <td th:text="${unity.name}"></td>
                     </tr>
 
                     </tbody>

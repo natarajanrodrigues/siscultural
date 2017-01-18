@@ -67,7 +67,9 @@
 
         </div>
 
-        <div class="container-fluid col-md-12" style="padding-bottom: 30px">
+        <div class="container-fluid col-md-12" style="padding-bottom: 30px"
+             th:if="${#authentication.getPrincipal().userType eq T(io.github.siscultural.enums.UserType).ADMINISTRADOR OR
+                        #authentication.getPrincipal().userType eq T(io.github.siscultural.enums.UserType).GERENTE}" >
             <h2 class="container h-menu">Administração</h2>
             <div class="container-fluid">
 
@@ -94,6 +96,15 @@
                         <i class="material-icons">&#xE876;</i>
                         <div class="users-icon-text">
                             <span>Comitê</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-xs-4 col-xg-4 text-center icon-menu" >
+                    <a th:href="@{/unity}" title="Comitê">
+                        <i class="material-icons">business</i>
+                        <!--<i class="material-icons"><i class="fa fa-building" aria-hidden="true" style="max-height: 30px"></i></i>-->
+                        <div class="users-icon-text">
+                            <span>Unidades</span>
                         </div>
                     </a>
                 </div>
@@ -230,5 +241,6 @@
     </body>
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/42680f3b68.js"></script>
 
 </html>

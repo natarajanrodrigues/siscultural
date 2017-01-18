@@ -34,12 +34,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/font-awesome/**")
-                .permitAll()
+//                .antMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/font-awesome/**")
+//                .permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .requestCache()
+//                .and()
+
+
+                .antMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/font-awesome/**").permitAll()
+                .antMatchers("/menu_orcamento", "/comite/**").hasAnyAuthority("GERENTE, ADMINISTRADOR")
+                .antMatchers("/usuarios/**").hasAnyAuthority("ADMINISTRADOR")
                 .anyRequest().authenticated()
+                .and().exceptionHandling().accessDeniedPage("/acessonegado")
                 .and()
+//                .exceptionHandling().accessDeniedPage("/acesso").and()
                 .requestCache()
                 .and()
+
             .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
