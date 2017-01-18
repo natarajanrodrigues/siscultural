@@ -5,16 +5,13 @@
  */
 package io.github.siscultural.entities;
 
+import io.github.siscultural.enums.AdministrationUnit;
+import io.github.siscultural.enums.AdministrationUnit2;
 import io.github.siscultural.enums.UserType;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  *
@@ -31,6 +28,9 @@ public class Functionary implements Serializable{
     private String      email;
     @Enumerated(EnumType.STRING)
     private UserType    userType;
+
+    @Column(name = "unit_id")
+    private int unit;
 
     public Functionary() {
     }
@@ -80,6 +80,14 @@ public class Functionary implements Serializable{
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public AdministrationUnit2 getUnit() {
+        return AdministrationUnit2.parse(this.unit);
+    }
+
+    public void setUnit(AdministrationUnit2 administrationUnit) {
+        this.unit = administrationUnit.getId();
     }
 
     @Override

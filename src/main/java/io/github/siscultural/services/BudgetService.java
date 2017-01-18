@@ -85,5 +85,8 @@ public class BudgetService {
         return map;
     }
 
+    public List<Budget> findByUnit(int unit) {
+        return orcamentoRepository.findByUnit(unit);
+    }
 
 }

@@ -6,7 +6,11 @@
 package io.github.siscultural;
 
 import io.github.siscultural.entities.Functionary;
+import io.github.siscultural.enums.AdministrationUnit;
+import io.github.siscultural.enums.AdministrationUnit2;
 import io.github.siscultural.enums.UserType;
+
+import java.io.Serializable;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +25,7 @@ public class FunctionaryUser extends User {
     private String name;
     private String email;
     private UserType userType;
+    private AdministrationUnit2 unit;
 
     public FunctionaryUser(Functionary functionary, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
 
@@ -29,16 +34,18 @@ public class FunctionaryUser extends User {
         this.name = functionary.getName();
         this.email = functionary.getEmail();
         this.userType = functionary.getUserType();
+        this.unit = functionary.getUnit();
 
     }
 
-    public FunctionaryUser(Long id, String name, String password, String email, UserType userType, String username, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public FunctionaryUser(Long id, String name, String password, String email, UserType userType, AdministrationUnit2 unit, String username, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
 
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.id = id;
         this.name = name;
         this.email = email;
         this.userType = userType;
+        this.unit = unit;
 
     }
 
@@ -74,9 +81,17 @@ public class FunctionaryUser extends User {
         this.userType = userType;
     }
 
+    public AdministrationUnit2 getUnit() {
+        return unit;
+    }
+
+    public void setUnit(AdministrationUnit2 unit) {
+        this.unit = unit;
+    }
+
     @Override
     public String toString() {
-        return "FunctionaryUser{" + "id=" + id + ", name=" + name + ", email=" + email + ", userType=" + userType + '}';
+        return "FunctionaryUser{" + "id=" + id + ", name=" + name + ", email=" + email + ", userType=" + userType + ", unity=" + unit + '}';
     }
 
 }

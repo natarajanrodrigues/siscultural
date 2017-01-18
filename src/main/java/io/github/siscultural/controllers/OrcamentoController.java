@@ -5,13 +5,18 @@
  */
 package io.github.siscultural.controllers;
 
+import io.github.siscultural.FunctionaryUser;
 import io.github.siscultural.entities.Budget;
+import io.github.siscultural.enums.AdministrationUnit2;
 import io.github.siscultural.enums.ErrorMessages;
+import io.github.siscultural.enums.UserType;
 import io.github.siscultural.repositories.FunctionaryRepository;
 import io.github.siscultural.repositories.OrcamentoRepository;
 import io.github.siscultural.services.BudgetService;
 import io.github.siscultural.utils.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,7 +41,7 @@ public class OrcamentoController {
     BudgetService budgetService;
 
     @GetMapping(value = "/orcamento")
-    public ModelAndView orcamento() {
+    public ModelAndView orcamento(Authentication authentication) {
 
         ModelAndView mav = new ModelAndView("orcamento");
 
@@ -44,13 +49,26 @@ public class OrcamentoController {
         Collections.sort(budgets, Budget.Comparators.ID_COMPARE);
 
         mav.addObject("budgets", budgets);
+        mav.addObject("units", AdministrationUnit2.values());
+
+        FunctionaryUser user = (FunctionaryUser) authentication.getPrincipal();
+
+        if (!user.getUserType().equals(UserType.ADMINISTRADOR) ) {
+            mav.addObject("myUnits", user.getUnit());
+        } else {
+            mav.addObject("myUnits", AdministrationUnit2.values());
+        }
+
+//
 
         return mav;
     }
 
     @PostMapping(value = "/orcamento/add")
     @ResponseBody
-    public ModelAndView addOrcamento(@RequestParam("name") String name, @RequestParam("descricao") String descricao) {
+    public ModelAndView addOrcamento(@RequestParam("name") String name,
+                                     @RequestParam("descricao") String descricao,
+                                     @RequestParam("unit") String unit) {
 
         ModelAndView mav = new ModelAndView("redirect:/orcamento");
         Map<String, String> map = new HashMap<>();
@@ -59,6 +77,7 @@ public class OrcamentoController {
         Budget newBudget = new Budget();
         newBudget.setName(name);
         newBudget.setDescription(descricao);
+        newBudget.setUnit(AdministrationUnit2.valueOf(unit));
         Budget b = budgetDao.save(newBudget);
 
         if (b != null) {
@@ -68,6 +87,20 @@ public class OrcamentoController {
 
         return mav;
 
+
+    }
+
+    @PostMapping(value = "/orcamento/search_budgets")
+    @ResponseBody
+    public ModelAndView selectUnit(@RequestParam("unit") String unit) {
+
+        ModelAndView mav = new ModelAndView("orcamento/selectbudget");
+
+        List<Budget> budgets = budgetService.findByUnit(AdministrationUnit2.valueOf(unit).getId());
+
+        mav.addObject("budgets", budgets);
+
+        return mav;
 
     }
 
@@ -83,9 +116,13 @@ public class OrcamentoController {
 
     }
 
+
+
     @PostMapping(value = "/orcamento/edit")
     @ResponseBody
-    public ModelAndView editOrcamento(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("descricao") String descricao) {
+    public ModelAndView editOrcamento(@RequestParam("id") String id, @RequestParam("name") String name,
+                                      @RequestParam("descricao") String descricao,
+                                      @RequestParam("unit") String unit) {
 
         Map<String, String> map = new HashMap<>();
         map.clear();
@@ -97,7 +134,7 @@ public class OrcamentoController {
 
             budget.setName(name);
             budget.setDescription(descricao);
-
+            budget.setUnit(AdministrationUnit2.valueOf(unit));
             Budget b = budgetDao.save(budget);
 
             if (b == null) {

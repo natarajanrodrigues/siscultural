@@ -5,15 +5,14 @@
  */
 package io.github.siscultural.entities;
 
+import io.github.siscultural.enums.AdministrationUnit2;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Comparator;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-/**
+    /**
  * Representa um determinado orçamento contendo as rubricas para pagamentos. 
  * @author Natarajan Rodrigues && Victor Hugo
  */
@@ -25,7 +24,9 @@ public class Budget implements Serializable {
     private Long id;
     private String name;
     private String description;
-//    private LocalDateTime creationDateTime;
+
+    @Column (name="unit_id")
+    private int unit;
 
     private boolean current;
     
@@ -76,6 +77,15 @@ public class Budget implements Serializable {
     public void setCurrent(boolean current) {
         this.current = current;
     }
+
+    public void setUnit(AdministrationUnit2 unit) {
+        this.unit = unit.getId();
+    }
+
+    public AdministrationUnit2 getUnit(){
+        return AdministrationUnit2.parse(this.unit);
+    }
+
 
     public static class Comparators {
         public static final Comparator<Budget> ID_COMPARE = (Budget b1, Budget b2) -> Long.compare(b1.getId(), b2.getId());

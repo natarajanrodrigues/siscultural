@@ -6,6 +6,8 @@
 package io.github.siscultural.controllers;
 
 import io.github.siscultural.entities.Functionary;
+import io.github.siscultural.enums.AdministrationUnit;
+import io.github.siscultural.enums.AdministrationUnit2;
 import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.enums.UserType;
 import io.github.siscultural.repositories.FunctionaryRepository;
@@ -41,16 +43,20 @@ public class UsuarioController {
         List<Functionary> functionaries = functionaryRepository.findAll();
         Collections.sort(functionaries, Functionary.Comparators.NAME);
         UserType[] types = UserType.values();
+        AdministrationUnit2[] units = AdministrationUnit2.values();
 
         mav.addObject("functionaries", functionaries);
         mav.addObject("types", types);
+        mav.addObject("units", units);
 
         return mav;
     }
 
     @PostMapping(value = "/usuarios/add")
     @ResponseBody
-    public ModelAndView addUsuario(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("type") String type) {
+    public ModelAndView addUsuario(@RequestParam("name") String name, @RequestParam("email") String email,
+                                   @RequestParam("password") String password, @RequestParam("type") String type,
+                                   @RequestParam("unit") String unit) {
 
         Map<String, String> map = new HashMap<>();
 
@@ -59,6 +65,8 @@ public class UsuarioController {
         functionary.setEmail(email);
         functionary.setPassword(password);
         functionary.setUserType(UserType.valueOf(type));
+        functionary.setUnit(AdministrationUnit2.valueOf(unit));
+
 
         Functionary f = functionaryRepository.save(functionary);
 
@@ -73,7 +81,9 @@ public class UsuarioController {
 
     @RequestMapping(value = "/usuarios/edit", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView editUsuario(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("type") String type) {
+    public ModelAndView editUsuario(@RequestParam("id") String id, @RequestParam("name") String name,
+                                    @RequestParam("email") String email, @RequestParam("type") String type,
+                                    @RequestParam("unit") String unit) {
 
         Map<String, String> map = new HashMap<>();
 
@@ -84,7 +94,8 @@ public class UsuarioController {
             functionary.setName(name);
             functionary.setEmail(email);
             functionary.setUserType(UserType.valueOf(type));
-            System.out.println(functionary.getEmail());
+            functionary.setUnit(AdministrationUnit2.valueOf(unit));
+//            System.out.println(functionary.getEmail());
 
             Functionary f = functionaryRepository.save(functionary);
 

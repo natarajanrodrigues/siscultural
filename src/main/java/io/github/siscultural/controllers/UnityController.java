@@ -48,50 +48,39 @@ public class UnityController {
 
     }
 
-//    @RequestMapping(value = "/localidade_add", method=RequestMethod.GET)
-//    public ModelAndView localidadeAdd2(Locality locality) {
-//        ModelAndView modelAndView = new ModelAndView("localidades/localidade_add");
-//        modelAndView.addObject("locality", locality);
-//        return modelAndView;
-//    }
-//
-//    @RequestMapping(value="/localidade_add", method=RequestMethod.POST)
-//    public ModelAndView localidadeAdd(@Validated @ModelAttribute ("locality") Locality locality, BindingResult result,
-//                                            RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
-//
-//        String description = locality.getDescription();
-//        String address = locality.getAddress();
-//        String city = locality.getCity();
-//        String state = locality.getState();
-//
-//        model.addAttribute("description", description);
-//        model.addAttribute("address", address);
-//        model.addAttribute("city", city);
-//        model.addAttribute("state", state);
-//
-//        ModelAndView modelAndView = new ModelAndView("localidades/localidade_add");
-//
-//        if (result.hasErrors()) {
-//
-//            return new ModelAndView("localidades/localidade_add");
-//
-//        } else {
-//
-//
-//            Locality locality2 = localityService.save(locality);
-//
-//            if (locality2 != null) {
-//
-//                sessionStatus.setComplete();
-//                modelAndView = new ModelAndView("redirect:/localidades");
-//
-//            }
-//
-//        }
-//
-//        return modelAndView;
-//    }
-//
+    @RequestMapping(value = "/unity/add", method=RequestMethod.GET)
+    public ModelAndView unityAddGet(AdministrationUnity unity) {
+        ModelAndView modelAndView = new ModelAndView("unity/unity_add");
+        modelAndView.addObject("unity", unity);
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/unity/add", method=RequestMethod.POST)
+    public ModelAndView unityAddPost(@Validated @ModelAttribute ("unity") AdministrationUnity unity, BindingResult result,
+                                            RedirectAttributes redirectAttributes, Model model, SessionStatus sessionStatus) {
+
+        String name = unity.getName();
+
+        model.addAttribute("name", name);
+
+        ModelAndView modelAndView = new ModelAndView("unity/unity_add");
+
+        if (!result.hasErrors()) {
+
+            AdministrationUnity unity1 = administrationUnityService.save(unity);
+
+            if (unity!= null) {
+
+                sessionStatus.setComplete();
+                modelAndView = new ModelAndView("redirect:/unity");
+
+            }
+
+        }
+
+        return modelAndView;
+    }
+
 //
 //    @RequestMapping(value = "/localidade_edit", method=RequestMethod.GET)
 //    public ModelAndView apresentacaoEdit(@RequestParam("id") String id) {
