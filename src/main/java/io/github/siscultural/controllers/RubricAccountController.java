@@ -5,21 +5,24 @@
  */
 package io.github.siscultural.controllers;
 
+import io.github.siscultural.FunctionaryUser;
 import io.github.siscultural.entities.Budget;
 import io.github.siscultural.entities.Rubric;
 import io.github.siscultural.entities.RubricAccount;
 import io.github.siscultural.enums.ErrorMessages;
+import io.github.siscultural.enums.UserType;
 import io.github.siscultural.repositories.OrcamentoRepository;
 import io.github.siscultural.repositories.RubricAccountRepository;
 import io.github.siscultural.repositories.RubricRepository;
+import io.github.siscultural.services.BudgetService;
 import io.github.siscultural.utils.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +35,7 @@ public class RubricAccountController {
     @Autowired
     private RubricAccountRepository rubricAccountRepository;
     @Autowired
-    private OrcamentoRepository orcamentoRepository;
+    private BudgetService budgetService;
     @Autowired
     private RubricRepository rubricRepository;
     @Autowired
@@ -41,15 +44,35 @@ public class RubricAccountController {
 
 
     @GetMapping(value = "/conta")
-    public ModelAndView conta() {
+    public ModelAndView conta(Authentication authentication) {
 
         ModelAndView mav = new ModelAndView("conta");
 
-        List<RubricAccount> rubricAccounts = rubricAccountRepository.findAll();
 
-        mav.addObject("rubricAccounts", rubricAccounts);
-        mav.addObject("budgets", orcamentoRepository.findAll());
-        mav.addObject("rubrics", rubricRepository.findAll());
+        FunctionaryUser user = (FunctionaryUser) authentication.getPrincipal();
+
+        if (!user.getUserType().equals(UserType.ADMINISTRADOR)) {
+
+            //se for gerente, procurar o budget de sua unidade.
+            //o mesmo as rubrics accoutns- procurar apenas as rubrics accounts do budget atual de sua unidade
+
+            Budget currentBudget = budgetService.findByCurrentAndUnit(true, user.getUnit().getId());
+
+//            Budget currentBudget = budgetService.getCurrentBudget();
+
+            mav.addObject("budgets", budgetService.findByUnit(user.getUnit().getId()));
+            mav.addObject("rubrics", rubricRepository.findAll());
+            if (currentBudget != null)
+                mav.addObject("rubricAccounts", rubricAccountRepository.findByBudget(currentBudget));
+
+        } else {
+            mav.addObject("rubricAccounts", rubricAccountRepository.findAll());
+            mav.addObject("budgets", budgetService.findAll());
+            mav.addObject("rubrics", rubricRepository.findAll());
+        }
+
+
+
 
 
         return mav;
@@ -61,7 +84,7 @@ public class RubricAccountController {
         ModelAndView mav = new ModelAndView("redirect:/conta");
 
 
-        Budget budget = orcamentoRepository.findById(orcamento);
+        Budget budget = budgetService.findById(orcamento);
         Rubric rubric = rubricRepository.findById(rubrica);
 
 

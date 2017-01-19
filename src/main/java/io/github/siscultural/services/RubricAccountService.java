@@ -38,7 +38,7 @@ public class RubricAccountService {
 
 //        return rubricAccountRepository.findByBudgetAndProgram(budgetService.getCurrentBudget(), program);
         List<RubricAccount> accounts = rubricAccountRepository.findAll();
-        Budget currentBudget = budgetService.getCurrentBudget();
+        Budget currentBudget = budgetService.getCurrentBudget();//REVER ISSO AGORAAAAAA!!!!
 
         List<RubricAccount> result = new LinkedList<>();
 

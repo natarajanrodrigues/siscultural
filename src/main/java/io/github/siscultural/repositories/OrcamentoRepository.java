@@ -6,6 +6,7 @@
 package io.github.siscultural.repositories;
 
 import io.github.siscultural.entities.Budget;
+import io.github.siscultural.enums.AdministrationUnit2;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -31,5 +32,7 @@ public interface OrcamentoRepository extends JpaRepository<Budget, Long>{
     public List<Budget> findByCurrent(boolean current);
 
     List<Budget> findByUnit(int unit);
+
+    List<Budget> findByCurrentAndUnit(boolean current, int unit);
         
 }

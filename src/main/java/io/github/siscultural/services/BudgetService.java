@@ -2,6 +2,7 @@ package io.github.siscultural.services;
 
 import io.github.siscultural.entities.Budget;
 import io.github.siscultural.entities.Locality;
+import io.github.siscultural.enums.AdministrationUnit2;
 import io.github.siscultural.enums.ErrorMessages;
 import io.github.siscultural.repositories.LocalityRepository;
 import io.github.siscultural.repositories.OrcamentoRepository;
@@ -32,15 +33,16 @@ public class BudgetService {
         return orcamentoRepository.findById(id);
     }
 
-    public void setCurrent(Long budgetId) {
-        List<Budget> budgetsCurrent = orcamentoRepository.findByCurrent(true);
+    public void setCurrentByUnit(Long budgetId) {
+        Budget choosenBudget = orcamentoRepository.findById(budgetId);
+
+        List<Budget> budgetsCurrent = orcamentoRepository.findByCurrentAndUnit(true, choosenBudget.getUnit().getId());
 
         for (Budget b : budgetsCurrent) {
             b.setCurrent(false);
             orcamentoRepository.save(b);
         }
 
-        Budget choosenBudget = orcamentoRepository.findById(budgetId);
         choosenBudget.setCurrent(true);
         orcamentoRepository.save(choosenBudget);
 
@@ -49,6 +51,14 @@ public class BudgetService {
     public Budget getCurrentBudget() {
         List<Budget> budgetsCurrent = orcamentoRepository.findByCurrent(true);
         return budgetsCurrent.get(0);
+    }
+
+    public Budget findByCurrentAndUnit(boolean current, int unit){
+        List<Budget> budgetsCurrent = orcamentoRepository.findByCurrentAndUnit(current, unit);
+        if (budgetsCurrent != null && budgetsCurrent.size() > 0)
+            return budgetsCurrent.get(0);
+        else
+            return null;
     }
 
     public List<Budget> findAll () {

@@ -29,6 +29,8 @@ public interface RubricAccountRepository extends JpaRepository<RubricAccount, Lo
 
     public RubricAccount save(RubricAccount rubricAccount);
 
+    List<RubricAccount> findByBudget(Budget budget);
+
 
 //    @Query("select ra from RubricAccount ra JOIN Rubric r where r.program_id = :#{#program.id} and ra.budget_id = :#{#budget.id}")
 //    public List<RubricAccount> findByBudgetAndProgram(Budget budget, Program program);

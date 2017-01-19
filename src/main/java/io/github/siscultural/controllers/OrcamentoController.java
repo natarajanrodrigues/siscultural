@@ -110,7 +110,7 @@ public class OrcamentoController {
 
         ModelAndView mav = new ModelAndView("redirect:/orcamento");
 
-        budgetService.setCurrent(Long.parseLong(orcamentoId));
+        budgetService.setCurrentByUnit(Long.parseLong(orcamentoId));
 
         return mav;
 
